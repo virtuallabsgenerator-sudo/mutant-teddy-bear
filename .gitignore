@@ -73,3 +73,23 @@ Plugins/**/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+# Unreal Engine / project files
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+.vscode/
+
+# Web / site presentation
+/assets/tmp
+/assets/cache
+/dist
+/build
+
+# Secrets / config locales
+.env
+
+# Files system
+.DS_Store
+*.log
+*.tmp
