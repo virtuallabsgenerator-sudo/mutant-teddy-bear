@@ -1,32 +1,46 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+/* style.css - Version complète avec image centrée */
+
+/* PAGE D'ACCUEIL */
+.page-accueil {
     margin: 0;
-    padding: 20px;
+    padding: 20px;        /* Petite marge de sécurité */
+    background-color: black;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
-h1 {
-    color: #333;
-    text-align: center;
+.lien-accueil {
+    display: block;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;  /* Enlève le soulignement du lien */
 }
 
-.grille {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
-}
-
-.carte {
-    background: white;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.carte img {
-    max-width: 100%;
+.image-accueil {
+    max-width: 95%;        /* Jamais plus de 95% de l'écran */
+    max-height: 95%;       /* Jamais plus de 95% de l'écran */
+    width: auto;
     height: auto;
-    border-radius: 5px;
+    object-fit: contain;
+    border-radius: 10px;   /* Petits coins arrondis */
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.lien-accueil:hover .image-accueil {
+    transform: scale(1.02);  /* Effet zoom au survol */
+}
+
+/* Style pour le menu (page suivante) - À compléter plus tard */
+.page-menu {
+    background-color: black;
+    color: white;
+    min-height: 100vh;
+    padding: 20px;
 }
