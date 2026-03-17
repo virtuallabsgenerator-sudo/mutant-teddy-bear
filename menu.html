@@ -1,29 +1,289 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - Univers Teddy</title>
-    <link rel="stylesheet" href="/style.css">
+    <style>
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            background-image: url('/images/design/font-site/font-site-01.webp'); /* TON FOND D'ÉCRAN */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        /* Voile sombre pour faire ressortir les fenêtres */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Titre principal */
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 48px;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Style des carrousels */
+        .carrousel-section {
+            margin-bottom: 60px;
+        }
+
+        .carrousel-section h2 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Conteneur du carrousel */
+        .carrousel-container {
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        /* Carrousel qui défile */
+        .carrousel {
+            display: flex;
+            gap: 30px;
+            animation: defilement 30s linear infinite;
+            width: fit-content;
+        }
+
+        /* Animation gauche à droite */
+        .carrousel.gauche-droite {
+            animation: defilementGauche 30s linear infinite;
+        }
+
+        /* Animation droite à gauche */
+        .carrousel.droite-gauche {
+            animation: defilementDroite 30s linear infinite;
+        }
+
+        @keyframes defilementGauche {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes defilementDroite {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Fenêtre transparente (verre dépoli) */
+        .fenetre {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            display: block;
+            min-width: 250px;
+        }
+
+        .fenetre:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .fenetre img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .fenetre:hover img {
+            transform: scale(1.1);
+        }
+
+        .fenetre h3 {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Bouton retour */
+        .bouton-retour {
+            display: inline-block;
+            margin: 30px 0;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .bouton-retour:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Bouton musique flottant */
+        #boutonMusique {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        #boutonMusique:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
-    <h1>🎮 MENU PRINCIPAL</h1>
-    <p>Bienvenue dans la collection des Teddies !</p>
-    <a href="/index.html">← Retour à l'accueil</a>
     
-    <!-- Audio pour continuer la musique - Chemin CORRIGÉ -->
+    <!-- Audio -->
     <audio id="musiqueAccueil" src="/presentation/musique/mutant-teddy-bear-04.mp3" preload="auto" loop></audio>
     
-    <!-- Bouton flottant -->
-    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-        <button id="boutonMusique" style="padding: 10px 20px; background: black; color: white; border: none; border-radius: 30px; cursor: pointer;">
-            🔇 Couper la musique
-        </button>
+    <div class="container">
+        
+        <!-- Bouton retour -->
+        <a href="/index.html" class="bouton-retour">← Retour à l'accueil</a>
+        
+        <h1>🎮 COLLECTION TEDDY</h1>
+        
+        <!-- CARROUSEL 1 : GAUCHE À DROITE -->
+        <div class="carrousel-section">
+            <h2>✨ Les Classiques</h2>
+            <div class="carrousel-container">
+                <div class="carrousel gauche-droite">
+                    
+                    <!-- Copie ce bloc pour chaque image (min. 6 images pour un bel effet) -->
+                    <a href="/teddy1.html" class="fenetre">
+                        <img src="/images/carrousel/classique1.webp" alt="Teddy Classique">
+                        <h3>Teddy Classique 1</h3>
+                    </a>
+                    
+                    <a href="/teddy2.html" class="fenetre">
+                        <img src="/images/carrousel/classique2.webp" alt="Teddy Classique">
+                        <h3>Teddy Classique 2</h3>
+                    </a>
+                    
+                    <a href="/teddy3.html" class="fenetre">
+                        <img src="/images/carrousel/classique3.webp" alt="Teddy Classique">
+                        <h3>Teddy Classique 3</h3>
+                    </a>
+                    
+                    <a href="/teddy4.html" class="fenetre">
+                        <img src="/images/carrousel/classique4.webp" alt="Teddy Classique">
+                        <h3>Teddy Classique 4</h3>
+                    </a>
+                    
+                    <!-- DUPLICATION pour l'effet infini -->
+                    <a href="/teddy1.html" class="fenetre">
+                        <img src="/images/carrousel/classique1.webp" alt="Teddy Classique">
+                        <h3>Teddy Classique 1</h3>
+                    </a>
+                    
+                    <a href="/teddy2.html" class="fenetre">
+                        <img src="/images/carrousel/classique2.webp" alt="Teddy Classique">
+                        <h3>Teddy Classique 2</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CARROUSEL 2 : DROITE À GAUCHE -->
+        <div class="carrousel-section">
+            <h2>🌟 Les Édition Limitée</h2>
+            <div class="carrousel-container">
+                <div class="carrousel droite-gauche">
+                    
+                    <a href="/teddy5.html" class="fenetre">
+                        <img src="/images/carrousel/limited1.webp" alt="Teddy Limited">
+                        <h3>Teddy Limited 1</h3>
+                    </a>
+                    
+                    <a href="/teddy6.html" class="fenetre">
+                        <img src="/images/carrousel/limited2.webp" alt="Teddy Limited">
+                        <h3>Teddy Limited 2</h3>
+                    </a>
+                    
+                    <a href="/teddy7.html" class="fenetre">
+                        <img src="/images/carrousel/limited3.webp" alt="Teddy Limited">
+                        <h3>Teddy Limited 3</h3>
+                    </a>
+                    
+                    <a href="/teddy8.html" class="fenetre">
+                        <img src="/images/carrousel/limited4.webp" alt="Teddy Limited">
+                        <h3>Teddy Limited 4</h3>
+                    </a>
+                    
+                    <!-- DUPLICATION -->
+                    <a href="/teddy5.html" class="fenetre">
+                        <img src="/images/carrousel/limited1.webp" alt="Teddy Limited">
+                        <h3>Teddy Limited 1</h3>
+                    </a>
+                    
+                    <a href="/teddy6.html" class="fenetre">
+                        <img src="/images/carrousel/limited2.webp" alt="Teddy Limited">
+                        <h3>Teddy Limited 2</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
     </div>
     
+    <!-- Bouton musique flottant -->
+    <button id="boutonMusique">🔇 Couper la musique</button>
+    
     <script>
+        // GESTION DE LA MUSIQUE
         const audio = document.getElementById('musiqueAccueil');
         const bouton = document.getElementById('boutonMusique');
         
-        // État initial depuis l'accueil
         if (localStorage.getItem('musiqueJoue') === 'true') {
             audio.play().catch(e => console.log("Lecture auto bloquée"));
             bouton.textContent = '🔊 Couper la musique';
@@ -40,6 +300,25 @@
                 localStorage.setItem('musiqueJoue', 'false');
             }
         });
+        
+        // Arrêt du défilement au survol
+        const carrousels = document.querySelectorAll('.carrousel');
+        carrousels.forEach(carrousel => {
+            carrousel.addEventListener('mouseenter', () => {
+                carrousel.style.animationPlayState = 'paused';
+            });
+            carrousel.addEventListener('mouseleave', () => {
+                carrousel.style.animationPlayState = 'running';
+            });
+        });
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
