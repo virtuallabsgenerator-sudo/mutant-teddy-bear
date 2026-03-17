@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu - Univers Teddy</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>🎮 MENU PRINCIPAL</h1>
+    <p>Bienvenue dans la collection des Teddies !</p>
+    <a href="/index.html">← Retour à l'accueil</a>
+    
+    <!-- Audio pour continuer la musique - Chemin CORRIGÉ -->
+    <audio id="musiqueAccueil" src="/images/design/presentation/musique/mutant-teddy-bear-01-mp3.mp3" preload="auto" loop></audio>
+    
+    <!-- Bouton flottant -->
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+        <button id="boutonMusique" style="padding: 10px 20px; background: black; color: white; border: none; border-radius: 30px; cursor: pointer;">
+            🔇 Couper la musique
+        </button>
+    </div>
+    
+    <script>
+        const audio = document.getElementById('musiqueAccueil');
+        const bouton = document.getElementById('boutonMusique');
+        
+        // État initial depuis l'accueil
+        if (localStorage.getItem('musiqueJoue') === 'true') {
+            audio.play().catch(e => console.log("Lecture auto bloquée"));
+            bouton.textContent = '🔊 Couper la musique';
+        }
+        
+        bouton.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                bouton.textContent = '🔊 Couper la musique';
+                localStorage.setItem('musiqueJoue', 'true');
+            } else {
+                audio.pause();
+                bouton.textContent = '🔇 Activer la musique';
+                localStorage.setItem('musiqueJoue', 'false');
+            }
+        });
+    </script>
+</body>
+</html>
