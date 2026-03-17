@@ -288,7 +288,7 @@ Adventures await you in Mutant Teddy Bear Land.
 
                 <!-- Carte 2 -->
                 <div class="carte" onclick="ouvrirModal(1)">
-                    <img src="/images/design/info-maps-world/maps-02.jpg" alt="Teddy 2">
+                    <img src="/images/design/info-maps-world/_8138a60e-7831-4365-b692-3d7e3d9f0ad0.jpg" alt="Teddy 2">
                 </div>
 
                 <!-- Carte 3 -->
@@ -345,3 +345,137 @@ Adventures await you in Mutant Teddy Bear Land.
 
 </body>
 </html>
+
+
+
+<!-- GESTION DES MUSIQUES -->
+<audio id="musiqueFond" src="/presentation/musique/the-extraordinary-story-of-the-mutant-teddy-bears-01.mp3" preload="auto" loop></audio>
+<audio id="musiqueCarte" src="" preload="auto"></audio>
+
+<script>
+    // ========== CONFIGURATION DES MUSIQUES PAR CARTE ==========
+    const musiquesCartes = [
+        "/presentation/musique/mutant-teddy-bear-04.mp3",   // Musique pour la carte 0
+        "/presentation/musique/mutant-teddy-bear-01-mp3.mp3",   // Musique pour la carte 1
+        "/presentation/musique/bande-son-game-play-mtb-1.mp3",   // Musique pour la carte 2
+        "presentation/musique/bande-son-game-play-mtb-05.mp3"    // Musique pour la carte 3
+    ];
+
+    // Éléments audio
+    const musiqueFond = document.getElementById('musiqueFond');
+    const musiqueCarte = document.getElementById('musiqueCarte');
+    
+    // Variable pour savoir si une carte est ouverte
+    let carteOuverte = false;
+
+    // ========== DÉMARRER LA MUSIQUE DE FOND AU CHARGEMENT ==========
+    window.addEventListener('load', function() {
+        // Vérifie si la musique était déjà jouée depuis l'accueil/menu
+        if (localStorage.getItem('musiqueJoue') === 'true' && !carteOuverte) {
+            musiqueFond.play().catch(e => console.log("Lecture auto bloquée"));
+        }
+    });
+
+    // ========== FONCTION POUR OUVRIR UNE CARTE ==========
+    function ouvrirModal(index) {
+        const modal = document.getElementById('modal');
+        const modalImage = document.getElementById('modalImage');
+        
+        // Afficher l'image
+        modalImage.src = imagesData[index].src;
+        modal.classList.add('active');
+        carteOuverte = true;
+        
+        // Gestion de la musique
+        musiqueFond.pause();  // Arrêter la musique de fond
+        
+        // Charger et jouer la musique spécifique à la carte
+        if (musiquesCartes[index]) {
+            musiqueCarte.src = musiquesCartes[index];
+            musiqueCarte.play().catch(e => console.log("Erreur lecture musique carte"));
+        }
+    }
+
+    // ========== FONCTION POUR FERMER LA CARTE ==========
+    function fermerModal() {
+        document.getElementById('modal').classList.remove('active');
+        
+        // Arrêter la musique de la carte
+        musiqueCarte.pause();
+        musiqueCarte.currentTime = 0;  // Remettre au début
+        
+        // Reprendre la musique de fond
+        if (localStorage.getItem('musiqueJoue') === 'true') {
+            musiqueFond.play().catch(e => console.log("Reprise musique fond"));
+        }
+        
+        carteOuverte = false;
+    }
+
+    // ========== FERMER AVEC LA TOUCHE ECHAP ==========
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            fermerModal();
+        }
+    });
+
+    // ========== BOUTON FLOTTANT POUR COUPER LA MUSIQUE DE FOND ==========
+    const boutonMusique = document.createElement('button');
+    boutonMusique.id = 'boutonMusique';
+    boutonMusique.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 24px;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+        color: white;
+        border: 1px solid rgba(255, 215, 0, 0.3);
+        border-radius: 50px;
+        cursor: pointer;
+        z-index: 1000;
+        transition: all 0.3s;
+    `;
+    boutonMusique.textContent = localStorage.getItem('musiqueJoue') === 'true' ? '🔊 Couper la musique' : '🔇 Activer la musique';
+    document.body.appendChild(boutonMusique);
+
+    boutonMusique.addEventListener('click', function() {
+        if (musiqueFond.paused && !carteOuverte) {
+            musiqueFond.play();
+            boutonMusique.textContent = '🔊 Couper la musique';
+            localStorage.setItem('musiqueJoue', 'true');
+        } else if (!carteOuverte) {
+            musiqueFond.pause();
+            boutonMusique.textContent = '🔇 Activer la musique';
+            localStorage.setItem('musiqueJoue', 'false');
+        }
+    });
+
+    // ========== MISE À JOUR DU BOUTON QUAND UNE CARTE EST OUVERTE ==========
+    function mettreAJourBouton() {
+        if (carteOuverte) {
+            boutonMusique.style.opacity = '0.5';
+            boutonMusique.style.pointerEvents = 'none';
+        } else {
+            boutonMusique.style.opacity = '1';
+            boutonMusique.style.pointerEvents = 'auto';
+        }
+    }
+
+    // Surveiller l'ouverture/fermeture des cartes
+    const modal = document.getElementById('modal');
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.target.classList.contains('active')) {
+                carteOuverte = true;
+            } else {
+                carteOuverte = false;
+            }
+            mettreAJourBouton();
+        });
+    });
+
+    observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
+</script>
+
+
