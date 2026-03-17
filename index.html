@@ -8,26 +8,8 @@
 </head>
 <body class="page-accueil">
     
-    <!-- Image d'accueil cliquable -->
-    <a href="/menu.html" class="lien-accueil">
-        <img src="/images/design/font-presentation/presentation-04.webp.webp" 
-             alt="Page d'accueil" 
-             class="image-accueil">
-    </a>
-
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil - Univers Teddy</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body class="page-accueil">
-    
-    <!-- Audio caché -->
-    <audio id="musiqueAccueil" src="/images/design/musique/mon-audio.mp3" preload="auto" loop></audio>
+    <!-- Audio caché - Vérifiez le chemin de votre musique -->
+    <audio id="musiqueAccueil" src="/images/design/font-presentation/musique/mutant-teddy-bear-01-mp3.mp3" preload="auto" loop></audio>
     
     <!-- Image d'accueil cliquable -->
     <a href="/menu.html" class="lien-accueil" id="lienMusique">
@@ -36,61 +18,47 @@
              class="image-accueil">
     </a>
     
+    <!-- Bouton flottant pour contrôler la musique -->
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+        <button id="boutonMusique" style="padding: 10px 20px; background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 30px; cursor: pointer;">
+            🔇 Couper la musique
+        </button>
+    </div>
+    
     <script>
-        const lien = document.getElementById('presentation/musique/mutant-teddy-bear-01-mp3.mp3');
+        // Récupère les éléments
+        const lien = document.getElementById('lienMusique');
         const audio = document.getElementById('musiqueAccueil');
+        const bouton = document.getElementById('boutonMusique');
         
         // Vérifie si la musique était déjà en train de jouer
         if (localStorage.getItem('musiqueJoue') === 'true') {
             audio.play().catch(e => console.log("Lecture bloquée"));
+            bouton.textContent = '🔊 Couper la musique';
         }
         
+        // Quand on clique sur l'image
         lien.addEventListener('click', function(event) {
-            // Jouer la musique
             audio.play().then(() => {
-                // Sauvegarde qu'on veut que la musique continue
                 localStorage.setItem('musiqueJoue', 'true');
             }).catch(error => {
                 console.log("Erreur de lecture");
             });
-            // Le lien fonctionne normalement
+            // Le lien fonctionne normalement (pas de event.preventDefault())
+        });
+        
+        // Quand on clique sur le bouton
+        bouton.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                bouton.textContent = '🔊 Couper la musique';
+                localStorage.setItem('musiqueJoue', 'true');
+            } else {
+                audio.pause();
+                bouton.textContent = '🔇 Activer la musique';
+                localStorage.setItem('musiqueJoue', 'false');
+            }
         });
     </script>
 </body>
 </html>
-
-
-
-    
-</body>
-</html>
-<!-- Dans le body, ajoutez un bouton flottant -->
-<div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-    <button id="boutonMusique" style="padding: 10px 20px; background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 30px; cursor: pointer;">
-        🔇 Couper la musique
-    </button>
-</div>
-
-<script>
-    const audio = document.getElementById('musiqueAccueil');
-    const bouton = document.getElementById('boutonMusique');
-    
-    // État initial
-    if (localStorage.getItem('musiqueJoue') === 'true') {
-        audio.play().catch(e => console.log("Erreur"));
-        bouton.textContent = '🔊 Couper la musique';
-    }
-    
-    // Clic sur le bouton
-    bouton.addEventListener('click', function() {
-        if (audio.paused) {
-            audio.play();
-            bouton.textContent = '🔊 Couper la musique';
-            localStorage.setItem('musiqueJoue', 'true');
-        } else {
-            audio.pause();
-            bouton.textContent = '🔇 Activer la musique';
-            localStorage.setItem('musiqueJoue', 'false');
-        }
-    });
-</script>
