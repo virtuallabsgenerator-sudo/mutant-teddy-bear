@@ -8,17 +8,17 @@
 </head>
 <body class="page-accueil">
     
-    <!-- Audio caché - Vérifiez le chemin de votre musique -->
-    <audio id="musiqueAccueil" src="/images/design/font-presentation/musique/mutant-teddy-bear-01-mp3.mp3" preload="auto" loop></audio>
+    <!-- Audio caché - Chemin CORRIGÉ -->
+    <audio id="musiqueAccueil" src="/images/design/presentation/musique/mutant-teddy-bear-01-mp3.mp3" preload="auto" loop></audio>
     
-    <!-- Image d'accueil cliquable -->
+    <!-- Image d'accueil cliquable - Chemin CORRIGÉ -->
     <a href="/menu.html" class="lien-accueil" id="lienMusique">
-        <img src="/images/design/font-presentation/presentation-04.webp" 
+        <img src="/images/design/presentation/presentation-04.webp" 
              alt="Page d'accueil" 
              class="image-accueil">
     </a>
     
-    <!-- Bouton flottant pour contrôler la musique -->
+    <!-- Bouton flottant -->
     <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
         <button id="boutonMusique" style="padding: 10px 20px; background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 30px; cursor: pointer;">
             🔇 Couper la musique
@@ -31,23 +31,25 @@
         const audio = document.getElementById('musiqueAccueil');
         const bouton = document.getElementById('boutonMusique');
         
-        // Vérifie si la musique était déjà en train de jouer
+        // État initial
         if (localStorage.getItem('musiqueJoue') === 'true') {
             audio.play().catch(e => console.log("Lecture bloquée"));
             bouton.textContent = '🔊 Couper la musique';
         }
         
-        // Quand on clique sur l'image
+        // Clic sur l'image
         lien.addEventListener('click', function(event) {
             audio.play().then(() => {
                 localStorage.setItem('musiqueJoue', 'true');
+                console.log("Musique lancée");
             }).catch(error => {
-                console.log("Erreur de lecture");
+                console.log("Erreur de lecture:", error);
+                alert("La musique n'a pas pu être lue. Vérifiez que le fichier existe à : /images/design/presentation/musique/mutant-teddy-bear-01-mp3.mp3");
             });
-            // Le lien fonctionne normalement (pas de event.preventDefault())
+            // Le lien redirige normalement
         });
         
-        // Quand on clique sur le bouton
+        // Clic sur le bouton
         bouton.addEventListener('click', function() {
             if (audio.paused) {
                 audio.play();
