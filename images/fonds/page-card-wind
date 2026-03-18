@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Présentation Teddy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: black;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+        }
+
+        /* Image de fond */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('/images/fonds/fond-page.webp');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+            z-index: -2;
+        }
+
+        /* Voile sombre */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            color: white;
+        }
+
+        /* BANNIÈRE */
+        .banniere {
+            width: 100%;
+            height: 250px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .banniere img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* TITRE */
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            color: #ffd700;
+            margin: 30px 0;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        /* ZONE DE TEXTE */
+        .histoire {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .histoire h2 {
+            color: #ffd700;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .histoire p {
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: justify;
+            color: white;
+        }
+
+        /* GRILLE DE CARTES */
+        .section-cartes {
+            margin: 60px 0;
+        }
+
+        .section-cartes h2 {
+            color: #ffd700;
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .grille-cartes {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .carte {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .carte:hover {
+            transform: translateY(-10px);
+            border-color: #ffd700;
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .carte img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* BOUTONS DE NAVIGATION */
+        .boutons-nav {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .bouton {
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .bouton:hover {
+            background: #ffd700;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-contenu {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border: 2px solid #ffd700;
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .modal-contenu img {
+            width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .modal-fermer {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 30px;
+            background: transparent;
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-fermer:hover {
+            background: #ffd700;
+            color: black;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .grille-cartes {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .grille-cartes {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- BANNIÈRE -->
+        <div class="banniere">
+            <img src="/images/design/banniere/banniere-mtb.jpg" alt="Bannière Teddy">
+        </div>
+
+        <!-- TITRE -->
+        <h1>✨ The MutantTeddy Bear History ✨</h1>
+
+        <!-- BOUTONS NAVIGATION -->
+        <div class="boutons-nav">
+            <a href="/index.html" class="bouton">Accueil</a>
+            <a href="/menu.html" class="bouton">Menu</a>
+        </div>
+
+        <!-- HISTOIRE (texte que tu as déjà) -->
+        <div class="histoire">
+            <h2> M.T.B</h2
+            <p> 
+This is the extraordinary story of Teddy Bear Land, attacked by the Dark Teddy Bears with their powerful magic.
+Their land is on the brink of destruction because of their dark magic.
+The greatest shadow wizard has cast a spell on Teddy Bear Land, transforming them into mutants.
+They must fight to save their country!
+Their mutation has given them powers they will use to defeat the Dark Teddy Bear army.
+But the wizard has more than one trick up his sleeve: he has summoned the Monster Teddy Bears, whom they must face at the risk of their lives.
+A wise Teddy Bear told the story of the Teddy Bears of Light who lived in the celestial kingdom.
+Perhaps they will help them win?
+The adventure begins, choose your side!
+Adventures await you in Mutant Teddy Bear Land.
+            </p>
+        </div>
+
+        <!-- GRILLE DE CARTES (4 images maximum) -->
+        <div class="section-cartes">
+            <h2>Galerie</h2>
+            <div class="grille-cartes">
+                
+                <!-- Carte 1 -->
+                <div class="carte" onclick="ouvrirModal(0)">
+                    <img src="/images/design/info-maps-world/maps-world-01.jpg" alt="Teddy 1">
+                </div>
+
+                <!-- Carte 2 -->
+                <div class="carte" onclick="ouvrirModal(1)">
+                    <img src="/images/design/info-maps-world/_8138a60e-7831-4365-b692-3d7e3d9f0ad0.jpg" alt="Teddy 2">
+                </div>
+
+                <!-- Carte 3 -->
+                <div class="carte" onclick="ouvrirModal(2)">
+                    <img src="/images/design/info-maps-world/maps-04.jpg" alt="Teddy 3">
+                </div>
+
+                <!-- Carte 4 -->
+                <div class="carte" onclick="ouvrirModal(3)">
+                    <img src="/images/design/info-maps-world/maps-03.jpg" alt="Teddy 4">
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal" id="modal">
+        <div class="modal-contenu">
+            <img id="modalImage" src="" alt="Image agrandie">
+            <button class="modal-fermer" onclick="fermerModal()">Fermer</button>
+        </div>
+    </div>
+
+    <script>
+        // Données des images pour le modal
+        const imagesData = [
+            { src: "/images/design/info-maps-world/maps-world-01.jpg" },
+            { src: "/images/design/info-maps-world/_8138a60e-7831-4365-b692-3d7e3d9f0ad0.jpg" },
+            { src: "/images/design/info-maps-world/maps-04.jpg" },
+            { src: "/images/design/info-maps-world/maps-03.jpg" }
+        ];
+
+        function ouvrirModal(index) {
+            const modal = document.getElementById('modal');
+            const modalImage = document.getElementById('modalImage');
+            
+            modalImage.src = imagesData[index].src;
+            modal.classList.add('active');
+        }
+
+        function fermerModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Fermer avec la touche Echap
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                fermerModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+<!-- GESTION DES MUSIQUES -->
+<audio id="musiqueFond" src="/presentation/musique/the-extraordinary-story-of-the-mutant-teddy-bears-01.mp3" preload="auto" loop></audio>
+<audio id="musiqueCarte" src="" preload="auto"></audio>
+
+<script>
+    // ========== CONFIGURATION DES MUSIQUES PAR CARTE ==========
+    const musiquesCartes = [
+        "/",   // Musique pour la carte 0
+        "/",   // Musique pour la carte 1
+        "/",   // Musique pour la carte 2
+        "/"    // Musique pour la carte 3
+    ];
+
+    // Éléments audio
+    const musiqueFond = document.getElementById('musiqueFond');
+    const musiqueCarte = document.getElementById('musiqueCarte');
+    
+    // Variable pour savoir si une carte est ouverte
+    let carteOuverte = false;
+
+    // ========== DÉMARRER LA MUSIQUE DE FOND AU CHARGEMENT ==========
+    window.addEventListener('load', function() {
+        // Vérifie si la musique était déjà jouée depuis l'accueil/menu
+        if (localStorage.getItem('musiqueJoue') === 'true' && !carteOuverte) {
+            musiqueFond.play().catch(e => console.log("Lecture auto bloquée"));
+        }
+    });
+
+    // ========== FONCTION POUR OUVRIR UNE CARTE ==========
+    function ouvrirModal(index) {
+        const modal = document.getElementById('modal');
+        const modalImage = document.getElementById('modalImage');
+        
+        // Afficher l'image
+        modalImage.src = imagesData[index].src;
+        modal.classList.add('active');
+        carteOuverte = true;
+        
+        // Gestion de la musique
+        musiqueFond.pause();  // Arrêter la musique de fond
+        
+        // Charger et jouer la musique spécifique à la carte
+        if (musiquesCartes[index]) {
+            musiqueCarte.src = musiquesCartes[index];
+            musiqueCarte.play().catch(e => console.log("Erreur lecture musique carte"));
+        }
+    }
+
+    // ========== FONCTION POUR FERMER LA CARTE ==========
+    function fermerModal() {
+        document.getElementById('modal').classList.remove('active');
+        
+        // Arrêter la musique de la carte
+        musiqueCarte.pause();
+        musiqueCarte.currentTime = 0;  // Remettre au début
+        
+        // Reprendre la musique de fond
+        if (localStorage.getItem('musiqueJoue') === 'true') {
+            musiqueFond.play().catch(e => console.log("Reprise musique fond"));
+        }
+        
+        carteOuverte = false;
+    }
+
+    // ========== FERMER AVEC LA TOUCHE ECHAP ==========
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            fermerModal();
+        }
+    });
+
+    // ========== BOUTON FLOTTANT POUR COUPER LA MUSIQUE DE FOND ==========
+    const boutonMusique = document.createElement('button');
+    boutonMusique.id = 'boutonMusique';
+    boutonMusique.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 24px;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+        color: white;
+        border: 1px solid rgba(255, 215, 0, 0.3);
+        border-radius: 50px;
+        cursor: pointer;
+        z-index: 1000;
+        transition: all 0.3s;
+    `;
+    boutonMusique.textContent = localStorage.getItem('musiqueJoue') === 'true' ? '🔊 Couper la musique' : '🔇 Activer la musique';
+    document.body.appendChild(boutonMusique);
+
+    boutonMusique.addEventListener('click', function() {
+        if (musiqueFond.paused && !carteOuverte) {
+            musiqueFond.play();
+            boutonMusique.textContent = '🔊 Couper la musique';
+            localStorage.setItem('musiqueJoue', 'true');
+        } else if (!carteOuverte) {
+            musiqueFond.pause();
+            boutonMusique.textContent = '🔇 Activer la musique';
+            localStorage.setItem('musiqueJoue', 'false');
+        }
+    });
+
+    // ========== MISE À JOUR DU BOUTON QUAND UNE CARTE EST OUVERTE ==========
+    function mettreAJourBouton() {
+        if (carteOuverte) {
+            boutonMusique.style.opacity = '0.5';
+            boutonMusique.style.pointerEvents = 'none';
+        } else {
+            boutonMusique.style.opacity = '1';
+            boutonMusique.style.pointerEvents = 'auto';
+        }
+    }
+
+    // Surveiller l'ouverture/fermeture des cartes
+    const modal = document.getElementById('modal');
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.target.classList.contains('active')) {
+                carteOuverte = true;
+            } else {
+                carteOuverte = false;
+            }
+            mettreAJourBouton();
+        });
+    });
+
+    observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
+</script>
