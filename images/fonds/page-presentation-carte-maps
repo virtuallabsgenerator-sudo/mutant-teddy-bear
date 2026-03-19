@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie Haute Résolution - Teddy</title>
+    <style>
+        /* ========== RESET ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: black;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Image de fond */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('/images/fonds/fond-galerie.webp');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.7;
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            color: white;
+        }
+
+        /* ========== IMAGE DE PRÉSENTATION 1920x1080 ========== */
+        .image-presentation {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            border: 3px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .image-presentation img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .image-presentation:hover img {
+            transform: scale(1.02);
+        }
+
+        /* ========== TITRE ========== */
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            color: #ffd700;
+            margin: 30px 0 50px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        /* ========== FENÊTRE CENTRALE POUR LES GRANDES IMAGES ========== */
+        .visionneuse {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        .image-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            min-height: 600px;
+        }
+
+        #imagePrincipale {
+            max-width: 100%;
+            max-height: 800px;
+            object-fit: contain;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease;
+        }
+
+        /* ========== BOUTONS DE NAVIGATION ========== */
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0 20px;
+        }
+
+        .nav-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.2);
+            border: 3px solid #ffd700;
+            color: #ffd700;
+            font-size: 36px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-btn:hover {
+            background: #ffd700;
+            color: black;
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Indicateur de position */
+        .compteur {
+            text-align: center;
+            color: #ffd700;
+            font-size: 18px;
+            margin: 10px 0;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* ========== ZONE DE TEXTE ASSOCIÉ ========== */
+        .texte-associe {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: texteApparition 0.5s ease;
+        }
+
+        @keyframes texteApparition {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .texte-associe h2 {
+            color: #ffd700;
+            font-size: 32px;
+            margin-bottom: 20px;
+            border-left: 5px solid #ffd700;
+            padding-left: 20px;
+        }
+
+        .texte-associe p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: white;
+            text-align: justify;
+        }
+
+        /* ========== BOUTONS DE NAVIGATION ========== */
+        .boutons-nav {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .bouton {
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .bouton:hover {
+            background: #ffd700;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        /* ========== ANIMATION DE CHARGEMENT ========== */
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #ffd700;
+            font-size: 24px;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .image-container {
+                min-height: 300px;
+            }
+
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+
+            .texte-associe {
+                padding: 20px;
+            }
+
+            .texte-associe h2 {
+                font-size: 24px;
+            }
+
+            .texte-associe p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- IMAGE DE PRÉSENTATION 1920x1080 -->
+        <div class="image-presentation">
+            <img src="/images/presentation/presentation-galerie.webp" alt="Présentation Galerie">
+        </div>
+
+        <!-- TITRE PRINCIPAL -->
+        <h1>🖼️ GALERIE HAUTE RÉSOLUTION</h1>
+
+        <!-- BOUTONS NAVIGATION -->
+        <div class="boutons-nav">
+            <a href="/index.html" class="bouton">← Accueil</a>
+            <a href="/menu.html" class="bouton">← Menu principal</a>
+        </div>
+
+        <!-- VISIONNEUSE D'IMAGES -->
+        <div class="visionneuse">
+            
+            <!-- Conteneur de l'image -->
+            <div class="image-container">
+                <img id="imagePrincipale" src="/images/galerie/image1-4k.webp" alt="Image haute résolution">
+            </div>
+
+            <!-- Boutons de navigation -->
+            <div class="navigation">
+                <button class="nav-btn" onclick="imagePrecedente()">←</button>
+                <button class="nav-btn" onclick="imageSuivante()">→</button>
+            </div>
+
+            <!-- Compteur -->
+            <div class="compteur" id="compteur">1 / 10</div>
+
+        </div>
+
+        <!-- ZONE DE TEXTE ASSOCIÉ -->
+        <div class="texte-associe" id="texteAssocie">
+            <h2 id="titreImage">Titre de l'image</h2>
+            <p id="descriptionImage">Description détaillée de l'image...</p>
+        </div>
+
+    </div>
+
+    <script>
+        // ========== DONNÉES DES IMAGES ==========
+        const imagesData = [
+            {
+                src: "/images/galerie/image1-4k.webp",
+                titre: "✨ TEDDY DORÉ - ÉDITION LÉGENDAIRE",
+                description: "Ce Teddy Doré est l'un des plus rares de la collection. Ses reflets dorés sont obtenus grâce à un procédé spécial de tissage de fils métalliques. Il brille d'un éclat unique sous différentes lumières et porte chance à ceux qui le contemplent. Chaque détail de sa fourrure a été travaillé par les meilleurs artisans du royaume des Teddies."
+            },
+            {
+                src: "/images/galerie/image2-4k.webp",
+                titre: "🌌 TEDDY SPATIAL - COLLECTION AIR",
+                description: "Venu tout droit des étoiles, le Teddy Spatial arbore un costume inspiré des combinaisons d'astronautes. Sa matière spéciale change de couleur selon l'angle de vue. Il a voyagé à travers les galaxies avant d'atterrir dans notre monde. Ses yeux contiennent des paillettes qui évoquent la voie lactée."
+            },
+            {
+                src: "/images/galerie/image3-4k.webp",
+                titre: "✈️ TEDDY PILOTE - ÉDITION COMMEMORATIVE",
+                description: "Ce Teddy Pilote rend hommage aux aviateurs légendaires. Avec son casque en cuir vintage et ses lunettes d'aviateur authentiques, il incarne l'esprit d'aventure. Sa veste en cuir véritable est ornée de patchs représentant les escadrilles célèbres. Un incontournable pour les collectionneurs."
+            },
+            {
+                src: "/images/galerie/image4-4k.webp",
+                titre: "🔮 TEDDY MYSTIQUE - COLLECTION RARE",
+                description: "Entouré de mystère, ce Teddy possède des pouvoirs magiques. Sa fourrure change de teinte selon les phases de la lune. Les runes brodées sur son costume racontent l'ancienne prophétie des Teddies. On dit qu'il exauce les vœux de ceux qui le méritent."
+            },
+            {
+                src: "/images/galerie/image5-4k.webp",
+                titre: "👻 TEDDY FANTOME - HALLOWEEN SPECIAL",
+                description: "Apparaissant les nuits d'Halloween, ce Teddy Fantôme est fait d'un tissu phosphorescent qui brille dans l'obscurité. Son voile blanc flotte mystérieusement même sans vent. Les enfants osent à peine le regarder, mais il est en réalité très doux et protecteur."
+            },
+            {
+                src: "/images/galerie/image6-4k.webp",
+                titre: "👑 TEDDY ROYAL - ÉDITION OR",
+                description: "Portant fièrement sa couronne sertie de faux diamants, ce Teddy Royal est le souverain de la collection. Son manteau d'hermine est fait du velours le plus doux. Chaque détail de son costume a été pensé pour évoquer la majesté des rois d'antan."
+            },
+            {
+                src: "/images/galerie/image7-4k.webp",
+                titre: "✨ TEDDY COSMOS - COLLECTION SPATIALE",
+                description: "Le Teddy Cosmos est parsemé d'étoiles et de constellations. Sa fourrure noire profonde est constellée de points lumineux qui brillent dans la nuit. Il voyage dans l'espace-temps et apparaît aux endroits les plus inattendus."
+            },
+            {
+                src: "/images/galerie/image8-4k.webp",
+                titre: "⚡ TEDDY LÉGENDE - ÉDITION MYTHIQUE",
+                description: "Ce Teddy Légende est le gardien des anciennes traditions. Ses motifs celtiques sont brodés à la main avec des fils d'argent. Il raconte l'histoire des premiers Teddies et protège les secrets du royaume. Très peu d'exemplaires existent."
+            },
+            {
+                src: "/images/galerie/image9-4k.webp",
+                titre: "🔥 TEDDY DRAGON - COLLECTION FEU",
+                description: "Le Teddy Dragon crache des étincelles de joie ! Ses écailles rouges et or sont faites d'un tissu spécial qui semble scintiller comme des braises. Il est le protecteur des secrets enfouis sous la montagne des Teddies."
+            },
+            {
+                src: "/images/galerie/image10-4k.webp",
+                titre: "❄️ TEDDY GLACE - COLLECTION EAU",
+                description: "Le Teddy Glace vient des contrées gelées du Nord. Sa fourrure bleutée reste fraîche au toucher. Des cristaux de givre décorent ses oreilles et ses pattes. Il apporte la fraîcheur et la sagesse des glaciers éternels."
+            }
+        ];
+
+        // ========== VARIABLES ==========
+        let indexActuel = 0;
+        const imagePrincipale = document.getElementById('imagePrincipale');
+        const titreImage = document.getElementById('titreImage');
+        const descriptionImage = document.getElementById('descriptionImage');
+        const compteur = document.getElementById('compteur');
+
+        // ========== FONCTIONS DE NAVIGATION ==========
+        function chargerImage(index) {
+            // S'assurer que l'index reste dans les limites
+            indexActuel = (index + imagesData.length) % imagesData.length;
+            
+            // Ajouter un effet de transition
+            imagePrincipale.style.opacity = '0.5';
+            
+            // Charger la nouvelle image
+            setTimeout(() => {
+                imagePrincipale.src = imagesData[indexActuel].src;
+                titreImage.textContent = imagesData[indexActuel].titre;
+                descriptionImage.textContent = imagesData[indexActuel].description;
+                compteur.textContent = `${indexActuel + 1} / ${imagesData.length}`;
+                
+                // Réafficher l'image
+                imagePrincipale.style.opacity = '1';
+            }, 200);
+        }
+
+        function imageSuivante() {
+            chargerImage(indexActuel + 1);
+        }
+
+        function imagePrecedente() {
+            chargerImage(indexActuel - 1);
+        }
+
+        // ========== GESTION DES TOUCHES CLAVIER ==========
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                imagePrecedente();
+            } else if (e.key === 'ArrowRight') {
+                imageSuivante();
+            }
+        });
+
+        // ========== PRÉCHARGEMENT DES IMAGES (optionnel) ==========
+        function prechargerImages() {
+            imagesData.forEach(img => {
+                const preload = new Image();
+                preload.src = img.src;
+            });
+        }
+
+        // Lancer le préchargement après le chargement de la page
+        window.addEventListener('load', prechargerImages);
+
+        // ========== GESTION DU REDIMENSIONNEMENT ==========
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                // Re-centrer l'image si nécessaire
+                console.log('Fenêtre redimensionnée');
+            }, 250);
+        });
+    </script>
+
+</body>
+</html>
