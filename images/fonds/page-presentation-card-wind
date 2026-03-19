@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection Teddy - Page Type</title>
+    <style>
+        /* ========== RESET ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ========== STYLES GÉNÉRAUX ========== */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: black;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Image de fond 1920x1080 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('/images/fonds/fond-page.webp');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.8;
+            z-index: -2;
+        }
+
+        /* Voile sombre */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            color: white;
+        }
+
+        /* ========== IMAGE DE PRÉSENTATION 1920x1080 ========== */
+        .image-presentation {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16/9;  /* Maintient le ratio 1920x1080 */
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            border: 3px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .image-presentation img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .image-presentation:hover img {
+            transform: scale(1.02);
+        }
+
+        /* ========== TITRE ========== */
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            color: #ffd700;
+            margin: 30px 0;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        /* ========== ZONE D'INFORMATION (même format) ========== */
+        .info-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .info-section h2 {
+            color: #ffd700;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .info-section p {
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: justify;
+            color: white;
+        }
+
+        /* ========== GRILLE DE CARTES ========== */
+        .section-cartes {
+            margin: 60px 0;
+        }
+
+        .section-cartes h2 {
+            color: #ffd700;
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* Grille responsive - 5-6 cartes par ligne */
+        .grille-cartes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        /* Style carte de jeu */
+        .carte {
+            background: rgba(20, 20, 30, 0.8);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Effet de brillance sur la carte */
+        .carte::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .carte:hover::before {
+            opacity: 1;
+        }
+
+        .carte:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #ffd700;
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .carte img {
+            width: 100%;
+            aspect-ratio: 3/4;  /* Format carte de jeu */
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .carte:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Informations sur la carte */
+        .carte h3 {
+            color: #ffd700;
+            font-size: 16px;
+            text-align: center;
+            margin: 10px 0 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .carte p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* ========== BOUTONS DE NAVIGATION ========== */
+        .boutons-nav {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .bouton {
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+
+        .bouton:hover {
+            background: #ffd700;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        /* ========== MODAL (agrandissement) ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-contenu {
+            background: rgba(0, 0, 0, 0.8);
+            border: 3px solid #ffd700;
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            animation: modalApparition 0.3s ease;
+        }
+
+        @keyframes modalApparition {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-contenu img {
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .modal-fermer {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 40px;
+            background: transparent;
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+
+        .modal-fermer:hover {
+            background: #ffd700;
+            color: black;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1200px) {
+            .grille-cartes {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .grille-cartes {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grille-cartes {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .info-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- IMAGE DE PRÉSENTATION 1920x1080 -->
+        <div class="image-presentation">
+            <img src="/images/presentation/presentation-principale.webp" alt="Présentation Teddy">
+        </div>
+
+        <!-- TITRE PRINCIPAL -->
+        <h1>✨ LA COLLECTION DES TEDDIES ✨</h1>
+
+        <!-- BOUTONS NAVIGATION -->
+        <div class="boutons-nav">
+            <a href="/index.html" class="bouton">← Accueil</a>
+            <a href="/menu.html" class="bouton">← Menu principal</a>
+        </div>
+
+        <!-- SECTION INFORMATION (même format) -->
+        <div class="info-section">
+            <h2>📖 L'HISTOIRE DES TEDDIES</h2>
+            <p>
+                C'est l'histoire extraordinaire du pays des Teddy Bear, attaqué par les Dark Teddy Bear à la magie puissante. 
+                Leur pays est au bord de la destruction à cause de leur magie obscure. 
+                Le plus grand sorcier des ombres a jeté un sort sur le pays des Teddy Bear, qui sont devenus des mutants. 
+                Ils devront lutter pour sauver leur pays ! 
+                Leur mutation leur a donné des pouvoirs qu'ils utiliseront pour vaincre l'armée des Dark Teddy Bear.
+            </p>
+        </div>
+
+        <!-- GRILLE DE CARTES (15-30 cartes) -->
+        <div class="section-cartes">
+            <h2>🎴 COLLECTION COMPLÈTE</h2>
+            <div class="grille-cartes" id="grilleCartes">
+                
+                <!-- CARTE 1 -->
+                <div class="carte" onclick="ouvrirModal(0)">
+                    <img src="/images/cartes/carte1.webp" alt="Carte 1">
+                    <h3>TEDDY DORÉ</h3>
+                    <p>⭐ Rareté: Légendaire ⭐</p>
+                </div>
+
+                <!-- CARTE 2 -->
+                <div class="carte" onclick="ouvrirModal(1)">
+                    <img src="/images/cartes/carte2.webp" alt="Carte 2">
+                    <h3>TEDDY SPATIAL</h3>
+                    <p>🌌 Collection Air 🌌</p>
+                </div>
+
+                <!-- CARTE 3 -->
+                <div class="carte" onclick="ouvrirModal(2)">
+                    <img src="/images/cartes/carte3.webp" alt="Carte 3">
+                    <h3>TEDDY PILOTE</h3>
+                    <p>✈️ Édition Commune ✈️</p>
+                </div>
+
+                <!-- CARTE 4 -->
+                <div class="carte" onclick="ouvrirModal(3)">
+                    <img src="/images/cartes/carte4.webp" alt="Carte 4">
+                    <h3>TEDDY MYSTIQUE</h3>
+                    <p>🔮 Collection Rare 🔮</p>
+                </div>
+
+                <!-- CARTE 5 -->
+                <div class="carte" onclick="ouvrirModal(4)">
+                    <img src="/images/cartes/carte5.webp" alt="Carte 5">
+                    <h3>TEDDY FANTOME</h3>
+                    <p>👻 Halloween Special 👻</p>
+                </div>
+
+                <!-- CARTE 6 -->
+                <div class="carte" onclick="ouvrirModal(5)">
+                    <img src="/images/cartes/carte6.webp" alt="Carte 6">
+                    <h3>TEDDY ROYAL</h3>
+                    <p>👑 Édition Or 👑</p>
+                </div>
+
+                <!-- CARTE 7 -->
+                <div class="carte" onclick="ouvrirModal(6)">
+                    <img src="/images/cartes/carte7.webp" alt="Carte 7">
+                    <h3>TEDDY COSMOS</h3>
+                    <p>✨ Collection Spatiale ✨</p>
+                </div>
+
+                <!-- CARTE 8 -->
+                <div class="carte" onclick="ouvrirModal(7)">
+                    <img src="/images/cartes/carte8.webp" alt="Carte 8">
+                    <h3>TEDDY LÉGENDE</h3>
+                    <p>⚡ Édition Mythique ⚡</p>
+                </div>
+
+                <!-- CARTE 9 -->
+                <div class="carte" onclick="ouvrirModal(8)">
+                    <img src="/images/cartes/carte9.webp" alt="Carte 9">
+                    <h3>TEDDY DRAGON</h3>
+                    <p>🔥 Collection Feu 🔥</p>
+                </div>
+
+                <!-- CARTE 10 -->
+                <div class="carte" onclick="ouvrirModal(9)">
+                    <img src="/images/cartes/carte10.webp" alt="Carte 10">
+                    <h3>TEDDY GLACE</h3>
+                    <p>❄️ Collection Eau ❄️</p>
+                </div>
+
+                <!-- Continue jusqu'à 30 cartes... -->
+                
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal" id="modal">
+        <div class="modal-contenu">
+            <img id="modalImage" src="" alt="Image agrandie">
+            <button class="modal-fermer" onclick="fermerModal()">Fermer</button>
+        </div>
+    </div>
+
+    <script>
+        // ========== DONNÉES DES IMAGES ==========
+        const imagesData = [
+            { src: "/images/cartes/carte1-grand.webp" },   // Carte 0
+            { src: "/images/cartes/carte2-grand.webp" },   // Carte 1
+            { src: "/images/cartes/carte3-grand.webp" },   // Carte 2
+            { src: "/images/cartes/carte4-grand.webp" },   // Carte 3
+            { src: "/images/cartes/carte5-grand.webp" },   // Carte 4
+            { src: "/images/cartes/carte6-grand.webp" },   // Carte 5
+            { src: "/images/cartes/carte7-grand.webp" },   // Carte 6
+            { src: "/images/cartes/carte8-grand.webp" },   // Carte 7
+            { src: "/images/cartes/carte9-grand.webp" },   // Carte 8
+            { src: "/images/cartes/carte10-grand.webp" },  // Carte 9
+            // Ajoute jusqu'à 30...
+        ];
+
+        // ========== FONCTIONS DU MODAL ==========
+        function ouvrirModal(index) {
+            const modal = document.getElementById('modal');
+            const modalImage = document.getElementById('modalImage');
+            
+            modalImage.src = imagesData[index].src;
+            modal.classList.add('active');
+        }
+
+        function fermerModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Fermer avec la touche Echap
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                fermerModal();
+            }
+        });
+
+        // Fermer en cliquant en dehors
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('modal');
+            if (e.target === modal) {
+                fermerModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
