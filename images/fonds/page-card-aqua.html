@@ -5,14 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Collection Aqua - Grille</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             background-color: black;
             min-height: 100vh;
             position: relative;
@@ -200,18 +196,11 @@
         }
 
         @media (max-width: 900px) {
-            .grille-cartes {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .grille-cartes { grid-template-columns: repeat(2, 1fr); }
         }
-
         @media (max-width: 500px) {
-            .grille-cartes {
-                grid-template-columns: 1fr;
-            }
-            h1 {
-                font-size: 32px;
-            }
+            .grille-cartes { grid-template-columns: 1fr; }
+            h1 { font-size: 32px; }
         }
     </style>
 </head>
@@ -220,20 +209,15 @@
     <audio id="musiqueFond" src="/presentation/musique/bande-son-game-play-mtb-1.mp3" preload="auto" loop></audio>
 
     <div class="container">
-        
         <div class="image-presentation">
-            <img src="/images/banderole/banniere-mtb%20(1).webp" alt="Présentation">
+            <img src="/images/banderole/banniere-mtb%20(1).webp" alt="Bannière">
         </div>
-
         <h1>🐻‍❄️ COLLECTION AQUA</h1>
-
         <div class="boutons-nav">
             <a href="/index.html" class="bouton">← Accueil</a>
             <a href="/menu.html" class="bouton">← Menu</a>
         </div>
-
         <div class="grille-cartes" id="grilleCartes"></div>
-
     </div>
 
     <div class="modal" id="modal">
@@ -246,7 +230,7 @@
     <button id="boutonMusique">🔇 Activer la musique</button>
 
     <script>
-        // ========== LISTE DES CARTES ==========
+        // ========== LISTE COMPLÈTE DES CARTES ==========
         const cartes = [
             { nom: "SIREN TEDDY", src: "/images/common/aqua/common-siren.webp" },
             { nom: "YETI TEDDY", src: "/images/common/aqua/common-yeti.webp" },
@@ -268,7 +252,7 @@
         cartes.forEach((carte, index) => {
             const div = document.createElement('div');
             div.className = 'carte';
-            div.setAttribute('onclick', `ouvrirModal(${index})`);
+            div.onclick = function() { ouvrirModal(index); };
             div.innerHTML = `
                 <img src="${carte.src}" alt="${carte.nom}" onerror="this.src='/images/placeholder.webp'">
                 <h3>${carte.nom}</h3>
@@ -276,7 +260,7 @@
             grille.appendChild(div);
         });
 
-        // ========== DONNÉES POUR LE MODAL ==========
+        // ========== DONNÉES MODAL ==========
         const imagesModal = cartes.map(c => ({ src: c.src }));
 
         // ========== FONCTIONS MODAL ==========
@@ -285,14 +269,14 @@
             const modalImage = document.getElementById('modalImage');
             modalImage.src = imagesModal[index].src;
             modal.classList.add('active');
-            console.log("Ouverture de l'image:", imagesModal[index].src);
+            console.log("Modal ouvert, image:", imagesModal[index].src);
         }
 
         function fermerModal() {
             document.getElementById('modal').classList.remove('active');
         }
 
-        // ========== GESTION MUSIQUE ==========
+        // ========== MUSIQUE ==========
         const musiqueFond = document.getElementById('musiqueFond');
         const boutonMusique = document.getElementById('boutonMusique');
         
@@ -313,16 +297,16 @@
             }
         });
 
-        // Fermeture modal avec Echap
+        // ========== FERMETURE MODAL ==========
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') fermerModal();
         });
 
-        // Fermeture en cliquant dehors
         window.addEventListener('click', (e) => {
             const modal = document.getElementById('modal');
             if (e.target === modal) fermerModal();
         });
     </script>
+
 </body>
 </html>
