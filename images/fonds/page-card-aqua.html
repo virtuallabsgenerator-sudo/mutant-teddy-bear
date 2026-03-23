@@ -247,11 +247,11 @@
         
         <!-- BANNIÈRE -->
         <div class="banniere">
-            <img src="/images/design/banniere/banniere-mtb.jpg" alt="Bannière Teddy">
+            <img src="/images/banderole/banniere-mtb (1).webp" alt="Bannière Teddy">
         </div>
 
         <!-- TITRE -->
-        <h1>✨ The MutantTeddy Bear History ✨</h1>
+        <h1>✨ The MutantTeddy Aqua ✨</h1>
 
         <!-- BOUTONS NAVIGATION -->
         <div class="boutons-nav">
@@ -275,22 +275,22 @@ After being transformed into mutants, the Aqua Teddy Bears developed the ability
                 
                 <!-- Carte 1 -->
                 <div class="carte" onclick="ouvrirModal(0)">
-                    <img src="/images/design/info-maps-world/maps-world-01.jpg" alt="Teddy 1">
+                    <img src="/images/common/aqua/common-frezzer-teddy.webp" alt="Teddy 1">
                 </div>
 
                 <!-- Carte 2 -->
                 <div class="carte" onclick="ouvrirModal(1)">
-                    <img src="/images/design/info-maps-world/_8138a60e-7831-4365-b692-3d7e3d9f0ad0.jpg" alt="Teddy 2">
+                    <img src="/images/secret/common/132-CLEANER TEDDY COMMON.png" alt="Teddy 2">
                 </div>
 
                 <!-- Carte 3 -->
                 <div class="carte" onclick="ouvrirModal(2)">
-                    <img src="/images/design/info-maps-world/maps-04.jpg" alt="Teddy 3">
+                    <img src="/images/secret/rare/00-ANTARCTICA PARRALEL RARE.png" alt="Teddy 3">
                 </div>
 
                 <!-- Carte 4 -->
                 <div class="carte" onclick="ouvrirModal(3)">
-                    <img src="/images/design/info-maps-world/maps-03.jpg" alt="Teddy 4">
+                    <img src="/images/secret/super-rare/01-SOLDIER SUPER RARE.png" alt="Teddy 4">
                 </div>
                 
             </div>
@@ -309,10 +309,10 @@ After being transformed into mutants, the Aqua Teddy Bears developed the ability
     <script>
         // Données des images pour le modal
         const imagesData = [
-            { src: "/images/design/info-maps-world/maps-world-01.jpg" },
-            { src: "/images/design/info-maps-world/_8138a60e-7831-4365-b692-3d7e3d9f0ad0.jpg" },
-            { src: "/images/design/info-maps-world/maps-04.jpg" },
-            { src: "/images/design/info-maps-world/maps-03.jpg" }
+            { src: "/images/common/aqua/common-frezzer-teddy.webp" },
+            { src: "/images/secret/common/132-CLEANER TEDDY COMMON.png" },
+            { src: "/images/secret/rare/00-ANTARCTICA PARRALEL RARE.png" },
+            { src: "/images/secret/super-rare/01-SOLDIER SUPER RARE.png" }
         ];
 
         function ouvrirModal(index) {
@@ -341,7 +341,7 @@ After being transformed into mutants, the Aqua Teddy Bears developed the ability
 
 
 <!-- GESTION DES MUSIQUES -->
-<audio id="musiqueFond" src="/presentation/musique/the-extraordinary-story-of-the-mutant-teddy-bears-01.mp3" preload="auto" loop></audio>
+<audio id="musiqueFond" src="/presentation/musique/Magic-flow-1.mp3" preload="auto" loop></audio>
 <audio id="musiqueCarte" src="" preload="auto"></audio>
 
 <script>
@@ -379,7 +379,7 @@ After being transformed into mutants, the Aqua Teddy Bears developed the ability
         carteOuverte = true;
         
         // Gestion de la musique
-        musiqueFond.pause();  // Arrêter la musique de fond
+        musiqueFond.pause();  // Continuer la musique de fond
         
         // Charger et jouer la musique spécifique à la carte
         if (musiquesCartes[index]) {
