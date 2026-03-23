@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Collection Aqua - Grille</title>
     <style>
-        /* ========== RESET ========== */
         * {
             margin: 0;
             padding: 0;
@@ -20,7 +18,6 @@
             position: relative;
         }
 
-        /* Image de fond */
         body::before {
             content: '';
             position: fixed;
@@ -56,7 +53,6 @@
             color: white;
         }
 
-        /* ========== IMAGE DE PRÉSENTATION 1920x1080 ========== */
         .image-presentation {
             width: 100%;
             aspect-ratio: 16/9;
@@ -78,7 +74,6 @@
             transform: scale(1.02);
         }
 
-        /* ========== TITRE ========== */
         h1 {
             text-align: center;
             font-size: 48px;
@@ -88,21 +83,10 @@
             letter-spacing: 2px;
         }
 
-        /* ========== GRILLE DE CARTES ========== */
         .section-cartes {
             margin: 60px 0;
         }
 
-        .section-cartes h2 {
-            color: #ffd700;
-            font-size: 36px;
-            margin-bottom: 30px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        /* Grille responsive - 4-5 cartes par ligne */
         .grille-cartes {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -110,7 +94,6 @@
             padding: 20px 0;
         }
 
-        /* Style carte */
         .carte {
             background: rgba(20, 20, 30, 0.8);
             backdrop-filter: blur(5px);
@@ -147,15 +130,6 @@
             margin: 12px 0 5px;
         }
 
-        .carte p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 12px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* ========== BOUTONS NAVIGATION ========== */
         .boutons-nav {
             display: flex;
             gap: 20px;
@@ -181,7 +155,6 @@
             transform: scale(1.05);
         }
 
-        /* ========== MODAL (AGRANDISSEMENT) ========== */
         .modal {
             display: none;
             position: fixed;
@@ -245,7 +218,6 @@
             color: black;
         }
 
-        /* ========== BOUTON MUSIQUE FLOTTANT ========== */
         #boutonMusique {
             position: fixed;
             bottom: 20px;
@@ -266,7 +238,6 @@
             transform: scale(1.05);
         }
 
-        /* ========== RESPONSIVE ========== */
         @media (max-width: 900px) {
             .grille-cartes {
                 grid-template-columns: repeat(2, 1fr);
@@ -285,122 +256,101 @@
 </head>
 <body>
 
-    <!-- ========== MUSIQUE DE FOND ========== -->
     <audio id="musiqueFond" src="/presentation/musique/bande-son-game-play-mtb-1.mp3" preload="auto" loop></audio>
 
     <div class="container">
         
-        <!-- IMAGE DE PRÉSENTATION -->
         <div class="image-presentation">
             <img src="/images/banderole/banniere-mtb%20(1).webp" alt="Présentation Collection">
         </div>
 
-        <!-- TITRE -->
         <h1>TEDDY BEAR AQUA COLLECTION</h1>
 
-        <!-- BOUTONS NAVIGATION -->
         <div class="boutons-nav">
             <a href="/index.html" class="bouton">← Accueil</a>
             <a href="/menu.html" class="bouton">← Menu principal</a>
         </div>
 
-        <!-- GRILLE DE CARTES -->
         <div class="section-cartes">
-            <h2> </h2>
-            <div class="grille-cartes" id="grilleCartes">
+            <div class="grille-cartes">
                 
-                <!-- Carte 1 : Siren Teddy -->
+                <!-- Carte 0 -->
                 <div class="carte" onclick="ouvrirModal(0)">
                     <img src="/images/common/aqua/common-siren.webp" alt="Siren Teddy">
                     <h3>SIREN TEDDY</h3>
-                    <p> </p>
                 </div>
 
-                <!-- Carte 2 : Yeti Teddy -->
+                <!-- Carte 1 -->
                 <div class="carte" onclick="ouvrirModal(1)">
                     <img src="/images/common/aqua/common-yeti.webp" alt="Yeti Teddy">
                     <h3>YETI TEDDY</h3>
-                    <p>YETI TEDDY</p>
                 </div>
 
-                <!-- Carte 3 : Frezzer Teddy -->
+                <!-- Carte 2 -->
                 <div class="carte" onclick="ouvrirModal(2)">
                     <img src="/images/common/aqua/common-frezzer-teddy.webp" alt="Frezzer Teddy">
                     <h3>FREZZER TEDDY</h3>
-                    <p>   </p>
                 </div>
 
-                <!-- Carte 4 : Watter Master -->
+                <!-- Carte 3 -->
                 <div class="carte" onclick="ouvrirModal(3)">
                     <img src="/images/common/destroy-factory/4-watter-master-common.png" alt="Water Master">
                     <h3>WATTER MASTER</h3>
-                    <p> </p>
                 </div>
 
-                <!-- Carte 5 : Psycho Teddy -->
+                <!-- Carte 4 -->
                 <div class="carte" onclick="ouvrirModal(4)">
                     <img src="/images/common/destroy-factory/5-psycho-common.png" alt="Psycho Teddy">
                     <h3>PSYCHO TEDDY</h3>
-                    <p> </p>
                 </div>
 
-                <!-- Carte 6 : Doctor Teddy -->
+                <!-- Carte 5 -->
                 <div class="carte" onclick="ouvrirModal(5)">
                     <img src="/images/common/destroy-factory/6-doctor-common.png" alt="Doctor Teddy">
                     <h3>DOCTOR TEDDY</h3>
-                    <p>   </p>
                 </div>
 
-                <!-- Carte 7 : Iceberg Teddy -->
+                <!-- Carte 6 -->
                 <div class="carte" onclick="ouvrirModal(6)">
                     <img src="/images/common/destroy-factory/7-iceberg-common.png" alt="Iceberg Teddy">
                     <h3>ICEBERG TEDDY</h3>
-                    <p>   </p>
                 </div>
 
-                <!-- Carte 8 : Cleaner Teddy -->
+                <!-- Carte 7 -->
                 <div class="carte" onclick="ouvrirModal(7)">
-                    <img src="/images/common/destroy-factory/132-cleaner-common.png" alt="Halloween Teddy">
+                    <img src="/images/common/destroy-factory/132-cleaner-common.png" alt="Cleaner Teddy">
                     <h3>CLEANER TEDDY</h3>
-                    <p>   </p>
                 </div>
 
-                <!-- Carte 9 : Pirate Teddy -->
+                <!-- Carte 8 -->
                 <div class="carte" onclick="ouvrirModal(8)">
                     <img src="/images/common/destroy-factory/15-pirate-common.png" alt="Pirate Teddy">
                     <h3>PIRATE TEDDY</h3>
-                    <p>      </p>
                 </div>
- <!-- Carte 10 : Space Teddy -->
-                <div class="carte" onclick="ouvrirModal(8)">
-                    <img src="/images/common/destroy-factory/128-space-common.png" alt="Pirate Teddy">
+
+                <!-- Carte 9 -->
+                <div class="carte" onclick="ouvrirModal(9)">
+                    <img src="/images/common/destroy-factory/128-space-common.png" alt="Space Teddy">
                     <h3>SPACE TEDDY</h3>
-                    <p>      </p>
-            </div>
-        </div>
-<!-- Carte 11 : Intelligencer Teddy -->
-                <div class="carte" onclick="ouvrirModal(8)">
-                    <img src="/images/common/destroy-factory/intellingencer-common.png" alt="Pirate Teddy">
+                </div>
+
+                <!-- Carte 10 -->
+                <div class="carte" onclick="ouvrirModal(10)">
+                    <img src="/images/common/destroy-factory/intellingencer-common.png" alt="Intelligencer Teddy">
                     <h3>INTELLINGENCER TEDDY</h3>
-                    <p>      </p>
-            </div>
-        </div>
-<!-- Carte 12 : mma Teddy -->
-                <div class="carte" onclick="ouvrirModal(8)">
-                    <img src="/images/common/destroy-factory/23-mma-common.png" alt="Pirate Teddy">
+                </div>
+
+                <!-- Carte 11 -->
+                <div class="carte" onclick="ouvrirModal(11)">
+                    <img src="/images/common/destroy-factory/23-mma-common.png" alt="MMA Teddy">
                     <h3>MMA TEDDY</h3>
-                    <p>      </p>
+                </div>
+
             </div>
         </div>
 
     </div>
 
-    </div>
-    </div>
-
-    </div>
-
-    <!-- MODAL -->
     <div class="modal" id="modal">
         <div class="modal-contenu">
             <img id="modalImage" src="" alt="Image agrandie">
@@ -408,7 +358,6 @@
         </div>
     </div>
 
-    <!-- BOUTON MUSIQUE FLOTTANT -->
     <button id="boutonMusique">🔇 Activer la musique</button>
 
     <script>
@@ -420,25 +369,20 @@
             { src: "/images/common/destroy-factory/4-watter-master-common.png" },
             { src: "/images/common/destroy-factory/5-psycho-common.png" },
             { src: "/images/common/destroy-factory/6-doctor-common.png" },
-            { src: "/images/common/destroy-factory/7-iceberg-common.png" }
+            { src: "/images/common/destroy-factory/7-iceberg-common.png" },
             { src: "/images/common/destroy-factory/132-cleaner-common.png" },
             { src: "/images/common/destroy-factory/15-pirate-common.png" },
             { src: "/images/common/destroy-factory/128-space-common.png" },
             { src: "/images/common/destroy-factory/intellingencer-common.png" },
             { src: "/images/common/destroy-factory/23-mma-common.png" }
-
-            
         ];
 
-        // ========== VARIABLES ==========
         const modal = document.getElementById('modal');
         const modalImage = document.getElementById('modalImage');
         
-        // ========== GESTION DE LA MUSIQUE ==========
         const musiqueFond = document.getElementById('musiqueFond');
         const boutonMusique = document.getElementById('boutonMusique');
         
-        // Vérifier si la musique était déjà jouée depuis l'accueil/menu
         if (localStorage.getItem('musiqueJoue') === 'true') {
             musiqueFond.play().catch(e => console.log("Lecture auto bloquée"));
             boutonMusique.textContent = '🔊 Couper la musique';
@@ -446,7 +390,6 @@
             boutonMusique.textContent = '🔇 Activer la musique';
         }
         
-        // Bouton pour couper/activer la musique
         boutonMusique.addEventListener('click', function() {
             if (musiqueFond.paused) {
                 musiqueFond.play();
@@ -459,7 +402,6 @@
             }
         });
 
-        // ========== FONCTIONS DU MODAL ==========
         function ouvrirModal(index) {
             modalImage.src = imagesData[index].src;
             modal.classList.add('active');
@@ -469,14 +411,12 @@
             modal.classList.remove('active');
         }
 
-        // Fermer avec la touche Echap
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 fermerModal();
             }
         });
 
-        // Fermer en cliquant en dehors
         window.addEventListener('click', function(e) {
             if (e.target === modal) {
                 fermerModal();
