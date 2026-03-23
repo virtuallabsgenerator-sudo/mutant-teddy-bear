@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galerie Haute Résolution - Teddy</title>
+    <title>Collection Aqua - Grille</title>
     <style>
         /* ========== RESET ========== */
         * {
@@ -28,7 +28,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('/images/design/font-site/Nouveau projet (2).jpg');
+            background-image: url('/images/design/font-site/font-site-01.webp');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -43,7 +43,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             z-index: -1;
         }
 
@@ -83,125 +83,79 @@
             text-align: center;
             font-size: 48px;
             color: #ffd700;
-            margin: 30px 0 50px;
+            margin: 30px 0 20px;
             text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
             letter-spacing: 2px;
         }
 
-        /* ========== FENÊTRE CENTRALE POUR LES GRANDES IMAGES ========== */
-        .visionneuse {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border: 3px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 20px 0 40px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        /* ========== GRILLE DE CARTES ========== */
+        .section-cartes {
+            margin: 60px 0;
         }
 
-        .image-container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            min-height: 600px;
-        }
-
-        #imagePrincipale {
-            max-width: 100%;
-            max-height: 800px;
-            object-fit: contain;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: opacity 0.3s ease;
-        }
-
-        /* ========== BOUTONS DE NAVIGATION ========== */
-        .navigation {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 30px 0 20px;
-        }
-
-        .nav-btn {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: rgba(255, 215, 0, 0.2);
-            border: 3px solid #ffd700;
+        .section-cartes h2 {
             color: #ffd700;
             font-size: 36px;
+            margin-bottom: 30px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* Grille responsive - 4-5 cartes par ligne */
+        .grille-cartes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        /* Style carte */
+        .carte {
+            background: rgba(20, 20, 30, 0.8);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
 
-        .nav-btn:hover {
-            background: #ffd700;
-            color: black;
-            transform: scale(1.1);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        .carte:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #ffd700;
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
         }
 
-        .nav-btn:active {
-            transform: scale(0.95);
+        .carte img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
         }
 
-        /* Indicateur de position */
-        .compteur {
+        .carte:hover img {
+            transform: scale(1.05);
+        }
+
+        .carte h3 {
+            color: #ffd700;
+            font-size: 18px;
             text-align: center;
-            color: #ffd700;
-            font-size: 18px;
-            margin: 10px 0;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            margin: 12px 0 5px;
         }
 
-        /* ========== ZONE DE TEXTE ASSOCIÉ ========== */
-        .texte-associe {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px;
-            padding: 40px;
-            margin: 40px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            animation: texteApparition 0.5s ease;
+        .carte p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 12px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        @keyframes texteApparition {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .texte-associe h2 {
-            color: #ffd700;
-            font-size: 32px;
-            margin-bottom: 20px;
-            border-left: 5px solid #ffd700;
-            padding-left: 20px;
-        }
-
-        .texte-associe p {
-            font-size: 18px;
-            line-height: 1.8;
-            color: white;
-            text-align: justify;
-        }
-
-        /* ========== BOUTONS DE NAVIGATION ========== */
+        /* ========== BOUTONS NAVIGATION ========== */
         .boutons-nav {
             display: flex;
             gap: 20px;
@@ -227,55 +181,122 @@
             transform: scale(1.05);
         }
 
-        /* ========== ANIMATION DE CHARGEMENT ========== */
-        .loading {
-            text-align: center;
-            padding: 50px;
+        /* ========== MODAL (AGRANDISSEMENT) ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-contenu {
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid #ffd700;
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            animation: modalApparition 0.3s ease;
+        }
+
+        @keyframes modalApparition {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-contenu img {
+            width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .modal-fermer {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 40px;
+            background: transparent;
+            border: 2px solid #ffd700;
             color: #ffd700;
-            font-size: 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-fermer:hover {
+            background: #ffd700;
+            color: black;
+        }
+
+        /* ========== BOUTON MUSIQUE FLOTTANT ========== */
+        #boutonMusique {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid #ffd700;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        #boutonMusique:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.05);
         }
 
         /* ========== RESPONSIVE ========== */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .grille-cartes {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .grille-cartes {
+                grid-template-columns: 1fr;
+            }
             h1 {
                 font-size: 32px;
-            }
-
-            .image-container {
-                min-height: 300px;
-            }
-
-            .nav-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 24px;
-            }
-
-            .texte-associe {
-                padding: 20px;
-            }
-
-            .texte-associe h2 {
-                font-size: 24px;
-            }
-
-            .texte-associe p {
-                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- ========== MUSIQUE DE FOND ========== -->
+    <audio id="musiqueFond" src="/presentation/musique/mutant-teddy-bear-04.mp3" preload="auto" loop></audio>
+
     <div class="container">
         
-        <!-- IMAGE DE PRÉSENTATION 1920x1080 -->
+        <!-- IMAGE DE PRÉSENTATION -->
         <div class="image-presentation">
-            <img src="/images/banderole/banniere-mtb (1).webp" alt="Présentation Galerie">
+            <img src="/images/banderole/banniere-mtb%20(1).webp" alt="Présentation Collection">
         </div>
 
-        <!-- TITRE PRINCIPAL -->
-        <h1>MUTANT TEDY BEAR AQUA</h1>
+        <!-- TITRE -->
+        <h1>💧 COLLECTION AQUA</h1>
 
         <!-- BOUTONS NAVIGATION -->
         <div class="boutons-nav">
@@ -283,178 +304,113 @@
             <a href="/menu.html" class="bouton">← Menu principal</a>
         </div>
 
-        <!-- VISIONNEUSE D'IMAGES -->
-        <div class="visionneuse">
-            
-            <!-- Conteneur de l'image -->
-            <div class="image-container">
-                <img id="imagePrincipale" src="/images/design/banniere/_9b0fcb32-15f3-4932-9374-484aaa2def69.jpg" alt="Image haute résolution">
+        <!-- GRILLE DE CARTES -->
+        <div class="section-cartes">
+            <h2>🎴 LES TEDDIES AQUA</h2>
+            <div class="grille-cartes" id="grilleCartes">
+                
+                <!-- Carte 1 : Siren Teddy -->
+                <div class="carte" onclick="ouvrirModal(0)">
+                    <img src="/images/common/aqua/common-siren.webp" alt="Siren Teddy">
+                    <h3>SIREN TEDDY</h3>
+                    <p>⭐ Aqua Collection ⭐</p>
+                </div>
+
+                <!-- Carte 2 : Yeti Teddy -->
+                <div class="carte" onclick="ouvrirModal(1)">
+                    <img src="/images/common/aqua/common-yeti.webp" alt="Yeti Teddy">
+                    <h3>YETI TEDDY</h3>
+                    <p>❄️ Aqua Collection ❄️</p>
+                </div>
+
+                <!-- Carte 3 : Frezzer Teddy -->
+                <div class="carte" onclick="ouvrirModal(2)">
+                    <img src="/images/common/aqua/common-frezzer-teddy.webp" alt="Frezzer Teddy">
+                    <h3>FREZZER TEDDY</h3>
+                    <p>🧊 Aqua Collection 🧊</p>
+                </div>
+
+                <!-- Carte 4 : Water Master -->
+                <div class="carte" onclick="ouvrirModal(3)">
+                    <img src="/images/secret/common/4-WATER-MASTER-TEDDY-COMMON.png" alt="Water Master">
+                    <h3>WATER MASTER</h3>
+                    <p>💧 Secret Collection 💧</p>
+                </div>
+
+                <!-- Carte 5 : Psycho Teddy -->
+                <div class="carte" onclick="ouvrirModal(4)">
+                    <img src="/images/secret/common/5-PSYCHO-TEDDY-COMMON.png" alt="Psycho Teddy">
+                    <h3>PSYCHO TEDDY</h3>
+                    <p>🌀 Secret Collection 🌀</p>
+                </div>
+
+                <!-- Carte 6 : Doctor Teddy -->
+                <div class="carte" onclick="ouvrirModal(5)">
+                    <img src="/images/secret/common/6-DOCTOR-TEDDY-COMMON.png" alt="Doctor Teddy">
+                    <h3>DOCTOR TEDDY</h3>
+                    <p>⚕️ Secret Collection ⚕️</p>
+                </div>
+
+                <!-- Carte 7 : Iceberg Teddy -->
+                <div class="carte" onclick="ouvrirModal(6)">
+                    <img src="/images/secret/common/7-ICBERG-TEDDY-COMMON.png" alt="Iceberg Teddy">
+                    <h3>ICEBERG TEDDY</h3>
+                    <p>🧊 Secret Collection 🧊</p>
+                </div>
+
+                <!-- Carte 8 : Halloween Teddy -->
+                <div class="carte" onclick="ouvrirModal(7)">
+                    <img src="/images/secret/common/115-HALLOWEEN-TEDDY-COMMON.png" alt="Halloween Teddy">
+                    <h3>HALLOWEEN TEDDY</h3>
+                    <p>🎃 Special Event 🎃</p>
+                </div>
+
+                <!-- Carte 9 : Pirate Teddy -->
+                <div class="carte" onclick="ouvrirModal(8)">
+                    <img src="/images/secret/common/15-PIRATE-TEDDY-COMMON.png" alt="Pirate Teddy">
+                    <h3>PIRATE TEDDY</h3>
+                    <p>🏴‍☠️ Secret Collection 🏴‍☠️</p>
+                </div>
+
             </div>
-
-            <!-- Boutons de navigation -->
-            <div class="navigation">
-                <button class="nav-btn" onclick="imagePrecedente()">←</button>
-                <button class="nav-btn" onclick="imageSuivante()">→</button>
-            </div>
-
-            <!-- Compteur -->
-            <div class="compteur" id="compteur">1 / 10</div>
-
-        </div>
-
-        <!-- ZONE DE TEXTE ASSOCIÉ -->
-        <div class="texte-associe" id="texteAssocie">
-            <h2 id="titreImage">Titre de l'image</h2>
-            <p id="descriptionImage">Description détaillée de l'image...</p>
         </div>
 
     </div>
 
+    <!-- MODAL -->
+    <div class="modal" id="modal">
+        <div class="modal-contenu">
+            <img id="modalImage" src="" alt="Image agrandie">
+            <button class="modal-fermer" onclick="fermerModal()">Fermer</button>
+        </div>
+    </div>
+
+    <!-- BOUTON MUSIQUE FLOTTANT -->
+    <button id="boutonMusique">🔇 Activer la musique</button>
+
     <script>
-        // ========== DONNÉES DES IMAGES ==========
+        // ========== DONNÉES DES IMAGES POUR LE MODAL ==========
         const imagesData = [
-            {
-                src: "/images/common/aqua/common-siren.webp",
-                titre: "SIREN TEDDY BEAR",
-                description: "  Transformed during the shadow sorcerer's curse, Siren Teddy Bear uses her enchanted mermaid tail to launch razor-sharp shells at her enemies. Each projectile shimmers with sea magic, striking with the precision of ocean currents.
-
-"
-            },
-            {
-                src: "/images/common/aqua/common-yeti.webp",
-                titre: " YETI TEDDY BEAR",
-                description: " Transformed into a mighty yeti during the shadow sorcerer's curse, Yeti Teddy Bear wields a massive club of solid ice that can shatter any dark armor. His thick fur protects him from enemy attacks, making him a living fortress on the battlefield. "
-            },
-            {
-                src: "/images/common/aqua/common-frezzer-teddy.webp",
-                titre: " FREZZER TEDDY BEAR",
-                description: "Transformed during the shadow sorcerer's curse, Frezzer Teddy Bear creates powerful ice spheres that he hurls at his enemies. Each frozen projectile explodes on impact, freezing dark forces in their tracks."
-            },
-            {
-                src: "/images/secret/common/4-WATER MASTER TEDDY COMMON.png",
-                titre: " WATTER MASTER TEDDY BEAR",
-                description: " Transformed during the shadow sorcerer's curse, Watter Master Teddy Bear commands water with precision. He sends powerful water spheres crashing into enemies and can summon a shimmering water shield to block incoming attacks, protecting both himself and his allies.
-
-   "
-            },
-            {
-                src: "/images/secret/common/5-PSYCHO TEDDY COMMON.png",
-                titre: " PSYCHO TEDDY BEAR",
-                description: "  Transformed during the shadow sorcerer's curse, Psycho Teddy Bear commands water to create miniature teddy bears made entirely of liquid. These aquatic warriors rush into battle, attacking enemies with relentless waves before dissolving back into water.  "
-            },
-            {
-                src: "/images/secret/common/11-PSYCHO TEDDY PARRALEL COMMON.png",
-                titre: "PSYCHO TEDDY BEAR",
-                description: " Transformed during the shadow sorcerer's curse, Psycho Teddy Bear shapes water into powerful weapons and hurls devastating water projectiles at his enemies. From swords and spears to razor-sharp discs, his liquid arsenal adapts to any battlefield.
-
-  "
-            },
-            {
-                src: "/images/secret/common/6-DOCTOR TEDDY COMMON.png",
-                titre: " DOCTOR TEDDY BEAR",
-                description: "  Once a simple teddy bear from the peaceful village of Fluffington, Dr. Cuddlesworth was transformed during the great shadow sorcerer’s curse. Unlike others who gained destructive powers, he awakened a rare and precious gift: the ability to heal.
-
-Now serving as the medic of the Mutant Teddy Bear resistance, he roams the battlefield with his worn-out doctor’s coat and a bag full of glowing potions made from starlight and enchanted herbs. His touch can close wounds, restore energy, and even calm the corrupted minds of lesser Dark Teddies. "
-            },
-            {
-                src: "/images/secret/common/7-ICBERG TEDDY COMMON.png",
-                titre: "ICEBERG TEDDY BEAR",
-                description: "Transformed during the shadow sorcerer's curse, Icerberg Teddy Bear commands the frozen earth beneath his paws. He summons sharp ice spikes that erupt from the ground to impale enemies or rise as solid barriers to block incoming attacks."
-            },
-            {
-                src: "/images/secret/common/115-HALLOWEEN TEDDY COMMON.png",
-                titre: "HALLOWEEN TEDDY BEAR",
-                description: "ransformed during the shadow sorcerer's curse, Halloween Teddy Bear scatters magical candies across the battlefield. Any enemy that steps on them becomes frozen in place for several precious moments, leaving them vulnerable to counterattacks."
-            },
-            {
-                src: "/images/secret/common/15-PIRATE TEDDY COMMON.png",
-                titre: "PIRATE TEDDY BEAR",
-                description: "Transformed during the shadow sorcerer's curse, Pirate Teddy Bear uses his wooden peg leg as a powerful water cannon, launching explosive water cannonballs at his enemies. When enemies get close, he strikes with his enchanted cutlass, each swing unleashing sharp jets of water that cut through dark forces."
-            }
+            { src: "/images/common/aqua/common-siren.webp" },
+            { src: "/images/common/aqua/common-yeti.webp" },
+            { src: "/images/common/aqua/common-frezzer-teddy.webp" },
+            { src: "/images/secret/common/4-WATER-MASTER-TEDDY-COMMON.png" },
+            { src: "/images/secret/common/5-PSYCHO-TEDDY-COMMON.png" },
+            { src: "/images/secret/common/6-DOCTOR-TEDDY-COMMON.png" },
+            { src: "/images/secret/common/7-ICBERG-TEDDY-COMMON.png" },
+            { src: "/images/secret/common/115-HALLOWEEN-TEDDY-COMMON.png" },
+            { src: "/images/secret/common/15-PIRATE-TEDDY-COMMON.png" }
         ];
 
         // ========== VARIABLES ==========
-        let indexActuel = 0;
-        const imagePrincipale = document.getElementById('imagePrincipale');
-        const titreImage = document.getElementById('titreImage');
-        const descriptionImage = document.getElementById('descriptionImage');
-        const compteur = document.getElementById('compteur');
-
-        // ========== FONCTIONS DE NAVIGATION ==========
-        function chargerImage(index) {
-            // S'assurer que l'index reste dans les limites
-            indexActuel = (index + imagesData.length) % imagesData.length;
-            
-            // Ajouter un effet de transition
-            imagePrincipale.style.opacity = '0.5';
-            
-            // Charger la nouvelle image
-            setTimeout(() => {
-                imagePrincipale.src = imagesData[indexActuel].src;
-                titreImage.textContent = imagesData[indexActuel].titre;
-                descriptionImage.textContent = imagesData[indexActuel].description;
-                compteur.textContent = `${indexActuel + 1} / ${imagesData.length}`;
-                
-                // Réafficher l'image
-                imagePrincipale.style.opacity = '1';
-            }, 200);
-        }
-
-        function imageSuivante() {
-            chargerImage(indexActuel + 1);
-        }
-
-        function imagePrecedente() {
-            chargerImage(indexActuel - 1);
-        }
-
-        // ========== GESTION DES TOUCHES CLAVIER ==========
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft') {
-                imagePrecedente();
-            } else if (e.key === 'ArrowRight') {
-                imageSuivante();
-            }
-        });
-
-        // ========== PRÉCHARGEMENT DES IMAGES (optionnel) ==========
-        function prechargerImages() {
-            imagesData.forEach(img => {
-                const preload = new Image();
-                preload.src = img.src;
-            });
-        }
-
-        // Lancer le préchargement après le chargement de la page
-        window.addEventListener('load', prechargerImages);
-
-        // ========== GESTION DU REDIMENSIONNEMENT ==========
-        let resizeTimer;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function() {
-                // Re-centrer l'image si nécessaire
-                console.log('Fenêtre redimensionnée');
-            }, 250);
-        });
-    </script>
-
-
-
-   <!-- ========== MUSIQUE DE FOND ========== -->
-    <audio id="musiqueFond" src="/presentation/musique/It’s-a-love-1.mp3" preload="auto" loop></audio>
-    
-    <!-- Bouton pour couper/activer la musique -->
-    <button id="boutonMusique" style="position: fixed; bottom: 20px; right: 20px; padding: 12px 24px; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); color: white; border: 1px solid #ffd700; border-radius: 50px; cursor: pointer; z-index: 1000; transition: all 0.3s;">
-        🔇 Activer la musique
-    </button>
-
-    <script>
-        // ========== GESTION DE LA MUSIQUE DE FOND ==========
+        const modal = document.getElementById('modal');
+        const modalImage = document.getElementById('modalImage');
+        
+        // ========== GESTION DE LA MUSIQUE ==========
         const musiqueFond = document.getElementById('musiqueFond');
         const boutonMusique = document.getElementById('boutonMusique');
         
-        // Vérifier si la musique était déjà jouée depuis l'accueil
+        // Vérifier si la musique était déjà jouée depuis l'accueil/menu
         if (localStorage.getItem('musiqueJoue') === 'true') {
             musiqueFond.play().catch(e => console.log("Lecture auto bloquée"));
             boutonMusique.textContent = '🔊 Couper la musique';
@@ -474,16 +430,31 @@ Now serving as the medic of the Mutant Teddy Bear resistance, he roams the battl
                 localStorage.setItem('musiqueJoue', 'false');
             }
         });
+
+        // ========== FONCTIONS DU MODAL ==========
+        function ouvrirModal(index) {
+            modalImage.src = imagesData[index].src;
+            modal.classList.add('active');
+        }
+
+        function fermerModal() {
+            modal.classList.remove('active');
+        }
+
+        // Fermer avec la touche Echap
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                fermerModal();
+            }
+        });
+
+        // Fermer en cliquant en dehors
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                fermerModal();
+            }
+        });
     </script>
-    
 
-
-    
-</body>
-</html>
-
-
-
- 
 </body>
 </html>
