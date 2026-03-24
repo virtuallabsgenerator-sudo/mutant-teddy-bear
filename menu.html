@@ -101,14 +101,15 @@
             display: flex;
             gap: 30px;
             width: fit-content;
-            will-change: transform;
         }
 
-        .carrousel.animate-left {
+        /* Animation vers la gauche */
+        .carrousel.left {
             animation: scrollLeft 25s linear infinite;
         }
 
-        .carrousel.animate-right {
+        /* Animation vers la droite */
+        .carrousel.right {
             animation: scrollRight 25s linear infinite;
         }
 
@@ -224,12 +225,12 @@
             <div class="carrousel-header">
                 <h2>Les Collections</h2>
                 <div class="controles-carrousel">
-                    <button class="btn-carrousel" id="btnGauche1">◀ Gauche</button>
-                    <button class="btn-carrousel" id="btnDroite1">Droite ▶</button>
+                    <button class="btn-carrousel" id="left1">◀ Left</button>
+                    <button class="btn-carrousel" id="right1">Right ▶</button>
                 </div>
             </div>
             <div class="carrousel-container">
-                <div class="carrousel animate-left" id="carrousel1">
+                <div class="carrousel left" id="carrousel1">
                     
                     <a href="/images/fonds/teddy-presentation.html" class="fenetre">
                         <img src="/images/carrousel/carrousel-presentation.jpg" alt="Teddy">
@@ -311,12 +312,12 @@
             <div class="carrousel-header">
                 <h2>Les Édition Limitée</h2>
                 <div class="controles-carrousel">
-                    <button class="btn-carrousel" id="btnGauche2">◀ Gauche</button>
-                    <button class="btn-carrousel" id="btnDroite2">Droite ▶</button>
+                    <button class="btn-carrousel" id="left2">◀ Left</button>
+                    <button class="btn-carrousel" id="right2">Right ▶</button>
                 </div>
             </div>
             <div class="carrousel-container">
-                <div class="carrousel animate-right" id="carrousel2">
+                <div class="carrousel right" id="carrousel2">
                     
                     <a href="/teddy5.html" class="fenetre">
                         <img src="/images/carrousel/_4052e885-dc14-43bf-b042-09f0b17b371c.jpg" alt="Teddy">
@@ -391,131 +392,35 @@
         
         // ========== GESTION DES CARROUSELS ==========
         
-        // === CARROUSEL 1 ===
+        // Carrousel 1
         const carrousel1 = document.getElementById('carrousel1');
-        const btnGauche1 = document.getElementById('btnGauche1');
-        const btnDroite1 = document.getElementById('btnDroite1');
+        const left1 = document.getElementById('left1');
+        const right1 = document.getElementById('right1');
         
-        let animationActive1 = true;
-        let currentDirection1 = 'left';
-        
-        // Démarre l'animation dans une direction
-        function startCarrousel1(direction) {
-            // Enlever toutes les animations et transformations
-            carrousel1.style.transform = '';
-            carrousel1.classList.remove('animate-left', 'animate-right');
-            
-            if (direction === 'left') {
-                carrousel1.classList.add('animate-left');
-                currentDirection1 = 'left';
-            } else {
-                carrousel1.classList.add('animate-right');
-                currentDirection1 = 'right';
-            }
-            animationActive1 = true;
-        }
-        
-        // Arrête l'animation et garde la position
-        function stopCarrousel1() {
-            if (!animationActive1) return;
-            
-            const transform = window.getComputedStyle(carrousel1).transform;
-            let currentX = 0;
-            if (transform !== 'none') {
-                const match = transform.match(/matrix.*\((.+)\)/);
-                if (match) {
-                    const values = match[1].split(', ');
-                    currentX = parseFloat(values[4]) || 0;
-                }
-            }
-            carrousel1.style.animation = 'none';
-            carrousel1.style.transform = `translateX(${currentX}px)`;
-            animationActive1 = false;
-        }
-        
-        // Action du bouton Gauche
-        btnGauche1.addEventListener('click', () => {
-            // Forcer le défilement vers la gauche
-            startCarrousel1('left');
+        left1.addEventListener('click', () => {
+            carrousel1.classList.remove('left', 'right');
+            carrousel1.classList.add('left');
         });
         
-        // Action du bouton Droite
-        btnDroite1.addEventListener('click', () => {
-            // Forcer le défilement vers la droite
-            startCarrousel1('right');
+        right1.addEventListener('click', () => {
+            carrousel1.classList.remove('left', 'right');
+            carrousel1.classList.add('right');
         });
         
-        // Pause au survol
-        carrousel1.addEventListener('mouseenter', () => {
-            stopCarrousel1();
-        });
-        
-        // Reprise au départ de la souris
-        carrousel1.addEventListener('mouseleave', () => {
-            if (!animationActive1) {
-                startCarrousel1(currentDirection1);
-            }
-        });
-        
-        // === CARROUSEL 2 ===
+        // Carrousel 2
         const carrousel2 = document.getElementById('carrousel2');
-        const btnGauche2 = document.getElementById('btnGauche2');
-        const btnDroite2 = document.getElementById('btnDroite2');
+        const left2 = document.getElementById('left2');
+        const right2 = document.getElementById('right2');
         
-        let animationActive2 = true;
-        let currentDirection2 = 'right';
-        
-        function startCarrousel2(direction) {
-            carrousel2.style.transform = '';
-            carrousel2.classList.remove('animate-left', 'animate-right');
-            
-            if (direction === 'left') {
-                carrousel2.classList.add('animate-left');
-                currentDirection2 = 'left';
-            } else {
-                carrousel2.classList.add('animate-right');
-                currentDirection2 = 'right';
-            }
-            animationActive2 = true;
-        }
-        
-        function stopCarrousel2() {
-            if (!animationActive2) return;
-            
-            const transform = window.getComputedStyle(carrousel2).transform;
-            let currentX = 0;
-            if (transform !== 'none') {
-                const match = transform.match(/matrix.*\((.+)\)/);
-                if (match) {
-                    const values = match[1].split(', ');
-                    currentX = parseFloat(values[4]) || 0;
-                }
-            }
-            carrousel2.style.animation = 'none';
-            carrousel2.style.transform = `translateX(${currentX}px)`;
-            animationActive2 = false;
-        }
-        
-        btnGauche2.addEventListener('click', () => {
-            startCarrousel2('left');
+        left2.addEventListener('click', () => {
+            carrousel2.classList.remove('left', 'right');
+            carrousel2.classList.add('left');
         });
         
-        btnDroite2.addEventListener('click', () => {
-            startCarrousel2('right');
-        });
-        
-        carrousel2.addEventListener('mouseenter', () => {
-            stopCarrousel2();
-        });
-        
-        carrousel2.addEventListener('mouseleave', () => {
-            if (!animationActive2) {
-                startCarrousel2(currentDirection2);
-            }
+        right2.addEventListener('click', () => {
+            carrousel2.classList.remove('left', 'right');
+            carrousel2.classList.add('right');
         });
     </script>
 </body>
 </html>
-
-
-
