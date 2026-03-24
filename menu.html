@@ -64,12 +64,13 @@
         .carrousel-section h2 {
             color: white;
             font-size: 28px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             margin: 0;
         }
 
         .controles-carrousel {
             display: flex;
-            gap: 12px;
+            gap: 15px;
         }
 
         .btn-carrousel {
@@ -88,31 +89,45 @@
         .btn-carrousel:hover {
             background: #ffd700;
             color: black;
+            transform: scale(1.05);
+        }
+
+        .btn-carrousel.active {
+            background: #ffd700;
+            color: black;
+            box-shadow: 0 0 10px rgba(255,215,0,0.5);
         }
 
         .carrousel-container {
-            overflow-x: auto;
-            scroll-behavior: smooth;
+            overflow: hidden;
             padding: 20px 0;
-            position: relative;
-            scrollbar-width: thin;
-        }
-
-        .carrousel-container::-webkit-scrollbar {
-            height: 8px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 10px;
-        }
-
-        .carrousel-container::-webkit-scrollbar-thumb {
-            background: #ffd700;
-            border-radius: 10px;
         }
 
         .carrousel {
             display: flex;
             gap: 30px;
             width: fit-content;
+            will-change: transform;
+        }
+
+        /* Animation vers la gauche */
+        .carrousel.animate-left {
+            animation: scrollLeft 25s linear infinite;
+        }
+
+        /* Animation vers la droite */
+        .carrousel.animate-right {
+            animation: scrollRight 25s linear infinite;
+        }
+
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes scrollRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
         }
 
         .fenetre {
@@ -134,6 +149,7 @@
             transform: translateY(-10px) scale(1.05);
             background: rgba(255, 255, 255, 0.25);
             border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .fenetre img {
@@ -142,11 +158,17 @@
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .fenetre:hover img {
+            transform: scale(1.1);
         }
 
         .fenetre h3 {
             text-align: center;
             font-size: 18px;
+            margin-top: 10px;
         }
 
         .bouton-retour {
@@ -164,6 +186,7 @@
 
         .bouton-retour:hover {
             background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
         }
 
         #boutonMusique {
@@ -174,17 +197,16 @@
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(10px);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid #ffd700;
             border-radius: 50px;
             cursor: pointer;
             z-index: 1000;
+            transition: all 0.3s;
         }
 
-        .info-defilement {
-            text-align: center;
-            margin-top: 10px;
-            color: rgba(255,255,255,0.6);
-            font-size: 12px;
+        #boutonMusique:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.05);
         }
 
         @media (max-width: 600px) {
@@ -197,6 +219,7 @@
 </head>
 <body>
     
+    <!-- MUSIQUE -->
     <audio id="musiqueAccueil" src="/presentation/musique/mutant-teddy-bear-04.mp3" preload="auto" loop></audio>
     
     <div class="container">
@@ -205,17 +228,17 @@
         
         <h1>🎮 COLLECTION MUTANT TEDDY BEAR</h1>
         
-        <!-- CARROUSEL 1 -->
+        <!-- CARROUSEL 1 : GAUCHE À DROITE -->
         <div class="carrousel-section">
             <div class="carrousel-header">
                 <h2>✨ Les Classiques</h2>
                 <div class="controles-carrousel">
-                    <button class="btn-carrousel" data-carrousel="carrousel1" data-action="gauche">◀ Gauche</button>
-                    <button class="btn-carrousel" data-carrousel="carrousel1" data-action="droite">Droite ▶</button>
+                    <button class="btn-carrousel" id="btnGauche1">◀ Gauche</button>
+                    <button class="btn-carrousel" id="btnDroite1">Droite ▶</button>
                 </div>
             </div>
-            <div class="carrousel-container" id="carrousel1">
-                <div class="carrousel">
+            <div class="carrousel-container">
+                <div class="carrousel animate-left" id="carrousel1">
                     
                     <a href="/images/fonds/teddy-presentation.html" class="fenetre">
                         <img src="/images/carrousel/carrousel-presentation.jpg" alt="Teddy">
@@ -247,9 +270,251 @@
                         <h3>Teddy Classique 5</h3>
                     </a>
                     
+                    <!-- DUPLICATION pour effet infini -->
+                    <a href="/images/fonds/teddy-presentation.html" class="fenetre">
+                        <img src="/images/carrousel/carrousel-presentation.jpg" alt="Teddy">
+                        <h3>Teddy Présentation</h3>
+                    </a>
+                    
+                    <a href="/images/fonds/page-card-aqua.html" class="fenetre">
+                        <img src="/images/carrousel/_97938324-8b9a-4977-828b-17bae6e96934.jpg" alt="Teddy">
+                        <h3>Collection Aqua</h3>
+                    </a>
+                    
                 </div>
             </div>
-            <div class="info-defilement">← Glisse avec la souris
+        </div>
+        
+        <!-- CARROUSEL 2 : DROITE À GAUCHE -->
+        <div class="carrousel-section">
+            <div class="carrousel-header">
+                <h2>🌟 Les Édition Limitée</h2>
+                <div class="controles-carrousel">
+                    <button class="btn-carrousel" id="btnGauche2">◀ Gauche</button>
+                    <button class="btn-carrousel" id="btnDroite2">Droite ▶</button>
+                </div>
+            </div>
+            <div class="carrousel-container">
+                <div class="carrousel animate-right" id="carrousel2">
+                    
+                    <a href="/teddy5.html" class="fenetre">
+                        <img src="/images/carrousel/_4052e885-dc14-43bf-b042-09f0b17b371c.jpg" alt="Teddy">
+                        <h3>Limited 1</h3>
+                    </a>
+                    
+                    <a href="/teddy6.html" class="fenetre">
+                        <img src="/images/carrousel/_5b1750fc-5332-4c10-95af-b0cda3f5ee65.jpg" alt="Teddy">
+                        <h3>Limited 2</h3>
+                    </a>
+                    
+                    <a href="/teddy7.html" class="fenetre">
+                        <img src="/images/carrousel/_9e65845a-a410-4eef-95b3-a259ff41e208.jpg" alt="Teddy">
+                        <h3>Limited 3</h3>
+                    </a>
+                    
+                    <a href="/teddy8.html" class="fenetre">
+                        <img src="/images/carrousel/_b72e99e8-aed9-4256-8bc9-ea7bf424c19b.jpg" alt="Teddy">
+                        <h3>Limited 4</h3>
+                    </a>
+                    
+                    <!-- DUPLICATION -->
+                    <a href="/teddy5.html" class="fenetre">
+                        <img src="/images/carrousel/_e0193434-2fe3-49c4-8ccc-9a0520ca37ab.jpg" alt="Teddy">
+                        <h3>Limited 1</h3>
+                    </a>
+                    
+                    <a href="/teddy6.html" class="fenetre">
+                        <img src="/images/carrousel/_5b1750fc-5332-4c10-95af-b0cda3f5ee65.jpg" alt="Teddy">
+                        <h3>Limited 2</h3>
+                    </a>
+                    
+                    <a href="/teddy7.html" class="fenetre">
+                        <img src="/images/carrousel/_9e65845a-a410-4eef-95b3-a259ff41e208.jpg" alt="Teddy">
+                        <h3>Limited 3</h3>
+                    </a>
+                    
+                    <a href="/teddy8.html" class="fenetre">
+                        <img src="/images/carrousel/_b72e99e8-aed9-4256-8bc9-ea7bf424c19b.jpg" alt="Teddy">
+                        <h3>Limited 4</h3>
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Bouton musique flottant -->
+    <button id="boutonMusique">🔇 Activer la musique</button>
+    
+    <script>
+        // ========== MUSIQUE ==========
+        const audio = document.getElementById('musiqueAccueil');
+        const boutonMusique = document.getElementById('boutonMusique');
+        
+        if (localStorage.getItem('musiqueJoue') === 'true') {
+            audio.play().catch(e => console.log("Auto-play bloqué"));
+            boutonMusique.textContent = '🔊 Couper la musique';
+        }
+        
+        boutonMusique.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                boutonMusique.textContent = '🔊 Couper la musique';
+                localStorage.setItem('musiqueJoue', 'true');
+            } else {
+                audio.pause();
+                boutonMusique.textContent = '🔇 Activer la musique';
+                localStorage.setItem('musiqueJoue', 'false');
+            }
+        });
+        
+        // ========== GESTION DES CARROUSELS ==========
+        
+        // Carrousel 1
+        const carrousel1 = document.getElementById('carrousel1');
+        const btnGauche1 = document.getElementById('btnGauche1');
+        const btnDroite1 = document.getElementById('btnDroite1');
+        
+        let animationActive1 = true;
+        
+        function setDirection1(direction) {
+            if (!animationActive1) return;
+            carrousel1.classList.remove('animate-left', 'animate-right');
+            if (direction === 'left') {
+                carrousel1.classList.add('animate-left');
+            } else {
+                carrousel1.classList.add('animate-right');
+            }
+        }
+        
+        function pauseAnimation1() {
+            if (!animationActive1) return;
+            const transform = window.getComputedStyle(carrousel1).transform;
+            let currentX = 0;
+            if (transform !== 'none') {
+                const match = transform.match(/matrix.*\((.+)\)/);
+                if (match) {
+                    const values = match[1].split(', ');
+                    currentX = parseFloat(values[4]) || 0;
+                }
+            }
+            carrousel1.style.animation = 'none';
+            carrousel1.style.transform = `translateX(${currentX}px)`;
+            animationActive1 = false;
+        }
+        
+        function resumeAnimation1(direction) {
+            if (animationActive1) return;
+            carrousel1.style.transform = '';
+            if (direction === 'left') {
+                carrousel1.classList.add('animate-left');
+            } else {
+                carrousel1.classList.add('animate-right');
+            }
+            animationActive1 = true;
+        }
+        
+        btnGauche1.addEventListener('click', () => {
+            if (!animationActive1) {
+                resumeAnimation1('left');
+            } else {
+                setDirection1('left');
+            }
+        });
+        
+        btnDroite1.addEventListener('click', () => {
+            if (!animationActive1) {
+                resumeAnimation1('right');
+            } else {
+                setDirection1('right');
+            }
+        });
+        
+        // Pause au survol
+        carrousel1.addEventListener('mouseenter', () => {
+            pauseAnimation1();
+        });
+        carrousel1.addEventListener('mouseleave', () => {
+            if (!animationActive1) {
+                const currentClass = carrousel1.classList.contains('animate-left') ? 'left' : 'right';
+                resumeAnimation1(currentClass);
+            }
+        });
+        
+        // Carrousel 2
+        const carrousel2 = document.getElementById('carrousel2');
+        const btnGauche2 = document.getElementById('btnGauche2');
+        const btnDroite2 = document.getElementById('btnDroite2');
+        
+        let animationActive2 = true;
+        
+        function setDirection2(direction) {
+            if (!animationActive2) return;
+            carrousel2.classList.remove('animate-left', 'animate-right');
+            if (direction === 'left') {
+                carrousel2.classList.add('animate-left');
+            } else {
+                carrousel2.classList.add('animate-right');
+            }
+        }
+        
+        function pauseAnimation2() {
+            if (!animationActive2) return;
+            const transform = window.getComputedStyle(carrousel2).transform;
+            let currentX = 0;
+            if (transform !== 'none') {
+                const match = transform.match(/matrix.*\((.+)\)/);
+                if (match) {
+                    const values = match[1].split(', ');
+                    currentX = parseFloat(values[4]) || 0;
+                }
+            }
+            carrousel2.style.animation = 'none';
+            carrousel2.style.transform = `translateX(${currentX}px)`;
+            animationActive2 = false;
+        }
+        
+        function resumeAnimation2(direction) {
+            if (animationActive2) return;
+            carrousel2.style.transform = '';
+            if (direction === 'left') {
+                carrousel2.classList.add('animate-left');
+            } else {
+                carrousel2.classList.add('animate-right');
+            }
+            animationActive2 = true;
+        }
+        
+        btnGauche2.addEventListener('click', () => {
+            if (!animationActive2) {
+                resumeAnimation2('left');
+            } else {
+                setDirection2('left');
+            }
+        });
+        
+        btnDroite2.addEventListener('click', () => {
+            if (!animationActive2) {
+                resumeAnimation2('right');
+            } else {
+                setDirection2('right');
+            }
+        });
+        
+        // Pause au survol carrousel 2
+        carrousel2.addEventListener('mouseenter', () => {
+            pauseAnimation2();
+        });
+        carrousel2.addEventListener('mouseleave', () => {
+            if (!animationActive2) {
+                const currentClass = carrousel2.classList.contains('animate-left') ? 'left' : 'right';
+                resumeAnimation2(currentClass);
+            }
+        });
+    </script>
+</body>
+</html>
 
 
 
