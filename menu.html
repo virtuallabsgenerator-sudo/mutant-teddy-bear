@@ -92,12 +92,6 @@
             transform: scale(1.05);
         }
 
-        .btn-carrousel.active {
-            background: #ffd700;
-            color: black;
-            box-shadow: 0 0 10px rgba(255,215,0,0.5);
-        }
-
         .carrousel-container {
             overflow: hidden;
             padding: 20px 0;
@@ -395,7 +389,7 @@
             }
         });
         
-        // ========== GESTION DES CARROUSELS (VERSION CORRIGÉE) ==========
+        // ========== GESTION DES CARROUSELS ==========
         
         // === CARROUSEL 1 ===
         const carrousel1 = document.getElementById('carrousel1');
@@ -403,12 +397,14 @@
         const btnDroite1 = document.getElementById('btnDroite1');
         
         let animationActive1 = true;
-        let currentDirection1 = 'left'; // 'left' ou 'right'
+        let currentDirection1 = 'left';
         
-        // Fonction pour démarrer l'animation
-        function startAnimation1(direction) {
+        // Démarre l'animation dans une direction
+        function startCarrousel1(direction) {
+            // Enlever toutes les animations et transformations
             carrousel1.style.transform = '';
             carrousel1.classList.remove('animate-left', 'animate-right');
+            
             if (direction === 'left') {
                 carrousel1.classList.add('animate-left');
                 currentDirection1 = 'left';
@@ -419,9 +415,10 @@
             animationActive1 = true;
         }
         
-        // Fonction pour arrêter l'animation
-        function pauseAnimation1() {
+        // Arrête l'animation et garde la position
+        function stopCarrousel1() {
             if (!animationActive1) return;
+            
             const transform = window.getComputedStyle(carrousel1).transform;
             let currentX = 0;
             if (transform !== 'none') {
@@ -436,40 +433,27 @@
             animationActive1 = false;
         }
         
-        // Fonction pour changer le sens (toujours en mouvement)
-        function setDirection1(direction) {
-            if (!animationActive1) {
-                // Si arrêté, on redémarre dans la nouvelle direction
-                startAnimation1(direction);
-            } else {
-                // Si en mouvement, on change juste la direction
-                carrousel1.classList.remove('animate-left', 'animate-right');
-                if (direction === 'left') {
-                    carrousel1.classList.add('animate-left');
-                    currentDirection1 = 'left';
-                } else {
-                    carrousel1.classList.add('animate-right');
-                    currentDirection1 = 'right';
-                }
-            }
-        }
-        
+        // Action du bouton Gauche
         btnGauche1.addEventListener('click', () => {
-            setDirection1('left');
+            // Forcer le défilement vers la gauche
+            startCarrousel1('left');
         });
         
+        // Action du bouton Droite
         btnDroite1.addEventListener('click', () => {
-            setDirection1('right');
+            // Forcer le défilement vers la droite
+            startCarrousel1('right');
         });
         
         // Pause au survol
         carrousel1.addEventListener('mouseenter', () => {
-            pauseAnimation1();
+            stopCarrousel1();
         });
         
+        // Reprise au départ de la souris
         carrousel1.addEventListener('mouseleave', () => {
             if (!animationActive1) {
-                startAnimation1(currentDirection1);
+                startCarrousel1(currentDirection1);
             }
         });
         
@@ -481,9 +465,10 @@
         let animationActive2 = true;
         let currentDirection2 = 'right';
         
-        function startAnimation2(direction) {
+        function startCarrousel2(direction) {
             carrousel2.style.transform = '';
             carrousel2.classList.remove('animate-left', 'animate-right');
+            
             if (direction === 'left') {
                 carrousel2.classList.add('animate-left');
                 currentDirection2 = 'left';
@@ -494,8 +479,9 @@
             animationActive2 = true;
         }
         
-        function pauseAnimation2() {
+        function stopCarrousel2() {
             if (!animationActive2) return;
+            
             const transform = window.getComputedStyle(carrousel2).transform;
             let currentX = 0;
             if (transform !== 'none') {
@@ -510,36 +496,21 @@
             animationActive2 = false;
         }
         
-        function setDirection2(direction) {
-            if (!animationActive2) {
-                startAnimation2(direction);
-            } else {
-                carrousel2.classList.remove('animate-left', 'animate-right');
-                if (direction === 'left') {
-                    carrousel2.classList.add('animate-left');
-                    currentDirection2 = 'left';
-                } else {
-                    carrousel2.classList.add('animate-right');
-                    currentDirection2 = 'right';
-                }
-            }
-        }
-        
         btnGauche2.addEventListener('click', () => {
-            setDirection2('left');
+            startCarrousel2('left');
         });
         
         btnDroite2.addEventListener('click', () => {
-            setDirection2('right');
+            startCarrousel2('right');
         });
         
         carrousel2.addEventListener('mouseenter', () => {
-            pauseAnimation2();
+            stopCarrousel2();
         });
         
         carrousel2.addEventListener('mouseleave', () => {
             if (!animationActive2) {
-                startAnimation2(currentDirection2);
+                startCarrousel2(currentDirection2);
             }
         });
     </script>
