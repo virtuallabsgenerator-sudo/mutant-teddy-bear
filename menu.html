@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Vidéos - Mutant Teddy Bear</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Univers Teddy</title>
     <style>
         * {
             margin: 0;
@@ -12,9 +12,12 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: black;
+            font-family: 'Arial', sans-serif;
             min-height: 100vh;
+            background-image: url('/images/design/font-site/font-site-01.webp');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             position: relative;
         }
 
@@ -25,123 +28,157 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('/images/design/font-site/font-site-01.webp');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            opacity: 0.7;
-            z-index: -2;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: -1;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 0;
         }
 
         .container {
             position: relative;
             z-index: 1;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 30px 20px;
-            color: white;
+            padding: 40px 20px;
         }
 
         h1 {
             text-align: center;
+            color: white;
             font-size: 48px;
-            color: #ffd700;
-            margin: 20px 0 40px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-            letter-spacing: 2px;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        .videos-list {
+        .carrousel-section {
+            margin-bottom: 60px;
+        }
+
+        .carrousel-header {
             display: flex;
-            flex-direction: column;
-            gap: 40px;
+            justify-content: space-between;
             align-items: center;
-        }
-
-        .video-card {
-            background: rgba(20, 20, 30, 0.8);
-            backdrop-filter: blur(5px);
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px;
-            padding: 20px;
-            max-width: 800px;
-            width: 100%;
-            transition: transform 0.3s ease, border-color 0.3s;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-        }
-
-        .video-card:hover {
-            transform: translateY(-5px);
-            border-color: #ffd700;
-        }
-
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .video-title {
-            margin-top: 15px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #ffd700;
-            text-align: center;
-        }
-
-        .video-desc {
-            margin-top: 8px;
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.8);
-            text-align: center;
-        }
-
-        .boutons-nav {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin: 40px 0 20px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
+            gap: 15px;
         }
 
-        .bouton {
-            padding: 12px 30px;
-            background: rgba(255, 255, 255, 0.1);
+        .carrousel-section h2 {
+            color: white;
+            font-size: 28px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin: 0;
+        }
+
+        .controles-carrousel {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-carrousel {
+            padding: 8px 20px;
+            background: rgba(255, 215, 0, 0.2);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            border: 1px solid #ffd700;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn-carrousel:hover {
+            background: #ffd700;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        .carrousel-container {
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .carrousel {
+            display: flex;
+            gap: 30px;
+            width: fit-content;
+        }
+
+        /* Animation vers la gauche */
+        .carrousel.left {
+            animation: scrollLeft 25s linear infinite;
+        }
+
+        /* Animation vers la droite */
+        .carrousel.right {
+            animation: scrollRight 25s linear infinite;
+        }
+
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes scrollRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        .fenetre {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            display: block;
+            min-width: 250px;
+        }
+
+        .fenetre:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .fenetre img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .fenetre:hover img {
+            transform: scale(1.1);
+        }
+
+        .fenetre h3 {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .bouton-retour {
+            display: inline-block;
+            margin: 30px 0;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 50px;
             color: white;
             text-decoration: none;
             transition: all 0.3s;
-            font-size: 16px;
         }
 
-        .bouton:hover {
-            background: #ffd700;
-            color: black;
+        .bouton-retour:hover {
+            background: rgba(255, 255, 255, 0.3);
             transform: scale(1.05);
         }
 
@@ -165,96 +202,225 @@
             transform: scale(1.05);
         }
 
-        @media (max-width: 700px) {
-            .video-card {
-                max-width: 100%;
-                padding: 15px;
-            }
-            h1 {
-                font-size: 36px;
-            }
-            .video-title {
-                font-size: 18px;
-            }
+        @media (max-width: 600px) {
+            .carrousel-header { flex-direction: column; align-items: flex-start; }
+            h1 { font-size: 32px; }
+            .fenetre { min-width: 200px; }
+            .fenetre img { height: 150px; }
         }
     </style>
 </head>
 <body>
-
-    <!-- Musique d'ambiance (optionnelle) -->
-    <!-- <audio id="musiqueFond" src="/presentation/musique/bande-son-game-play-mtb-1.mp3" preload="auto" loop></audio> -->
-
+    
+    <audio id="musiqueAccueil" src="/presentation/musique/mutant-teddy-bear-04.mp3" preload="auto" loop></audio>
+    
     <div class="container">
         
-        <h1>🎬 VIDÉOS OFFICIELLES</h1>
-
-        <div class="boutons-nav">
-            <a href="/index.html" class="bouton">← Accueil</a>
-            <a href="/menu.html" class="bouton">← Menu</a>
-        </div>
-
-        <div class="videos-list">
-            <!-- Carte vidéo 1 -->
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/watch?v=X1U705a6qME" 
-                        title="YouTube video player" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
-                        allowfullscreen>
-                    </iframe>
+        <a href="/index.html" class="bouton-retour">← Retour à l'accueil</a>
+        
+        <h1> COLLECTION MUTANT TEDDY BEAR</h1>
+        
+        <!-- CARROUSEL 1 -->
+        <div class="carrousel-section">
+            <div class="carrousel-header">
+                <h2>Les Collections</h2>
+                <div class="controles-carrousel">
+                    <button class="btn-carrousel" id="left1">◀ Left</button>
+                    <button class="btn-carrousel" id="right1">Right ▶</button>
                 </div>
-                <div class="video-title">Titre de la première vidéo</div>
-                <div class="video-desc">Courte description (optionnel).</div>
             </div>
+            <div class="carrousel-container">
+                <div class="carrousel left" id="carrousel1">
+                    
+                    <a href="/images/fonds/teddy-presentation.html" class="fenetre">
+                        <img src="/images/carrousel/carrousel-presentation.jpg" alt="Teddy">
+                        <h3>PRESENTATION</h3>
+                    </a>
+                    
+                    <a href="/images/fonds/page-card-aqua.html" class="fenetre">
+                        <img src="/images/carrousel/_97938324-8b9a-4977-828b-17bae6e96934.jpg" alt="Teddy">
+                        <h3>Aqua Collection</h3>
+                    </a>
+                    
+                    <a href="/images/fonds/page-presentation-card-dark.html" class="fenetre">
+                        <img src="/images/carrousel/_204842e4-74a4-4db3-85cf-0862627109d4.jpg" alt="Teddy">
+                        <h3>Fire Collection</h3>
+                    </a>
+                    
+                    <a href="/images/fonds/page-presentation-card-earth.html" class="fenetre">
+                        <img src="/images/carrousel/_2a18f1bf-0a6c-44a9-9015-050e8914227d.jpg" alt="Teddy">
+                        <h3>Earth collection</h3>
+                    </a>
 
-            <!-- Carte vidéo 2 -->
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/VIDEO_ID_2" 
-                        title="YouTube video player" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
-                        allowfullscreen>
-                    </iframe>
+                    <a href="/images/fonds/page-presentation-card-wind.html" class="fenetre">
+                        <img src="/images/carrousel/_a5f3abf6-f3e0-4c13-b21a-5a90270d86e4.jpg" alt="Teddy">
+                        <h3>Wind Collection</h3>
+                    </a>
+                    
+                    <a href="/images/fonds/monster.html" class="fenetre">
+                        <img src="/images/carrousel/_1d3f7430-0431-43c2-9216-85021c1e17c2.jpg" alt="Teddy">
+                        <h3>Monster Collection</h3>
+                    </a>
+                    
+                    <a href="/images/fonds/page-presentation-card-heavenly.html" class="fenetre">
+                        <img src="/images/carrousel/_f01d0438-50c1-4e54-b213-83a017f0d8e7.jpg" alt="Teddy">
+                        <h3>Heavenly Collection</h3>
+                    </a>
+
+                    <a href="/teddy4.html" class="fenetre">
+                        <img src="/images/carrousel/_e7990c6f-e8f6-4b58-af5c-bfc70cb1b6e4.jpg" alt="Teddy">
+                        <h3>Dark Collection</h3>
+                    </a>
+                    
+                    <a href="/teddy4.html" class="fenetre">
+                        <img src="/images/carrousel/_4052e885-dc14-43bf-b042-09f0b17b371c.jpg" alt="Teddy">
+                        <h3>Marchandising Collection</h3>
+                    </a>
+
+                    <a href="/teddy4.html" class="fenetre">
+                        <img src="/images/carrousel/_5b1750fc-5332-4c10-95af-b0cda3f5ee65.jpg" alt="Teddy">
+                        <h3>Maps</h3>
+                    </a>
+
+                    <a href="/teddy4.html" class="fenetre">
+                        <img src="/images/carrousel/_b72e99e8-aed9-4256-8bc9-ea7bf424c19b.jpg" alt="Teddy">
+                        <h3>Game play</h3>
+                    </a>
+                    
+                    <a href="/teddy4.html" class="fenetre">
+                        <img src="/images/carrousel/_9e65845a-a410-4eef-95b3-a259ff41e208.jpg" alt="Teddy">
+                        <h3>Crypto system</h3>
+                    </a>   
+   
+                    <!-- DUPLICATION pour effet infini -->
+                    <a href="/images/fonds/teddy-presentation.html" class="fenetre">
+                        <img src="/images/carrousel/carrousel-presentation.jpg" alt="Teddy">
+                        <h3>Teddy Présentation</h3>
+                    </a>
+                    
+                    <a href="/images/fonds/page-card-aqua.html" class="fenetre">
+                        <img src="/images/carrousel/_97938324-8b9a-4977-828b-17bae6e96934.jpg" alt="Teddy">
+                        <h3>Collection Aqua</h3>
+                    </a>
+                    
                 </div>
-                <div class="video-title">Titre de la deuxième vidéo</div>
-                <div class="video-desc">Courte description.</div>
             </div>
-
-            <!-- Ajoute d'autres cartes ici en copiant le bloc -->
         </div>
+        
+        <!-- CARROUSEL 2 -->
+        <div class="carrousel-section">
+            <div class="carrousel-header">
+                <h2>Les Édition Limitée</h2>
+                <div class="controles-carrousel">
+                    <button class="btn-carrousel" id="left2">◀ Left</button>
+                    <button class="btn-carrousel" id="right2">Right ▶</button>
+                </div>
+            </div>
+            <div class="carrousel-container">
+                <div class="carrousel right" id="carrousel2">
+                    
+                    <a href="/teddy5.html" class="fenetre">
+                        <img src="/images/carrousel/_4052e885-dc14-43bf-b042-09f0b17b371c.jpg" alt="Teddy">
+                        <h3>Limited 1</h3>
+                    </a>
+                    
+                    <a href="/teddy6.html" class="fenetre">
+                        <img src="/images/carrousel/_5b1750fc-5332-4c10-95af-b0cda3f5ee65.jpg" alt="Teddy">
+                        <h3>Limited 2</h3>
+                    </a>
+                    
+                    <a href="/teddy7.html" class="fenetre">
+                        <img src="/images/carrousel/_9e65845a-a410-4eef-95b3-a259ff41e208.jpg" alt="Teddy">
+                        <h3>Limited 3</h3>
+                    </a>
+                    
+                    <a href="/teddy8.html" class="fenetre">
+                        <img src="/images/carrousel/_b72e99e8-aed9-4256-8bc9-ea7bf424c19b.jpg" alt="Teddy">
+                        <h3>Limited 4</h3>
+                    </a>
+                    
+                    <!-- DUPLICATION -->
+                    <a href="/teddy5.html" class="fenetre">
+                        <img src="/images/carrousel/_e0193434-2fe3-49c4-8ccc-9a0520ca37ab.jpg" alt="Teddy">
+                        <h3>Limited 1</h3>
+                    </a>
+                    
+                    <a href="/teddy6.html" class="fenetre">
+                        <img src="/images/carrousel/_5b1750fc-5332-4c10-95af-b0cda3f5ee65.jpg" alt="Teddy">
+                        <h3>Limited 2</h3>
+                    </a>
+                    
+                    <a href="/teddy7.html" class="fenetre">
+                        <img src="/images/carrousel/_9e65845a-a410-4eef-95b3-a259ff41e208.jpg" alt="Teddy">
+                        <h3>Limited 3</h3>
+                    </a>
+                    
+                    <a href="/teddy8.html" class="fenetre">
+                        <img src="/images/carrousel/_b72e99e8-aed9-4256-8bc9-ea7bf424c19b.jpg" alt="Teddy">
+                        <h3>Limited 4</h3>
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+        
     </div>
-
-    <!-- Bouton musique flottant (désactivé par défaut) -->
-    <!-- <button id="boutonMusique">🔇 Activer la musique</button> -->
-
-    <!-- <script>
-        // Musique si décommentée
-        const musiqueFond = document.getElementById('musiqueFond');
+    
+    <button id="boutonMusique">🔇 Activer la musique</button>
+    
+    <script>
+        // ========== MUSIQUE ==========
+        const audio = document.getElementById('musiqueAccueil');
         const boutonMusique = document.getElementById('boutonMusique');
-        if (musiqueFond && boutonMusique) {
-            if (localStorage.getItem('musiqueJoue') === 'true') {
-                musiqueFond.play().catch(e => console.log("Auto-play bloqué"));
-                boutonMusique.textContent = '🔊 Couper la musique';
-            }
-            boutonMusique.addEventListener('click', () => {
-                if (musiqueFond.paused) {
-                    musiqueFond.play();
-                    boutonMusique.textContent = '🔊 Couper la musique';
-                    localStorage.setItem('musiqueJoue', 'true');
-                } else {
-                    musiqueFond.pause();
-                    boutonMusique.textContent = '🔇 Activer la musique';
-                    localStorage.setItem('musiqueJoue', 'false');
-                }
-            });
+        
+        if (localStorage.getItem('musiqueJoue') === 'true') {
+            audio.play().catch(e => console.log("Auto-play bloqué"));
+            boutonMusique.textContent = '🔊 Couper la musique';
         }
-    </script> -->
-
+        
+        boutonMusique.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                boutonMusique.textContent = '🔊 Couper la musique';
+                localStorage.setItem('musiqueJoue', 'true');
+            } else {
+                audio.pause();
+                boutonMusique.textContent = '🔇 Activer la musique';
+                localStorage.setItem('musiqueJoue', 'false');
+            }
+        });
+        
+        // ========== GESTION DES CARROUSELS ==========
+        
+        // Carrousel 1
+        const carrousel1 = document.getElementById('carrousel1');
+        const left1 = document.getElementById('left1');
+        const right1 = document.getElementById('right1');
+        
+        left1.addEventListener('click', () => {
+            carrousel1.classList.remove('left', 'right');
+            carrousel1.classList.add('left');
+        });
+        
+        right1.addEventListener('click', () => {
+            carrousel1.classList.remove('left', 'right');
+            carrousel1.classList.add('right');
+        });
+        
+        // Carrousel 2
+        const carrousel2 = document.getElementById('carrousel2');
+        const left2 = document.getElementById('left2');
+        const right2 = document.getElementById('right2');
+        
+        left2.addEventListener('click', () => {
+            carrousel2.classList.remove('left', 'right');
+            carrousel2.classList.add('left');
+        });
+        
+        right2.addEventListener('click', () => {
+            carrousel2.classList.remove('left', 'right');
+            carrousel2.classList.add('right');
+        });
+    </script>
 </body>
 </html>
