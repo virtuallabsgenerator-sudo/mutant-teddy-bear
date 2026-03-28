@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vidéos Teddy - Page Type</title>
+    <title>Menu - Univers Teddy</title>
     <style>
-        /* ========== RESET ========== */
         * {
             margin: 0;
             padding: 0;
@@ -13,13 +12,15 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: black;
+            font-family: 'Arial', sans-serif;
             min-height: 100vh;
+            background-image: url('/images/design/font-site/font-site-01.webp');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             position: relative;
         }
 
-        /* Image de fond */
         body::before {
             content: '';
             position: fixed;
@@ -27,518 +28,371 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('/images/fonds/fond-video.webp');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            opacity: 0.8;
-            z-index: -2;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: -1;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 0;
         }
 
         .container {
             position: relative;
             z-index: 1;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 30px 20px;
-            color: white;
+            padding: 40px 20px;
         }
 
-        /* ========== IMAGE DE PRÉSENTATION 1920x1080 ========== */
-        .image-presentation {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 40px;
-            border: 3px solid rgba(255, 215, 0, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .image-presentation img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .image-presentation:hover img {
-            transform: scale(1.02);
-        }
-
-        /* ========== TITRE ========== */
         h1 {
             text-align: center;
-            font-size: 48px;
-            color: #ffd700;
-            margin: 30px 0;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-            letter-spacing: 2px;
-        }
-
-        /* ========== SECTION TEXTE ========== */
-        .texte-section {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px;
-            padding: 40px;
-            margin: 40px 0 60px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .texte-section h2 {
-            color: #ffd700;
-            font-size: 32px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .texte-section p {
-            font-size: 18px;
-            line-height: 1.8;
-            text-align: justify;
             color: white;
+            font-size: 48px;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        /* ========== CARROUSEL VIDÉO ========== */
-        .video-section {
-            margin: 60px 0;
+        .carrousel-section {
+            margin-bottom: 60px;
         }
 
-        .video-section h2 {
-            color: #ffd700;
-            font-size: 36px;
-            margin-bottom: 30px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+        .carrousel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .carrousel-section h2 {
+            color: white;
+            font-size: 28px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin: 0;
+        }
+
+        .controles-carrousel {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-carrousel {
+            padding: 8px 20px;
+            background: rgba(255, 215, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid #ffd700;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn-carrousel:hover {
+            background: #ffd700;
+            color: black;
+            transform: scale(1.05);
         }
 
         .carrousel-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 20px 0;
+            overflow: hidden;
+            padding: 20px 0;
         }
 
-        /* Boutons de défilement */
-        .bouton-carrousel {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255, 215, 0, 0.2);
-            border: 2px solid #ffd700;
-            color: #ffd700;
-            font-size: 24px;
-            cursor: pointer;
+        .carrousel {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            gap: 30px;
+            width: fit-content;
+        }
+
+        .carrousel.left {
+            animation: scrollLeft 25s linear infinite;
+        }
+
+        .carrousel.right {
+            animation: scrollRight 25s linear infinite;
+        }
+
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes scrollRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        .fenetre {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
-            flex-shrink: 0;
-            z-index: 10;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            display: block;
+            min-width: 250px;
         }
 
-        .bouton-carrousel:hover {
-            background: #ffd700;
-            color: black;
+        .fenetre:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .fenetre img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .fenetre:hover img {
             transform: scale(1.1);
         }
 
-        .bouton-carrousel:active {
-            transform: scale(0.95);
-        }
-
-        /* Zone de défilement */
-        .carrousel-wrapper {
-            flex: 1;
-            overflow: hidden;
-            border-radius: 15px;
-        }
-
-        .carrousel-videos {
-            display: flex;
-            gap: 25px;
-            transition: transform 0.5s ease;
-            padding: 10px 0;
-        }
-
-        /* Carte vidéo */
-        .video-card {
-            min-width: 320px;
-            flex: 0 0 320px;
-            background: rgba(20, 20, 30, 0.8);
-            backdrop-filter: blur(5px);
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            border-radius: 15px;
-            padding: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .video-card:hover {
-            transform: translateY(-10px);
-            border-color: #ffd700;
-            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.3);
-        }
-
-        .video-card video {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            pointer-events: none;  /* Empêche la lecture directe dans la carte */
-        }
-
-        .video-card h3 {
-            color: #ffd700;
+        .fenetre h3 {
+            text-align: center;
             font-size: 18px;
-            text-align: center;
-            margin: 10px 0 5px;
+            margin-top: 10px;
         }
 
-        .video-card p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-            text-align: center;
-        }
-
-        /* ========== BOUTONS DE NAVIGATION ========== */
-        .boutons-nav {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-
-        .bouton {
+        .bouton-retour {
+            display: inline-block;
+            margin: 30px 0;
             padding: 12px 30px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 50px;
             color: white;
             text-decoration: none;
             transition: all 0.3s;
         }
 
-        .bouton:hover {
-            background: #ffd700;
-            color: black;
+        .bouton-retour:hover {
+            background: rgba(255, 255, 255, 0.3);
             transform: scale(1.05);
         }
 
-        /* ========== MODAL VIDÉO ========== */
-        .modal {
-            display: none;
+        #boutonMusique {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(10px);
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-contenu {
-            background: rgba(0, 0, 0, 0.9);
-            border: 3px solid #ffd700;
-            border-radius: 20px;
-            padding: 20px;
-            max-width: 800px;
-            width: 90%;
-            animation: modalApparition 0.3s ease;
-        }
-
-        @keyframes modalApparition {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .modal-contenu video {
-            width: 100%;
-            max-height: 70vh;
-            border-radius: 10px;
-        }
-
-        .modal-fermer {
-            display: block;
-            margin: 20px auto 0;
-            padding: 10px 40px;
-            background: transparent;
-            border: 2px solid #ffd700;
-            color: #ffd700;
+            color: white;
+            border: 1px solid #ffd700;
             border-radius: 50px;
             cursor: pointer;
+            z-index: 1000;
             transition: all 0.3s;
         }
 
-        .modal-fermer:hover {
-            background: #ffd700;
-            color: black;
+        #boutonMusique:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.05);
         }
 
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 768px) {
-            .video-card {
-                min-width: 260px;
-                flex: 0 0 260px;
-            }
-
-            h1 {
-                font-size: 32px;
-            }
-
-            .bouton-carrousel {
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-            }
+        @media (max-width: 600px) {
+            .carrousel-header { flex-direction: column; align-items: flex-start; }
+            h1 { font-size: 32px; }
+            .fenetre { min-width: 200px; }
+            .fenetre img { height: 150px; }
         }
     </style>
 </head>
 <body>
-
+    
+    <audio id="musiqueAccueil" src="/presentation/musique/mutant-teddy-bear-04.mp3" preload="auto" loop></audio>
+    
     <div class="container">
         
-        <!-- IMAGE DE PRÉSENTATION 1920x1080 -->
-        <div class="image-presentation">
-            <img src="/images/presentation/presentation-video.webp" alt="Présentation Vidéo">
-        </div>
-
-        <!-- TITRE PRINCIPAL -->
-        <h1>🎬 GALERIE VIDÉO DES TEDDIES</h1>
-
-        <!-- BOUTONS NAVIGATION -->
-        <div class="boutons-nav">
-            <a href="/index.html" class="bouton">← Accueil</a>
-            <a href="/menu.html" class="bouton">← Menu principal</a>
-        </div>
-
-        <!-- SECTION TEXTE -->
-        <div class="texte-section">
-            <h2>📖 L'HISTOIRE EN VIDÉO</h2>
-            <p>
-                Découvrez l'univers des Mutant Teddy Bear à travers cette collection vidéo exclusive. 
-                Plongez au cœur de l'aventure et explorez les différentes facettes de ce monde magique. 
-                Chaque vidéo vous révèle un aspect unique de l'histoire, des personnages et de leurs pouvoirs.
-            </p>
-        </div>
-
-        <!-- CARROUSEL VIDÉO -->
-        <div class="video-section">
-            <h2>🎥 VIDÉOS À DÉCOUVRIR</h2>
-            
-            <!-- Premier carrousel -->
-            <div class="carrousel-container">
-                <button class="bouton-carrousel" onclick="defilerCarrousel('carrousel1', -1)">←</button>
-                
-                <div class="carrousel-wrapper">
-                    <div class="carrousel-videos" id="carrousel1">
-                        
-                        <!-- VIDÉO 1 -->
-                        <div class="video-card" onclick="ouvrirModal(0)">
-                            <video src="/videos/video1.mp4" preload="metadata"></video>
-                            <h3>TEDDY DORÉ</h3>
-                            <p>⭐ Présentation Légendaire ⭐</p>
-                        </div>
-
-                        <!-- VIDÉO 2 -->
-                        <div class="video-card" onclick="ouvrirModal(1)">
-                            <video src="/videos/video2.mp4" preload="metadata"></video>
-                            <h3>TEDDY SPATIAL</h3>
-                            <p>🌌 Voyage Cosmique 🌌</p>
-                        </div>
-
-                        <!-- VIDÉO 3 -->
-                        <div class="video-card" onclick="ouvrirModal(2)">
-                            <video src="/videos/video3.mp4" preload="metadata"></video>
-                            <h3>TEDDY PILOTE</h3>
-                            <p>✈️ Aventure Céleste ✈️</p>
-                        </div>
-
-                        <!-- VIDÉO 4 -->
-                        <div class="video-card" onclick="ouvrirModal(3)">
-                            <video src="/videos/video4.mp4" preload="metadata"></video>
-                            <h3>TEDDY MYSTIQUE</h3>
-                            <p>🔮 Pouvoirs Magiques 🔮</p>
-                        </div>
-
-                        <!-- VIDÉO 5 -->
-                        <div class="video-card" onclick="ouvrirModal(4)">
-                            <video src="/videos/video5.mp4" preload="metadata"></video>
-                            <h3>TEDDY FANTOME</h3>
-                            <p>👻 Halloween Special 👻</p>
-                        </div>
-
-                        <!-- VIDÉO 6 -->
-                        <div class="video-card" onclick="ouvrirModal(5)">
-                            <video src="/videos/video6.mp4" preload="metadata"></video>
-                            <h3>TEDDY ROYAL</h3>
-                            <p>👑 Édition Or 👑</p>
-                        </div>
-
-                        <!-- VIDÉO 7 -->
-                        <div class="video-card" onclick="ouvrirModal(6)">
-                            <video src="/videos/video7.mp4" preload="metadata"></video>
-                            <h3>TEDDY COSMOS</h3>
-                            <p>✨ Collection Spatiale ✨</p>
-                        </div>
-
-                        <!-- VIDÉO 8 -->
-                        <div class="video-card" onclick="ouvrirModal(7)">
-                            <video src="/videos/video8.mp4" preload="metadata"></video>
-                            <h3>TEDDY LÉGENDE</h3>
-                            <p>⚡ Édition Mythique ⚡</p>
-                        </div>
-                        
-                    </div>
+        <a href="/index.html" class="bouton-retour">← Retour à l'accueil</a>
+        
+        <h1> COLLECTION MUTANT TEDDY BEAR</h1>
+        
+        <!-- CARROUSEL 1 -->
+        <div class="carrousel-section">
+            <div class="carrousel-header">
+                <h2>Les Collections</h2>
+                <div class="controles-carrousel">
+                    <button class="btn-carrousel" id="left1">◀ Left</button>
+                    <button class="btn-carrousel" id="right1">Right ▶</button>
                 </div>
-                
-                <button class="bouton-carrousel" onclick="defilerCarrousel('carrousel1', 1)">→</button>
             </div>
+            <div class="carrousel-container">
+                <div class="carrousel left" id="carrousel1">
+                    
+                    <a href="/images/fonds/teddy-presentation.html" class="fenetre">
+                        <img src="/images/carrousel/carrousel-presentation.jpg" alt="Teddy">
+                        <h3>PRESENTATION</h3>
+                    </a>
+                    
+                    <a href="/images/fonds/page-card-aqua.html" class="fenetre">
+                        <img src="/images/carrousel/_97938324-8b9a-4977-828b-17bae6e96934.jpg" alt="Teddy">
+                        <h3>Aqua Collection</h3>
+                    </a>
+                    
+                    <a href="/images/fonds/teddy-presentation.html" class="fenetre">
+                        <img src="/images/carrousel/_204842e4-74a4-4db3-85cf-0862627109d4.jpg" alt="Teddy">
+                        <h3>Fire Collection</h3>
+                    </a>
+                    
+                    <a href="/teddy3.html" class="fenetre">
+                        <img src="/images/carrousel/_2a18f1bf-0a6c-44a9-9015-050e8914227d.jpg" alt="Teddy">
+                        <h3>Earth collection</h3>
+                    </a>
 
-            <!-- Deuxième carrousel (si besoin) -->
-            <!-- Vous pouvez copier le bloc ci-dessus pour un deuxième carrousel -->
-            
+                    <a href="/teddy4.html" class="fenetre">
+                        <img src="/images/carrousel/_a5f3abf6-f3e0-4c13-b21a-5a90270d86e4.jpg" alt="Teddy">
+                        <h3>Wind Collection</h3>
+                    </a>
+                    
+                    <a href="/teddy4.html" class="fenetre">
+                        <img src="/images/carrousel/_1d3f7430-0431-43c2-9216-85021c1e17c2.jpg" alt="Teddy">
+                        <h3>Monster Collection</h3>
+                    </a>
+                    
+                    <a href="/teddy4.html" class="fenetre">
+                        <img src="/images/carrousel/_f01d0438-50c1-4e54-b213-83a017f0d8e7.jpg" alt="Teddy">
+                        <h3>Heavenly Collection</h3>
+                    </a>
+
+                    <a href="/teddy4.html" class="fenetre">
+                        <img src="/images/carrousel/_e7990c6f-e8f6-4b58-af5c-bfc70cb1b6e4.jpg" alt="Teddy">
+                        <h3>Dark Collection</h3>
+                    </a>
+                    
+                    <a href="/teddy4.html" class="fenetre">
+                        <img src="/images/carrousel/_4052e885-dc14-43bf-b042-09f0b17b371c.jpg" alt="Teddy">
+                        <h3>Marchandising Collection</h3>
+                    </a>
+
+                    <a href="/teddy4.html" class="fenetre">
+                        <img src="/images/carrousel/_5b1750fc-5332-4c10-95af-b0cda3f5ee65.jpg" alt="Teddy">
+                        <h3>Maps</h3>
+                    </a>
+
+                    <a href="/teddy4.html" class="fenetre">
+                        <img src="/images/carrousel/_b72e99e8-aed9-4256-8bc9-ea7bf424c19b.jpg" alt="Teddy">
+                        <h3>Game play</h3>
+                    </a>
+                    
+                    <a href="/teddy4.html" class="fenetre">
+                        <img src="/images/carrousel/_9e65845a-a410-4eef-95b3-a259ff41e208.jpg" alt="Teddy">
+                        <h3>Crypto system</h3>
+                    </a>   
+   
+                    <!-- DUPLICATION pour effet infini -->
+                    <a href="/images/fonds/teddy-presentation.html" class="fenetre">
+                        <img src="/images/carrousel/carrousel-presentation.jpg" alt="Teddy">
+                        <h3>Teddy Présentation</h3>
+                    </a>
+                    
+                    <a href="/images/fonds/page-card-aqua.html" class="fenetre">
+                        <img src="/images/carrousel/_97938324-8b9a-4977-828b-17bae6e96934.jpg" alt="Teddy">
+                        <h3>Collection Aqua</h3>
+                    </a>
+                    
+                </div>
+            </div>
         </div>
-
-    </div>
-
-    <!-- MODAL VIDÉO -->
-    <div class="modal" id="modal">
-        <div class="modal-contenu">
-            <video id="modalVideo" controls autoplay></video>
-            <button class="modal-fermer" onclick="fermerModal()">Fermer</button>
+        
+        <!-- CARROUSEL 2 -->
+        <div class="carrousel-section">
+            <div class="carrousel-header">
+                <h2>Les Édition Limitée</h2>
+                <div class="controles-carrousel">
+                    <button class="btn-carrousel" id="left2">◀ Left</button>
+                    <button class="btn-carrousel" id="right2">Right ▶</button>
+                </div>
+            </div>
+            <div class="carrousel-container">
+                <div class="carrousel right" id="carrousel2">
+                    
+                    <a href="/teddy5.html" class="fenetre">
+                        <img src="/images/carrousel/_4052e885-dc14-43bf-b042-09f0b17b371c.jpg" alt="Teddy">
+                        <h3>Limited 1</h3>
+                    </a>
+                    
+                    <a href="/teddy6.html" class="fenetre">
+                        <img src="/images/carrousel/_5b1750fc-5332-4c10-95af-b0cda3f5ee65.jpg" alt="Teddy">
+                        <h3>Limited 2</h3>
+                    </a>
+                    
+                    <a href="/teddy7.html" class="fenetre">
+                        <img src="/images/carrousel/_9e65845a-a410-4eef-95b3-a259ff41e208.jpg" alt="Teddy">
+                        <h3>Limited 3</h3>
+                    </a>
+                    
+                    <a href="/teddy8.html" class="fenetre">
+                        <img src="/images/carrousel/_b72e99e8-aed9-4256-8bc9-ea7bf424c19b.jpg" alt="Teddy">
+                        <h3>Limited 4</h3>
+                    </a>
+                    
+                    <!-- DUPLICATION -->
+                    <a href="/teddy5.html" class="fenetre">
+                        <img src="/images/carrousel/_e0193434-2fe3-49c4-8ccc-9a0520ca37ab.jpg" alt="Teddy">
+                        <h3>Limited 1</h3>
+                    </a>
+                    
+                    <a href="/teddy6.html" class="fenetre">
+                        <img src="/images/carrousel/_5b1750fc-5332-4c10-95af-b0cda3f5ee65.jpg" alt="Teddy">
+                        <h3>Limited 2</h3>
+                    </a>
+                    
+                    <a href="/teddy7.html" class="fenetre">
+                        <img src="/images/carrousel/_9e65845a-a410-4eef-95b3-a259ff41e208.jpg" alt="Teddy">
+                        <h3>Limited 3</h3>
+                    </a>
+                    
+                    <a href="/teddy8.html" class="fenetre">
+                        <img src="/images/carrousel/_b72e99e8-aed9-4256-8bc9-ea7bf424c19b.jpg" alt="Teddy">
+                        <h3>Limited 4</h3>
+                    </a>
+                    
+                </div>
+            </div>
         </div>
+        
     </div>
-
+    
+    <button id="boutonMusique">🔇 Activer la musique</button>
+    
     <script>
-        // ========== DONNÉES DES VIDÉOS ==========
-        const videosData = [
-            { src: "/videos/video1.mp4" },   // Vidéo 0
-            { src: "/videos/video2.mp4" },   // Vidéo 1
-            { src: "/videos/video3.mp4" },   // Vidéo 2
-            { src: "/videos/video4.mp4" },   // Vidéo 3
-            { src: "/videos/video5.mp4" },   // Vidéo 4
-            { src: "/videos/video6.mp4" },   // Vidéo 5
-            { src: "/videos/video7.mp4" },   // Vidéo 6
-            { src: "/videos/video8.mp4" }    // Vidéo 7
-        ];
-
-        // ========== FONCTIONS DU CARROUSEL ==========
-        function defilerCarrousel(carrouselId, direction) {
-            const carrousel = document.getElementById(carrouselId);
-            const cardWidth = carrousel.querySelector('.video-card')?.offsetWidth || 345;
-            const gap = 25;
-            const scrollAmount = cardWidth + gap;
-            
-            const currentTransform = carrousel.style.transform;
-            let currentX = 0;
-            
-            if (currentTransform) {
-                const match = currentTransform.match(/translateX\((-?\d+)px\)/);
-                if (match) {
-                    currentX = parseInt(match[1]);
-                }
-            }
-            
-            const newX = currentX - (direction * scrollAmount);
-            
-            // Limites de défilement
-            const maxScroll = 0;
-            const minScroll = -((carrousel.children.length - 4) * (cardWidth + gap));
-            
-            if (newX <= maxScroll && newX >= minScroll) {
-                carrousel.style.transform = `translateX(${newX}px)`;
-            }
+        // ========== MUSIQUE ==========
+        const audio = document.getElementById('musiqueAccueil');
+        const boutonMusique = document.getElementById('boutonMusique');
+        
+        if (localStorage.getItem('musiqueJoue') === 'true') {
+            audio.play().catch(e => console.log("Auto-play bloqué"));
+            boutonMusique.textContent = '🔊 Couper la musique';
         }
-
-        // ========== FONCTIONS DU MODAL ==========
-        let videoEnCours = null;
-
-        function ouvrirModal(index) {
-            const modal = document.getElementById('modal');
-            const modalVideo = document.getElementById('modalVideo');
-            
-            // Arrêter toutes les vidéos en arrière-plan
-            document.querySelectorAll('video').forEach(v => {
-                if (v.id !== 'modalVideo') {
-                    v.pause();
-                }
-            });
-            
-            modalVideo.src = videosData[index].src;
-            modal.classList.add('active');
-            videoEnCours = modalVideo;
-        }
-
-        function fermerModal() {
-            const modal = document.getElementById('modal');
-            const modalVideo = document.getElementById('modalVideo');
-            
-            modalVideo.pause();
-            modalVideo.currentTime = 0;
-            modal.classList.remove('active');
-            videoEnCours = null;
-        }
-
-        // Fermer avec Echap
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                fermerModal();
+        
+        boutonMusique.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                boutonMusique.textContent = '🔊 Couper la musique';
+                localStorage.setItem('musiqueJoue', 'true');
+            } else {
+                audio.pause();
+                boutonMusique.textContent = '🔇 Activer la musique';
+                localStorage.setItem('musiqueJoue', 'false');
             }
         });
-
-        // Fermer en cliquant en dehors
-        window.addEventListener('click', function(e) {
-            const modal = document.getElementById('modal');
-            if (e.target === modal) {
-                fermerModal();
-            }
-        });
-
-        // Pause des vidéos carrousel quand le modal est ouvert
-        const modal = document.getElementById('modal');
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.target.classList.contains('active')) {
-                    document.querySelectorAll('.video-card video').forEach(v => v.pause());
-                }
-            });
-        });
-
-        observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
-    </script>
-
-</body>
-</html>
+        
+        // ========== GESTION DES CARROUSELS (changement de sens) ==========
+        const carrousel1 = document.getElementById('carrousel1');
+        const left1 = document.getElementById('left1');
+        const right1 = document.getElementById('right1');
+        
+        left1.addEventListener('click', () => {
+            carrousel1.classList.remove('left', 'right');
+            carrousel1.classList
