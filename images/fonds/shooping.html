@@ -212,22 +212,36 @@
 
     <script>
         // ========== LISTE COMPLÈTE DES CARTES ==========
-        const cartes = [
-            { nom: " PLUSH TOY COLLECTION", src: "/images/common/shooping/_03bc0475-80df-4f11-820f-c2480181c240.jpeg" },
-            { nom: "PLUSH TOY COLLECTION", src: "/images/common/shooping/_0f1d042b-5bb5-4c9a-b477-f594e816a875.jpg" },
-            { nom: "PLUSH TOY COLLECTION", src: "/images/common/shooping/_1d17853e-b231-4095-a172-2a5b01404f1e.jpg" },
-            { nom: "PLUSH TOY COLLECTION", src: "/images/common/shooping/_5b80f9fb-8cf2-4ff3-adc5-d6f58c227951.jpeg" },
-            { nom: "PLUSH TOY COLLECTION", src: "/images/common/shooping/_37017522-f4e8-4580-9d54-e9db18de348e.jpeg" }, 
-            { nom: "PLUSH TOY COLLECTION", src:"/images/common/shooping/_4f28a430-c4f6-4e90-9c7a-34ad8972a92d.jpeg" },
-            { nom: "PLUSH TOY COLLECTION", src: "/images/common/shooping/_5257d29d-7d1e-40cc-99e8-990073a38c2e.jpg" },
-            { nom: "POLO COLLECTION", src: "/images/common/shooping/_dc031c2f-34c7-424b-80a0-077bb178e5de.jpg" },
-            { nom: "POLO COLLECTION", src: "/images/common/shooping/_8f3a3096-a21d-4c3f-9407-6a1d038415ca.jpg" },
-            { nom: "SPORTWEAR COLLECTION", src: "/images/common/shooping/_14ab0ef1-3912-4a92-a661-4f60d6223cba.jpg" },
-            { nom: "BALL COLLECTION", src: "/images/common/shooping/_91b1f995-61a8-4dd2-8eb8-8902b4598915.jpg" },
-            { nom: "BALL COLLECTION", src: "/images/common/shooping/_53a8d66a-5925-4035-83d4-ad2c4ededee5.jpg" }
-            { nom: "MUG COLLECTION", src: "/images/common/shooping/_79aa7db0-090f-4442-abbb-66808a1eff91.jpg },
-            { nom: "DRINK COLLECTION", src: "/images/common/shooping/_70431809-705b-4814-82a8-78a75690fdb1.jpg" },
-          
+const cartes = [
+    { nom: "PLUSH TOY COLLECTION", src: "/images/common/shooping/_03bc0475-80df-4f11-820f-c2480181c240.jpeg" },
+    { nom: "PLUSH TOY COLLECTION", src: "/images/common/shooping/_0f1d042b-5bb5-4c9a-b477-f594e816a875.jpg" },
+    { nom: "PLUSH TOY COLLECTION", src: "/images/common/shooping/_1d17853e-b231-4095-a172-2a5b01404f1e.jpg" },
+    { nom: "PLUSH TOY COLLECTION", src: "/images/common/shooping/_5b80f9fb-8cf2-4ff3-adc5-d6f58c227951.jpeg" },
+    { nom: "PLUSH TOY COLLECTION", src: "/images/common/shooping/_37017522-f4e8-4580-9d54-e9db18de348e.jpeg" },
+    { nom: "PLUSH TOY COLLECTION", src: "/images/common/shooping/_4f28a430-c4f6-4e90-9c7a-34ad8972a92d.jpeg" },
+    { nom: "PLUSH TOY COLLECTION", src: "/images/common/shooping/_5257d29d-7d1e-40cc-99e8-990073a38c2e.jpg" },
+    { nom: "POLO COLLECTION", src: "/images/common/shooping/_dc031c2f-34c7-424b-80a0-077bb178e5de.jpg" },
+    { nom: "POLO COLLECTION", src: "/images/common/shooping/_8f3a3096-a21d-4c3f-9407-6a1d038415ca.jpg" },
+    { nom: "SPORTWEAR COLLECTION", src: "/images/common/shooping/_14ab0ef1-3912-4a92-a661-4f60d6223cba.jpg" },
+    { nom: "BALL COLLECTION", src: "/images/common/shooping/_91b1f995-61a8-4dd2-8eb8-8902b4598915.jpg" },
+    { nom: "BALL COLLECTION", src: "/images/common/shooping/_53a8d66a-5925-4035-83d4-ad2c4ededee5.jpg" },
+    { nom: "MUG COLLECTION", src: "/images/common/shooping/_79aa7db0-090f-4442-abbb-66808a1eff91.jpg" },
+    { nom: "DRINK COLLECTION", src: "/images/common/shooping/_70431809-705b-4814-82a8-78a75690fdb1.jpg" }
+];
+
+// ========== GÉNÉRATION DE LA GRILLE ==========
+const grille = document.getElementById('grilleCartes');
+
+cartes.forEach((carte, index) => {
+    const div = document.createElement('div');
+    div.className = 'carte';
+    div.onclick = () => ouvrirModal(index);
+    div.innerHTML = `
+        <img src="${carte.src}" alt="${carte.nom}" onerror="this.onerror=null; this.src='/images/placeholder.webp'; console.error('Image introuvable : ${carte.src}')">
+        <h3>${carte.nom}</h3>
+    `;
+    grille.appendChild(div);
+});
         ];
 
         // ========== GÉNÉRATION DE LA GRILLE ==========
