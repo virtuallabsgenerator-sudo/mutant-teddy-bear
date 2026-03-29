@@ -8,7 +8,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: url('../images/design/font-site/marchandising.webp') no-repeat center center fixed;
+    background: url('../images/common/boutique/teddy-dragon.jpeg') no-repeat center center fixed;
     background-size: cover;
     color: white;
 }
@@ -65,14 +65,14 @@ button:disabled {
     <h1>🛒 Boutique</h1>
 
     <div class="nav">
-        <button onclick="location.href='../teddy-presentation.html'">Présentation</button>
+        <button onclick="location.href='../presentation/page-acceuil'">Présentation</button>
         <button onclick="location.href='../../menu.html'">Menu</button>
     </div>
 </header>
 
 <!-- 🎵 Musique (optionnelle) -->
 <audio controls autoplay loop>
-    <source src="../../presentation/musique" type="audio/mpeg">
+    <source src="../../presentation/musique/mutant-teddy-bear-interlude-8.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container" id="shop"></div>
@@ -85,7 +85,7 @@ let products = [
     {
         name: "Teddy Dragon",
         price: 29.99,
-        img: "../common/boutique/teddy-dragon.jpeg",
+        img: "../images/common/boutique/teddy-dragon.jpeg",
         stock: 5,
         desc: `Teddy Dragon – Limited Collector Edition
 
@@ -102,7 +102,6 @@ Bonus: M.T.B crypto tokens usable in the game ecosystem or tradable.
 ✔ Collector packaging
 ✔ EU compliant`
     },
-
     {
         name: "Teddy Deluxe",
         price: 49.99,
