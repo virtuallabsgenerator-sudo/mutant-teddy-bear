@@ -3,23 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galerie Haute Résolution - Teddy</title>
+    <title>Maps - Mutant Teddy Bear</title>
     <style>
-        /* ========== RESET ========== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             background-color: black;
             min-height: 100vh;
             position: relative;
         }
 
-        /* Image de fond */
         body::before {
             content: '';
             position: fixed;
@@ -27,7 +21,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('/images/fonds/fond-galerie.webp');
+            background-image: url('/images/design/font-site/page de font%20(2).webp');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -42,171 +36,125 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             z-index: -1;
         }
 
         .container {
             position: relative;
             z-index: 1;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 30px 20px;
             color: white;
         }
 
-        /* ========== IMAGE DE PRÉSENTATION 1920x1080 ========== */
-        .image-presentation {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 40px;
-            border: 3px solid rgba(255, 215, 0, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .image-presentation img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .image-presentation:hover img {
-            transform: scale(1.02);
-        }
-
-        /* ========== TITRE ========== */
         h1 {
             text-align: center;
             font-size: 48px;
             color: #ffd700;
-            margin: 30px 0 50px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-            letter-spacing: 2px;
-        }
-
-        /* ========== FENÊTRE CENTRALE POUR LES GRANDES IMAGES ========== */
-        .visionneuse {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border: 3px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px;
-            padding: 30px;
             margin: 20px 0 40px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
 
-        .image-container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            min-height: 600px;
-        }
-
-        #imagePrincipale {
-            max-width: 100%;
-            max-height: 800px;
-            object-fit: contain;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: opacity 0.3s ease;
-        }
-
-        /* ========== BOUTONS DE NAVIGATION ========== */
-        .navigation {
-            display: flex;
-            justify-content: center;
+        .grille {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 30px;
-            margin: 30px 0 20px;
+            justify-items: center;
+            margin-top: 20px;
         }
 
-        .nav-btn {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: rgba(255, 215, 0, 0.2);
-            border: 3px solid #ffd700;
-            color: #ffd700;
-            font-size: 36px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .nav-btn:hover {
-            background: #ffd700;
-            color: black;
-            transform: scale(1.1);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
-        }
-
-        .nav-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Indicateur de position */
-        .compteur {
-            text-align: center;
-            color: #ffd700;
-            font-size: 18px;
-            margin: 10px 0;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        /* ========== ZONE DE TEXTE ASSOCIÉ ========== */
-        .texte-associe {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+        .carte {
+            background: rgba(20, 20, 30, 0.8);
+            backdrop-filter: blur(5px);
             border: 2px solid rgba(255, 215, 0, 0.3);
             border-radius: 20px;
-            padding: 40px;
-            margin: 40px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            animation: texteApparition 0.5s ease;
+            padding: 20px;
+            width: 100%;
+            max-width: 320px;
+            transition: transform 0.3s, border-color 0.3s;
+            cursor: pointer;
+            text-align: center;
         }
 
-        @keyframes texteApparition {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .carte:hover {
+            transform: translateY(-10px);
+            border-color: #ffd700;
         }
 
-        .texte-associe h2 {
-            color: #ffd700;
-            font-size: 32px;
-            margin-bottom: 20px;
-            border-left: 5px solid #ffd700;
-            padding-left: 20px;
+        .carte img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 15px;
+            background: #111;
         }
 
-        .texte-associe p {
+        .carte p {
+            margin-top: 15px;
             font-size: 18px;
-            line-height: 1.8;
-            color: white;
-            text-align: justify;
+            font-weight: bold;
+            color: #ffd700;
         }
 
-        /* ========== BOUTONS DE NAVIGATION ========== */
+        /* Modal pour agrandissement */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-contenu {
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid #ffd700;
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+        }
+
+        .modal-contenu img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .modal-fermer {
+            margin-top: 20px;
+            padding: 10px 30px;
+            background: transparent;
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .modal-fermer:hover {
+            background: #ffd700;
+            color: black;
+        }
+
         .boutons-nav {
             display: flex;
             gap: 20px;
             justify-content: center;
-            margin: 40px 0;
-            flex-wrap: wrap;
+            margin: 30px 0 20px;
         }
 
         .bouton {
@@ -223,326 +171,119 @@
         .bouton:hover {
             background: #ffd700;
             color: black;
-            transform: scale(1.05);
         }
 
-        /* ========== ANIMATION DE CHARGEMENT ========== */
-        .loading {
-            text-align: center;
-            padding: 50px;
-            color: #ffd700;
-            font-size: 24px;
+        #boutonMusique {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid #ffd700;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
         }
 
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 32px;
-            }
-
-            .image-container {
-                min-height: 300px;
-            }
-
-            .nav-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 24px;
-            }
-
-            .texte-associe {
-                padding: 20px;
-            }
-
-            .texte-associe h2 {
-                font-size: 24px;
-            }
-
-            .texte-associe p {
-                font-size: 16px;
-            }
+        @media (max-width: 700px) {
+            .grille { gap: 15px; }
+            .carte { max-width: 260px; }
+            h1 { font-size: 36px; }
         }
     </style>
 </head>
 <body>
 
+    <audio id="musiqueFond" src="/presentation/musique/mutant-teddy-bear-01-mp3.mp3" preload="auto" loop></audio>
+
     <div class="container">
-        
-        <!-- IMAGE DE PRÉSENTATION 1920x1080 -->
-        <div class="image-presentation">
-            <img src="/images/presentation/presentation-galerie.webp" alt="Présentation Galerie">
-        </div>
-
-        <!-- TITRE PRINCIPAL -->
-        <h1>🖼️ GALERIE HAUTE RÉSOLUTION</h1>
-
-        <!-- BOUTONS NAVIGATION -->
+        <h1>THE WORLD TEDDY BEAR</h1>
         <div class="boutons-nav">
             <a href="/index.html" class="bouton">← Accueil</a>
-            <a href="/menu.html" class="bouton">← Menu principal</a>
+            <a href="/menu.html" class="bouton">← Menu</a>
         </div>
 
-        <!-- VISIONNEUSE D'IMAGES -->
-        <div class="visionneuse">
-            
-            <!-- Conteneur de l'image -->
-            <div class="image-container">
-                <img id="imagePrincipale" src="/images/galerie/image1-4k.webp" alt="Image haute résolution">
-            </div>
-
-            <!-- Boutons de navigation -->
-            <div class="navigation">
-                <button class="nav-btn" onclick="imagePrecedente()">←</button>
-                <button class="nav-btn" onclick="imageSuivante()">→</button>
-            </div>
-
-            <!-- Compteur -->
-            <div class="compteur" id="compteur">1 / 10</div>
-
-        </div>
-
-        <!-- ZONE DE TEXTE ASSOCIÉ -->
-        <div class="texte-associe" id="texteAssocie">
-            <h2 id="titreImage">Titre de l'image</h2>
-            <p id="descriptionImage">Description détaillée de l'image...</p>
-        </div>
-
+        <div class="grille" id="grille"></div>
     </div>
 
+    <div class="modal" id="modal">
+        <div class="modal-contenu">
+            <img id="modalImage" src="" alt="Aperçu">
+            <button class="modal-fermer" onclick="fermerModal()">Fermer</button>
+        </div>
+    </div>
+
+    <button id="boutonMusique">🔇 Activer la musique</button>
+
     <script>
-        // ========== DONNÉES DES IMAGES ==========
+        // === LISTE DES IMAGES (petite vignette 500x500, grande 3000x3000) ===
+        // Remplace les noms par ceux de tes fichiers dans /images/common/maps/
         const imagesData = [
-            {
-                src: "/images/common/maps/maps-01.png",
-                titre: "🌍 THE WORLD OF MUTANT TEDDY BEAR",
-                description: "
-✨A realm forged from starlight and elemental will, where plush and shadow wage an eternal war✨
-                    
-🏰THE SEVEN LANDS Long ago, the Celestials received seven magic stars from an unknown power—whispers call it God Teddy, a supreme being dwelling beyond the veil.
-With these stars they shaped seven kingdoms, each born from a primordial element.
-Land Element	Rulers	Description:
-Aquaria	Water Good Teddy
-Rolling seas,coral palaces, sunken royal ships.
-
-The Water Star lies hidden in a wreck at the bottom of the ocean.
-Terra Earth	Good Teddy
-Vast plains, deep caves, fortified cities.
-
-The Earth Star rests within the royal palace.
-Zephyria-Wind-Good Teddy
-Floating islands, sky temples, whispering canyons.
-
-The Wind Star is hidden in the highest peak.
-Pyroclast-Fire	Evil Teddy
-Volcanoes, ashen fields, forges of war.
-
-The Fire Star blazes inside the active volcano.
-Fangmire	Life (Monsters)
-Evil Teddy	Swamps, enchanted forests, lairs of beasts.
-
-The Life Star is guarded by ancient creatures.
-Tenebris	Darkness	Dark Teddy
-A corrupted realm, source of the vortex that spills shadow armies into the other lands.
-
-The Darkness Star was stolen long ago and now empowers their invasion.
-Luminara	Light	Neutral (Celestial)
-The hidden land, still sealed. The Light Star is kept by the Light Celestials, who refuse to surrender it.
-    
-🧸 CIVILIZATION
-Across the lands, villages, cities, and castles dot the landscape. Each kingdom has a royal palace that rules its people. Hidden caves—in mountains, forests, or underwater—hold forgotten treasures. Roads and woods are stalked by ambushes set by Dark Teddy scouts or rogue monsters.
-
-Magic items and treasure chests can be found in ruins, guarded by puzzles or beasts. Adventurers may discover powerful artifacts—like the Grimoire of Dark Spell, the Scepter of the Ancient Mage, or the versatile Magic Rope that can reach the heavens.
-
-🌌 THE CELESTIAL REALM
-Above all lies the Celestial Gate, a shimmering portal connecting the seven lands. The Light Celestials guard the gate and the star of Light. They are neutral, but they fear the power of their own star—for it can open a vortex to the lost land of Luminara, a paradise they wish to protect. The Dark Celestials fell long ago, corrupted by the stolen Darkness Star; now they serve the Dark Teddy army.
-
-⭐ THE QUEST FOR THE STARS
-The Dark Teddies used the stolen Darkness Star to tear open the Vortex, allowing shadow creatures to invade the good kingdoms. To stop them, the Mutant Teddy Bear resistance must recover all seven stars and place them on the Celestial Gate. Only then can they call upon God Teddy and restore balance.
-
-But the Light Celestials will not hand over their star willingly. And the Dark Teddies, wielding the power of darkness, grow stronger with every battle.
-
-🔮 UNKNOWN HORIZONS
-Beyond the known world, legends speak of a hidden land of Light that will be revealed in a future chapter. What other secrets does God Teddy guard? And what will happen when the seven stars are finally united?
-
-This is the world of Mutant Teddy Bear—a land of magic, betrayal, and hope, waiting for its heroes to rise. 🧸⚔️    "
-            },
-            {
-                src: "/images/common/maps/maps-02.png",
-                titre: "🌌 TEDDY SPATIAL - COLLECTION AIR",
-                description: "🎮 GAME PROGRESSION – MUTANT TEDDY BEAR ADVENTURE
-🌱 STARTING YOUR JOURNEY
-At the beginning of the game, you choose a type of Teddy Bear (Aqua, Terra, Zephyria, Pyroclast, Fangmire, Tenebris, or Luminara).
-You appear in a small, unlocked area of your home land. The rest of the land is hidden by a fog of war—only as you win battles and complete quests will the map reveal new paths.
-
-🗺️ UNLOCKING THE MAP
-Progression is tied to victories and exploration:
-
-Duels & Small Battles – Clear local threats to open paths to nearby villages.
-
-Village Chiefs – Defeat them to unlock the road to the capital city.
-
-City Governors – Beat them to gain access to the royal castle.
-
-Castle Kings – Overcome the castle ruler to reach the palace where the Star Guardian resides.
-
-Rewards are earned after each victory: gold, magic items, or new cards.
-
-⭐ COLLECTING THE SEVEN STARS
-Each kingdom holds one Magic Star. Most are guarded inside the palace, but two are hidden in special locations:
-
-Fire Star – hidden deep inside the volcano of Pyroclast. You must fight through Volcano Teddy mutants to reach it.
-
-Water Star – lost in a sunken royal ship. You will battle Siren Teddy and Shark Teddy in the depths.
-
-When you defeat a Star Guardian, you claim that star and unlock access to one new kingdom of your choice.
-
-🌍 THE CENTRAL KINGDOM – TERRA
-The Earth Kingdom lies at the center of the map. Its palace is sealed until all six other stars have been collected. Once you hold them, the doors open and you face the final Star Guardian of Earth.
-
-✨ REACHING THE CELESTIAL REALM
-Even after defeating the Earth Guardian, the path to the Celestials is not open. You must possess one of the magic items that can ascend to the sky:
-
-Magic Rope (reaches the heavens)
-
-Winged Shoes
-
-Magic Beans (grow a giant stalk)
-
-Flying Carpet
-
-Magic Broom
-
-These items are hidden across the kingdoms. The Magic Broom belongs to the Witch of Fangmire – she is as powerful as a Star Guardian and lives deep in the Monster Forest.
-Defeat her to claim the broom.
-
-Once you have such an item, you can use the Well of Light – a pool that reflects the Celestial Realm in its waters – to ascend.
-
-🔮 THE CELESTIAL GATE & THE FINAL CHOICE
-At the top, you place the seven stars into the Celestial Gate. This summons God Teddy, the supreme being who created the world. God Teddy offers you one wish – but you must choose within 7 minutes. The possibilities:
-
-Wish for peace – The mutant curse is lifted, all Teddy Bears return to normal, and harmony is restored.
-
-Wish for power – You claim the stolen Darkness Star and become the new ruler of the Dark Teddies.
-If you come from Pyroclast or Fangmire, you will rule over all kingdoms; if from Aquaria, Terra, or Zephyria, you will be corrupted and serve the darkness.
-
-Refuse to choose – You declare war on God Teddy. A celestial battle begins. If you survive, you transcend:
-
-If you started in a dark kingdom (Fire or Monsters), you become a Dark Celestial.
-
-If you started in a light kingdom (Water, Earth, Wind), you become a Light Celestial.
-
-🌌 A WORLD OF ENDLESS ADVENTURE
-Every kingdom hides caves, enchanted forests, ambushes, and treasure chests. Magic items and special cards can be discovered through exploration.
-The game’s open structure lets you choose your path—will you rush to the stars or explore every hidden corner?
-The destiny of the Teddy Bear world lies in your paws. 🧸⚔️ "
-            },
-            {
-                src: "/  ",
-                titre: "    ",
-                description: "   "
-            },
-            {
-                src: "/    ",
-                titre: "    ",
-                description: "   "
-            },
-            {
-                src: "/    ",
-                titre: "   ",
-                description: "   "
-            },
-            {
-                src: "/  ",
-                titre: "  ",
-                description: "     "
-            },
-            {
-                src: "/   ",
-                titre: "   ",
-                description: "Le Teddy Cosmos est parsemé d'étoiles et de constellations. Sa fourrure noire profonde est constellée de points lumineux qui brillent dans la nuit. Il voyage dans l'espace-temps et apparaît aux endroits les plus inattendus."
-            },
-            {
-                src: "/  ",
-                titre: "    ",
-                description: "   "
-            },
-            {
-                src: "/   ",
-                titre: "    ",
-                description: "   "
-            },
-            {
-                src: "/    ",
-                titre: "     ",
-                description: "    "
-            }
+            { thumb: "/images/common/maps/maps-01.png", full: "/images/common/maps/maps-01.png", titre: "MAPS WORLD" },
+            { thumb: "/images/common/maps/maps-02.png", full: "/images/common/maps/maps-02.png", titre: "MAPS WORLD 2 " },
+            { thumb: "/images/common/maps/maps-3.webp", full: "/images/common/maps/maps-3.webp", titre: "MAPS LANDS" },
+            { thumb: "/images/common/maps/carte4_500.jpg", full: "/images/common/maps/carte4_3000.jpg", titre: "" }
+            // Ajoute autant d'objets que nécessaire
         ];
 
-        // ========== VARIABLES ==========
-        let indexActuel = 0;
-        const imagePrincipale = document.getElementById('imagePrincipale');
-        const titreImage = document.getElementById('titreImage');
-        const descriptionImage = document.getElementById('descriptionImage');
-        const compteur = document.getElementById('compteur');
+        const grille = document.getElementById('grille');
 
-        // ========== FONCTIONS DE NAVIGATION ==========
-        function chargerImage(index) {
-            // S'assurer que l'index reste dans les limites
-            indexActuel = (index + imagesData.length) % imagesData.length;
-            
-            // Ajouter un effet de transition
-            imagePrincipale.style.opacity = '0.5';
-            
-            // Charger la nouvelle image
-            setTimeout(() => {
-                imagePrincipale.src = imagesData[indexActuel].src;
-                titreImage.textContent = imagesData[indexActuel].titre;
-                descriptionImage.textContent = imagesData[indexActuel].description;
-                compteur.textContent = `${indexActuel + 1} / ${imagesData.length}`;
-                
-                // Réafficher l'image
-                imagePrincipale.style.opacity = '1';
-            }, 200);
+        imagesData.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'carte';
+            card.onclick = () => ouvrirModal(index);
+            card.innerHTML = `
+                <img src="${item.thumb}" alt="${item.titre}" loading="lazy">
+                <p>${item.titre}</p>
+            `;
+            grille.appendChild(card);
+        });
+
+        // Modal avec image haute résolution
+        const modal = document.getElementById('modal');
+        const modalImage = document.getElementById('modalImage');
+
+        function ouvrirModal(index) {
+            modalImage.src = imagesData[index].full;
+            modal.classList.add('active');
         }
 
-        function imageSuivante() {
-            chargerImage(indexActuel + 1);
+        function fermerModal() {
+            modal.classList.remove('active');
         }
 
-        function imagePrecedente() {
-            chargerImage(indexActuel - 1);
+        // Gestion musique (comme les autres pages)
+        const musiqueFond = document.getElementById('musiqueFond');
+        const boutonMusique = document.getElementById('boutonMusique');
+
+        if (localStorage.getItem('musiqueJoue') === 'true') {
+            musiqueFond.play().catch(e => console.log("Auto-play bloqué"));
+            boutonMusique.textContent = '🔊 Couper la musique';
+        } else {
+            boutonMusique.textContent = '🔇 Activer la musique';
         }
 
-        // ========== GESTION DES TOUCHES CLAVIER ==========
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft') {
-                imagePrecedente();
-            } else if (e.key === 'ArrowRight') {
-                imageSuivante();
+        boutonMusique.addEventListener('click', () => {
+            if (musiqueFond.paused) {
+                musiqueFond.play();
+                boutonMusique.textContent = '🔊 Couper la musique';
+                localStorage.setItem('musiqueJoue', 'true');
+            } else {
+                musiqueFond.pause();
+                boutonMusique.textContent = '🔇 Activer la musique';
+                localStorage.setItem('musiqueJoue', 'false');
             }
         });
 
-        // ========== PRÉCHARGEMENT DES IMAGES (optionnel) ==========
-        function prechargerImages() {
-            imagesData.forEach(img => {
-                const preload = new Image();
-                preload.src = img.src;
-            });
-        }
-
-        // Lancer le préchargement après le chargement de la page
-        window.addEventListener('load', prechargerImages);
-
-        // ========== GESTION DU REDIMENSIONNEMENT ==========
-        let resizeTimer;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function() {
-                // Re-centrer l'image si nécessaire
-                console.log('Fenêtre redimensionnée');
-            }, 250);
+        // Fermeture modale par clic extérieur ou touche Echap
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) fermerModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') fermerModal();
         });
     </script>
-
 </body>
 </html>
