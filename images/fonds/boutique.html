@@ -8,7 +8,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: url(../common/boutique/teddy-dragon.jpeg') no-repeat center center fixed;
+    background: url('../common/boutique/teddy-dragon.jpeg') no-repeat center center fixed;
     background-size: cover;
     color: white;
 }
@@ -50,7 +50,6 @@ button {
 
 button:disabled {
     background: grey;
-    cursor: not-allowed;
 }
 
 .nav {
@@ -65,12 +64,11 @@ button:disabled {
     <h1>🛒 Boutique</h1>
 
     <div class="nav">
-        <button onclick="location.href='../presentation/page-acceuil'">Présentation</button>
+        <button onclick="location.href='../teddy-presentation.html'">Présentation</button>
         <button onclick="location.href='../../menu.html'">Menu</button>
     </div>
 </header>
 
-<!-- 🎵 Musique (optionnelle) -->
 <audio controls autoplay loop>
     <source src="../../presentation/musique/mutant-teddy-bear-interlude-8.mp3" type="audio/mpeg">
 </audio>
@@ -79,80 +77,57 @@ button:disabled {
 
 <script>
 
-// 🛍️ PRODUITS
 let products = [
-    {let products = [
-    {
-        name: "Teddy Toy Dragon",
-        price: 29.99,
-        img: "../common/boutique/teddy-dragon.jpeg",
-        stock: 5,
-        desc: `Teddy Toy Dragon – Limited Collector Edition
 
-Discover the exclusive Teddy Toy Dragon, a unique plush from the Mutant Teddy Bear Adventure universe.
+{
+    name: "Teddy Toy Dragon",
+    price: 29.99,
+    img: "../common/boutique/teddy-dragon.jpeg",
+    stock: 5,
+    desc: `Teddy Toy Dragon – Limited Collector Edition
 
 Light blue color, 20 cm size.
 
 Includes a numbered collector box.
 
-Bonus: M.T.B crypto tokens usable in the game ecosystem or tradable.
+Bonus: M.T.B crypto tokens.
 
-✔ Soft fabric & polyester
-✔ Limited edition
-✔ Collector packaging
-✔ EU compliant`
-    },
-    {
-        name: "Teddy Toy reptil",
-        price: 24.99,
-        img: "../images/common/boutique/teddy-reptil.jpeg",
-        stock: 300,
-        desc: `Teddy Toy Dragon – Limited Collector Edition
+✔ Soft fabric
+✔ Limited edition`
+},
 
-Discover the exclusive Teddy Toy Reptil, a unique plush from the Mutant Teddy Bear Adventure universe.
+{
+    name: "Teddy Toy Reptil",
+    price: 24.99,
+    img: "../common/boutique/teddy-reptil.jpeg",
+    stock: 10,
+    desc: `Exclusive Teddy Reptil plush.
 
-Light blue color, 20 cm size.
+✔ Collector item
+✔ High quality`
+},
 
-Includes a numbered collector box.
+{
+    name: "M.T.B Sportswear",
+    price: 99.99,
+    img: "../common/boutique/sport-swear.jpg",
+    stock: 25,
+    desc: `Black tracksuit – slim fit
 
-Bonus: M.T.B crypto tokens usable in the game ecosystem or tradable.
-    },
-    {
-        name: "Teddy Deluxe",
-        price: 99.99,
-        img: "../common/boutique/sport-swear.jpg",
-        stock: 25,
-        desc: "M.T.B Sportswear Tracksuit – Black Edition
+✔ 100% cotton
+✔ Streetwear style
+✔ Mutant Teddy Bear logo`
+}
 
-Step into style with the exclusive M.T.B Sportswear Tracksuit, part of the Mutant Teddy Bear design collection. 
-Crafted for a modern and urban look, this matching set combines comfort, quality, and bold identity.
-
-Made from 100% cotton, this tracksuit offers a soft feel and breathable comfort, perfect for everyday wear or active moments.
-The slim fit cut delivers a fashionable silhouette, designed to enhance your style.
-
-Featuring a coordinated top and bottom set, the design stands out with the iconic Mutant Teddy Bear Mage Noir logo and the signature inscription:
-“Mutant Teddy Bear Sportswear”
-
-✔ Color: Black
-✔ Material: 100% Cotton
-✔ Fit: Slim, fashion style
-✔ Set: Matching top & bottom
-✔ Sizes: S to XL
-✔ Model: Men
-✔ Official Mutant Teddy Bear design collection
-
-Perfect for streetwear lovers, collectors, or fans of the Mutant Teddy Bear universe."
-    }
 ];
 
-// 🧠 AFFICHAGE
 function renderShop() {
     let shop = document.getElementById("shop");
     shop.innerHTML = "";
 
     products.forEach((p, index) => {
 
-        let stockText = p.stock > 0 ? `Stock: ${p.stock}` : "❌ Rupture de stock";
+        let stockText = p.stock > 0 ? `Stock: ${p.stock}` : "❌ Rupture";
 
         let disabled = p.stock === 0 ? "disabled" : "";
 
@@ -161,7 +136,7 @@ function renderShop() {
             <img src="${p.img}">
             <h3>${p.name}</h3>
             <p>${p.desc}</p>
-            <p>💰 ${p.price}€</p>
+            <p>${p.price}€</p>
             <p>${stockText}</p>
 
             <input type="number" id="qty-${index}" min="1" max="${p.stock}" value="1">
@@ -174,7 +149,6 @@ function renderShop() {
     });
 }
 
-// 💳 ACHAT
 function buy(index) {
     let qty = document.getElementById(`qty-${index}`).value;
     let product = products[index];
@@ -186,12 +160,11 @@ function buy(index) {
 
     product.stock -= qty;
 
-    alert(`Achat confirmé : ${qty} x ${product.name}`);
+    alert(`Achat : ${qty} x ${product.name}`);
 
     renderShop();
 }
 
-// 🚀 INIT
 renderShop();
 
 </script>
