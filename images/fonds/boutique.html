@@ -64,7 +64,7 @@ button:disabled {
     <h1>🛒 Boutique</h1>
 
     <div class="nav">
-        <button onclick="location.href='../teddy-presentation.html'">Présentation</button>
+        <button onclick="location.href='../fonds/teddy-presentation.html'">Présentation</button>
         <button onclick="location.href='../../menu.html'">Menu</button>
     </div>
 </header>
@@ -98,29 +98,219 @@ Bonus: M.T.B crypto tokens.
 
 {
     name: "Teddy Toy Reptil",
-    price: 24.99,
+    price: 29.99,
     img: "../common/boutique/teddy-reptil.jpeg",
-    stock: 10,
-    desc: `Exclusive Teddy Reptil plush.
+    stock: 5,
+    desc: `Teddy Toy Reptil – Limited Collector Edition
 
-✔ Collector item
-✔ High quality`
+Green, orange color, 20 cm size.
+
+Includes a numbered collector box.
+
+Bonus: M.T.B crypto tokens.
+
+✔ Soft fabric
+✔ Limited edition`
 },
+
+{
+    name: "Teddy Toy Rock",
+    price: 29.99,
+    img: "../common/boutique/teddy-rock.jpg",
+    stock: 5,
+    desc: `Teddy Toy Rock – Limited Collector Edition
+
+Blue color, 20 cm size.
+
+Includes a numbered collector box.
+
+Bonus: M.T.B crypto tokens.
+
+✔ Soft fabric
+✔ Limited edition`
+},
+
+{
+    name: "Teddy Toy Sauvage",
+    price: 29.99,
+    img: "../images/common/boutique/teddy-sauvage.jpeg",
+    stock: 5,
+    desc: `Teddy Toy Sauvage – Limited Collector Edition
+
+Grey fur, multi-colored decoration, 20 cm size.
+
+Includes a numbered collector box.
+
+Bonus: M.T.B crypto tokens.
+
+✔ Soft fabric
+✔ Limited edition`
+},
+
+{
+    name: "Teddy Toy Vampire",
+    price: 29.99,
+    img: "../common/boutique/teddy-vampire-2.jpg",
+    stock: 5,
+    desc: `Teddy Toy Vampire – Limited Collector Edition
+
+Purple color, 20 cm size.
+
+Includes a numbered collector box.
+
+Bonus: M.T.B crypto tokens.
+
+✔ Soft fabric
+✔ Limited edition`
+},
+    
+{
+    name: "Teddy Toy Black",
+    price: 29.99,
+    img: "../common/boutique/tddy-black.jpg",
+    stock: 300,
+    desc: `Teddy Toy Black - Limited Collector Edition
+
+Black color, 20 cm size.
+
+Includes a numbered collector box.
+
+Bonus: M.T.B crypto tokens.
+
+✔ Soft fabric
+✔ Limited edition`
+},
+
+{
+    name: "M.T.B Luxe Polo",
+    price: 29.99,
+    img: "../common/boutique/polo.jpg",
+    stock: 25,
+    sizes: ["XS","S","M","L","XL","XXL"], 
+    desc: `Black tracksuit – slim fit
+
+✔ 100% cotton
+✔ Polo Luxe edition style
+✔ M.T.B logo`
+}
+
+];
 
 {
     name: "M.T.B Sportswear",
     price: 99.99,
     img: "../common/boutique/sport-swear.jpg",
     stock: 25,
+    sizes: ["XS","S","M","L","XL","XXL"],
     desc: `Black tracksuit – slim fit
 
-✔ 100% cotton
+✔ 50% cotton, 50% polyester
 ✔ Streetwear style
 ✔ Mutant Teddy Bear logo`
 }
 
 ];
 
+{
+    name: "M.T.B Tee-shurt",
+    price: 24.99,
+    img: "../common/boutique/tee-shurt-teddy.jpg",
+    stock: 25,
+    sizes: ["XS","S","M","L","XL","XXL"],
+    desc: `Black tracksuit & multi color – slim fit
+
+✔ 50% cotton
+✔ Street urban style
+✔ Mutant Teddy Bear logo`
+}
+
+];
+{
+    name: "M.T.B Tee-shurt",
+    price: 24.99,
+    img: "../images/common/boutique/tee-shurt-2.jpg",
+    stock: 25,
+    sizes: ["XS","S","M","L","XL","XXL"],
+    desc: `Black tracksuit – slim fit
+
+✔ 80% polyester, 20% coton
+✔ Street urban style
+✔ Mutant Teddy Bear logo`
+}
+
+];
+
+{
+    name: "M.T.B Soccer ball ",
+    price: 39.99,
+    img: "../common/boutique/ball-foot.jpg",
+    stock: 25,
+    desc: `Black, orange style
+
+✔ 100% leather
+✔ Street urban style
+✔ Mutant Teddy Bear logo`
+}
+
+];
+
+{
+    name: "M.T.B Basketball ",
+    price: 39.99,
+    img: "../common/boutique/ball-basket.jpg",
+    stock: 25,
+    desc: `Orange style
+
+✔ 100% leather
+✔ Street urban style
+✔ Mutant Teddy Bear logo`
+}
+
+];
+
+{
+    name: "M.T.B Mug ",
+    price: 8.99,
+    img: "../common/boutique/mug-3.jpg",
+    stock: 25,
+    desc: `Wight style
+
+✔ Ceramic
+✔  Living room style
+✔ Mutant Teddy Bear logo`
+}
+
+];
+
+{
+    name: "M.T.B Mug ",
+    price: 8.99,
+    img: "../common/boutique/mug.jpg",
+    stock: 25,
+    desc: `red style
+
+✔ Ceramic
+✔  Living room style
+✔ Mutant Teddy Bear logo`
+}
+
+];
+
+{
+    name: "M.T.B key ring  ",
+    price: 3.99,
+    img: "../common/boutique/porte-cle-2.jpg",
+    stock: 25,
+    desc: `Gold style
+
+✔ stainless steel
+✔  Fashon style
+✔ Mutant Teddy Bear logo`
+}
+
+];
+
+    
 function renderShop() {
     let shop = document.getElementById("shop");
     shop.innerHTML = "";
@@ -139,7 +329,13 @@ function renderShop() {
             <p>${p.price}€</p>
             <p>${stockText}</p>
 
-            <input type="number" id="qty-${index}" min="1" max="${p.stock}" value="1">
+          ${p.sizes ? `
+        <select id="size-${index}">
+        ${p.sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
+        </select>
+        ` : ''}
+
+<input type="number" id="qty-${index}" min="1" max="${p.stock}" value="1">
 
             <button ${disabled} onclick="buy(${index})">
                 Acheter
@@ -153,9 +349,27 @@ function buy(index) {
     let qty = document.getElementById(`qty-${index}`).value;
     let product = products[index];
 
+    // Récupération de la taille si le produit a des tailles
+    let size = null;
+    if (product.sizes) {
+        size = document.getElementById(`size-${index}`).value;
+    }
+
+    // Vérification du stock
     if (qty > product.stock) {
         alert("Stock insuffisant !");
         return;
+    }
+
+    // Décrémentation du stock
+    product.stock -= qty;
+
+    // Confirmation de l'achat avec taille si applicable
+    alert(`Achat : ${qty} x ${product.name} ${size ? "- Taille: " + size : ""}`);
+
+    // Re-render de la boutique pour mettre à jour le stock
+    renderShop();
+}
     }
 
     product.stock -= qty;
