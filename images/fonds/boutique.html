@@ -1,293 +1,178 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shooping Collection - Grille</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<title>Boutique</title>
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: black;
-            min-height: 100vh;
-            position: relative;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('../images/design/font-site/marchandising.webp') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('/images/design/font-site/marchandising.webp');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            opacity: 0.7;
-            z-index: -2;
-        }
+header {
+    text-align: center;
+    padding: 20px;
+}
 
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: -1;
-        }
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 30px 20px;
-            color: white;
-        }
+.card {
+    background: rgba(0,0,0,0.7);
+    margin: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    width: 250px;
+    text-align: center;
+}
 
-        h1 {
-            text-align: center;
-            font-size: 48px;
-            color: #ffd700;
-            margin: 20px 0 30px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-        }
+.card img {
+    width: 100%;
+    border-radius: 10px;
+}
 
-        .grille-cartes {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 25px;
-            padding: 20px 0;
-        }
+button {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    background: #ff3c3c;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
-        .carte {
-            background: rgba(20, 20, 30, 0.8);
-            backdrop-filter: blur(5px);
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            border-radius: 15px;
-            padding: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
+button:disabled {
+    background: grey;
+    cursor: not-allowed;
+}
 
-        .carte:hover {
-            transform: translateY(-10px);
-            border-color: #ffd700;
-        }
-
-        .carte img {
-            width: 100%;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            border-radius: 10px;
-            pointer-events: none;
-        }
-
-        .carte h3 {
-            color: #ffd700;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-
-        .boutons-nav {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin: 20px 0 40px;
-        }
-
-        .bouton {
-            padding: 12px 30px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .bouton:hover {
-            background: #ffd700;
-            color: black;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-contenu {
-            background: rgba(0, 0, 0, 0.9);
-            border: 3px solid #ffd700;
-            border-radius: 20px;
-            padding: 20px;
-            max-width: 600px;
-            width: 90%;
-            text-align: center;
-        }
-
-        .modal-contenu img {
-            width: 100%;
-            max-height: 70vh;
-            object-fit: contain;
-            border-radius: 10px;
-        }
-
-        .modal-fermer {
-            margin-top: 20px;
-            padding: 10px 30px;
-            background: transparent;
-            border: 2px solid #ffd700;
-            color: #ffd700;
-            border-radius: 50px;
-            cursor: pointer;
-        }
-
-        .modal-fermer:hover {
-            background: #ffd700;
-            color: black;
-        }
-
-        #boutonMusique {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 12px 24px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: 1px solid #ffd700;
-            border-radius: 50px;
-            cursor: pointer;
-            z-index: 1000;
-        }
-
-        @media (max-width: 900px) {
-            .grille-cartes { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 500px) {
-            .grille-cartes { grid-template-columns: 1fr; }
-            h1 { font-size: 32px; }
-        }
-    </style>
+.nav {
+    margin-top: 20px;
+}
+</style>
 </head>
+
 <body>
 
-    <audio id="musiqueFond" src="/presentation/musique/mutant-teddy-bear-interlude-8.mp3" preload="auto" loop></audio>
+<header>
+    <h1>🛒 Boutique</h1>
 
-    <div class="container">
-        <h1>SHOOPING COLLECTION</h1>
-        <div class="boutons-nav">
-            <a href="/index.html" class="bouton">← Accueil</a>
-            <a href="/menu.html" class="bouton">← Menu</a>
-        </div>
-        <div class="grille-cartes" id="grilleCartes"></div>
+    <div class="nav">
+        <button onclick="location.href='../teddy-presentation.html'">Présentation</button>
+        <button onclick="location.href='../../menu.html'">Menu</button>
     </div>
+</header>
 
-    <div class="modal" id="modal">
-        <div class="modal-contenu">
-            <img id="modalImage" src="" alt="">
-            <button class="modal-fermer" onclick="fermerModal()">Fermer</button>
+<!-- 🎵 Musique (optionnelle) -->
+<audio controls autoplay loop>
+    <source src="../../presentation/musique" type="audio/mpeg">
+</audio>
+
+<div class="container" id="shop"></div>
+
+<script>
+
+// 🛍️ PRODUITS
+let products = [
+    {let products = [
+    {
+        name: "Teddy Dragon",
+        price: 29.99,
+        img: "../common/boutique/teddy-dragon.jpeg",
+        stock: 5,
+        desc: `Teddy Dragon – Limited Collector Edition
+
+Discover the exclusive Teddy Dragon, a unique plush from the Mutant Teddy Bear Adventure universe.
+
+Light blue color, 20 cm size.
+
+Includes a numbered collector box.
+
+Bonus: M.T.B crypto tokens usable in the game ecosystem or tradable.
+
+✔ Soft fabric & polyester
+✔ Limited edition
+✔ Collector packaging
+✔ EU compliant`
+    },
+
+    {
+        name: "Teddy Deluxe",
+        price: 49.99,
+        img: "../common/boutique/teddy2.png",
+        stock: 10,
+        desc: `Premium collector teddy.
+
+High quality materials and exclusive design.
+
+Perfect for collectors.`
+    },
+    {
+        name: "Teddy Deluxe",
+        price: 29.99,
+        img: "../common/boutique/teddy2.png",
+        stock: 300,
+        desc: "Version premium collector"
+    }
+];
+
+// 🧠 AFFICHAGE
+function renderShop() {
+    let shop = document.getElementById("shop");
+    shop.innerHTML = "";
+
+    products.forEach((p, index) => {
+
+        let stockText = p.stock > 0 ? `Stock: ${p.stock}` : "❌ Rupture de stock";
+
+        let disabled = p.stock === 0 ? "disabled" : "";
+
+        shop.innerHTML += `
+        <div class="card">
+            <img src="${p.img}">
+            <h3>${p.name}</h3>
+            <p>${p.desc}</p>
+            <p>💰 ${p.price}€</p>
+            <p>${stockText}</p>
+
+            <input type="number" id="qty-${index}" min="1" max="${p.stock}" value="1">
+
+            <button ${disabled} onclick="buy(${index})">
+                Acheter
+            </button>
         </div>
-    </div>
+        `;
+    });
+}
 
-    <button id="boutonMusique">🔇 Activer la musique</button>
+// 💳 ACHAT
+function buy(index) {
+    let qty = document.getElementById(`qty-${index}`).value;
+    let product = products[index];
 
-    <script>
-        // ========== LISTE COMPLÈTE DES CARTES ==========
-        const cartes = [
-            { nom: "Teddy Toy Dragon", src: "/images/common/boutique/teddy-dragon.jpeg" },
-            { nom: "Teddy toy Urban", src: "/images/common/boutique/tddy-black.jpg" },
-            { nom: "Teddy toy Reptil", src: "/images/common/boutique/teddy-reptil.jpeg" },
-            { nom: "Teddy Toy Rock", src: "/images/common/boutique/teddy-rock.jpg" },
-            { nom: "Teddy toy Sauvage", src: "/images/common/boutique/teddy-sauvage.jpeg" },
-            { nom: "teddy Toy Vampire", src: "/images/common/boutique/teddy-vampire-2.jpg" },
-            { nom: "Sport Wear M.T.B Design ", src: "/images/common/boutique/sport-swear.jpg" },
-            { nom: "Polo Luxe Edition M.T.B", src: "/images/common/boutique/polo.jpg" },
-            { nom: "Drink M.T.B Energy", src: "/images/common/boutique/drink.jpg },
-            { nom: "Ball equipment", src: "/images/common/boutique/ball-foot.jpg" },
-            { nom: "Key ring Teddy", src: "/images/common/boutique/porte-cle-2.jpg" },
-            { nom: "MUG Octopus ", src: "/images/common/boutique/mug-5.jpg" }
-        ];
+    if (qty > product.stock) {
+        alert("Stock insuffisant !");
+        return;
+    }
 
-        // ========== GÉNÉRATION DE LA GRILLE ==========
-        const grille = document.getElementById('grilleCartes');
-        
-        cartes.forEach((carte, index) => {
-            const div = document.createElement('div');
-            div.className = 'carte';
-            div.onclick = function() { ouvrirModal(index); };
-            div.innerHTML = `
-                <img src="${carte.src}" alt="${carte.nom}" onerror="this.src='/images/placeholder.webp'">
-                <h3>${carte.nom}</h3>
-            `;
-            grille.appendChild(div);
-        });
+    product.stock -= qty;
 
-        // ========== DONNÉES MODAL ==========
-        const imagesModal = cartes.map(c => ({ src: c.src }));
+    alert(`Achat confirmé : ${qty} x ${product.name}`);
 
-        // ========== FONCTIONS MODAL ==========
-        function ouvrirModal(index) {
-            const modal = document.getElementById('modal');
-            const modalImage = document.getElementById('modalImage');
-            modalImage.src = imagesModal[index].src;
-            modal.classList.add('active');
-            console.log("Modal ouvert, image:", imagesModal[index].src);
-        }
+    renderShop();
+}
 
-        function fermerModal() {
-            document.getElementById('modal').classList.remove('active');
-        }
+// 🚀 INIT
+renderShop();
 
-        // ========== MUSIQUE ==========
-        const musiqueFond = document.getElementById('musiqueFond');
-        const boutonMusique = document.getElementById('boutonMusique');
-        
-        if (localStorage.getItem('musiqueJoue') === 'true') {
-            musiqueFond.play().catch(e => console.log("Auto-play bloqué"));
-            boutonMusique.textContent = '🔊 Couper la musique';
-        }
-        
-        boutonMusique.addEventListener('click', () => {
-            if (musiqueFond.paused) {
-                musiqueFond.play();
-                boutonMusique.textContent = '🔊 Couper la musique';
-                localStorage.setItem('musiqueJoue', 'true');
-            } else {
-                musiqueFond.pause();
-                boutonMusique.textContent = '🔇 Activer la musique';
-                localStorage.setItem('musiqueJoue', 'false');
-            }
-        });
-
-        // ========== FERMETURE MODAL ==========
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') fermerModal();
-        });
-
-        window.addEventListener('click', (e) => {
-            const modal = document.getElementById('modal');
-            if (e.target === modal) fermerModal();
-        });
-    </script>
+</script>
 
 </body>
 </html>
