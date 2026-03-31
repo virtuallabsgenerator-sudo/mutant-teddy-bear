@@ -36,6 +36,7 @@ header {
 .card img {
     width: 100%;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 button {
@@ -50,11 +51,34 @@ button {
 
 button:disabled {
     background: grey;
-    cursor: not-allowed;
 }
 
 .nav {
     margin-top: 20px;
+}
+
+/* 🔥 GALERIE */
+#gallery {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:1000;
+}
+
+#gallery img {
+    max-width:90%;
+    max-height:80%;
+}
+
+.gallery-controls button {
+    margin:10px;
 }
 </style>
 </head>
@@ -75,175 +99,119 @@ button:disabled {
 
 <div class="container" id="shop"></div>
 
+<!-- GALERIE -->
+<div id="gallery">
+    <img id="gallery-img">
+    <div class="gallery-controls">
+        <button onclick="prevImage()">⬅</button>
+        <button onclick="nextImage()">➡</button>
+        <button onclick="closeGallery()">❌</button>
+    </div>
+</div>
+
 <script>
-// 🛍️ PRODUITS
+
+// 🛍️ PRODUITS COMPLETS
 let products = [
-    {
-        name: "Teddy Toy Dragon",
-        price: 29.99,
-        img: "../common/boutique/teddy-dragon.jpeg",
-        stock: 5,
-        desc: `Teddy Toy Dragon – Limited Collector Edition
-Light blue color, 20 cm size.
-Includes a numbered collector box.
-Bonus: M.T.B crypto tokens.
-✔ Soft fabric
-✔ Limited edition`
-    },
-    {
-        name: "Teddy Toy Reptil",
-        price: 29.99,
-        img: "../common/boutique/teddy-reptil.jpeg",
-        stock: 5,
-        desc: `Teddy Toy Reptil – Limited Collector Edition
-Green, orange color, 20 cm size.
-Includes a numbered collector box.
-Bonus: M.T.B crypto tokens.
-✔ Soft fabric
-✔ Limited edition`
-    },
-    {
-        name: "Teddy Toy Rock",
-        price: 29.99,
-        img: "../common/boutique/teddy-rock.jpg",
-        stock: 5,
-        desc: `Teddy Toy Rock – Limited Collector Edition
-Blue color, 20 cm size.
-Includes a numbered collector box.
-Bonus: M.T.B crypto tokens.
-✔ Soft fabric
-✔ Limited edition`
-    },
-    {
-        name: "Teddy Toy Sauvage",
-        price: 29.99,
-        img: "../common/boutique/teddy-sauvage.jpeg",
-        stock: 5,
-        desc: `Teddy Toy Sauvage – Limited Collector Edition
-Grey fur, multi-colored decoration, 20 cm size.
-Includes a numbered collector box.
-Bonus: M.T.B crypto tokens.
-✔ Soft fabric
-✔ Limited edition`
-    },
-    {
-        name: "Teddy Toy Vampire",
-        price: 29.99,
-        img: "../common/boutique/teddy-vampire-2.jpg",
-        stock: 5,
-        desc: `Teddy Toy Vampire – Limited Collector Edition
-Purple color, 20 cm size.
-Includes a numbered collector box.
-Bonus: M.T.B crypto tokens.
-✔ Soft fabric
-✔ Limited edition`
-    },
-    {
-        name: "Teddy Toy Black",
-        price: 29.99,
-        img: "../common/boutique/teddy-black.jpg",
-        stock: 300,
-        desc: `Teddy Toy Black – Limited Collector Edition
-Black color, 20 cm size.
-Includes a numbered collector box.
-Bonus: M.T.B crypto tokens.
-✔ Soft fabric
-✔ Limited edition`
-    },
-    {
-        name: "M.T.B Luxe Polo",
-        price: 29.99,
-        img: "../common/boutique/polo.jpg",
-        stock: 25,
-        sizes: ["XS","S","M","L","XL","XXL"],
-        desc: `Black Polo – Slim fit
-✔ 100% cotton
-✔ Polo Luxe edition style
-✔ M.T.B logo`
-    },
-    {
-        name: "M.T.B Sportswear",
-        price: 99.99,
-        img: "../common/boutique/sport-swear.jpg",
-        stock: 25,
-        sizes: ["XS","S","M","L","XL","XXL"],
-        desc: `Black tracksuit – slim fit
-✔ 50% cotton, 50% polyester
-✔ Streetwear style
-✔ Mutant Teddy Bear logo`
-    },
-    {
-        name: "M.T.B Tee-shirt",
-        price: 24.99,
-        img: "../common/boutique/tee-shurt-teddy.jpg",
-        stock: 25,
-        sizes: ["XS","S","M","L","XL","XXL"],
-        desc: `Black tracksuit & multi color – slim fit
-✔ 50% cotton
-✔ Street urban style
-✔ Mutant Teddy Bear logo`
-    },
-    {
-        name: "M.T.B Tee-shirt 2",
-        price: 24.99,
-        img: "../common/boutique/tee-shurt-2.jpg",
-        stock: 25,
-        sizes: ["XS","S","M","L","XL","XXL"],
-        desc: `Black tracksuit – slim fit
-✔ 80% polyester, 20% cotton
-✔ Street urban style
-✔ Mutant Teddy Bear logo`
-    },
-    {
-        name: "M.T.B Soccer ball",
-        price: 39.99,
-        img: "../common/boutique/ball-foot.jpg",
-        stock: 25,
-        desc: `Black, orange style
-✔ 100% leather
-✔ Street urban style
-✔ Mutant Teddy Bear logo`
-    },
-    {
-        name: "M.T.B Basketball",
-        price: 39.99,
-        img: "../common/boutique/ball-basket.jpg",
-        stock: 25,
-        desc: `Orange style
-✔ 100% leather
-✔ Street urban style
-✔ Mutant Teddy Bear logo`
-    },
-    {
-        name: "M.T.B Mug 1",
-        price: 8.99,
-        img: "../common/boutique/mug-3.jpg",
-        stock: 25,
-        desc: `White style
-✔ Ceramic
-✔ Living room style
-✔ Mutant Teddy Bear logo`
-    },
-    {
-        name: "M.T.B Mug 2",
-        price: 8.99,
-        img: "../common/boutique/mug.jpg",
-        stock: 25,
-        desc: `Red style
-✔ Ceramic
-✔ Living room style
-✔ Mutant Teddy Bear logo`
-    },
-    {
-        name: "M.T.B Key ring",
-        price: 3.99,
-        img: "../common/boutique/porte-cle-2.jpg",
-        stock: 25,
-        desc: `Gold style
-✔ Stainless steel
-✔ Fashion style
-✔ Mutant Teddy Bear logo`
-    }
+
+    { name:"Teddy Toy Dragon", price:29.99,
+      images:["../common/boutique/teddy-dragon.jpeg"],
+      stock:5, desc:"Dragon édition limitée" },
+
+    { name:"Teddy Toy Reptil", price:29.99,
+      images:["../common/boutique/teddy-reptil.jpeg"],
+      stock:5, desc:"Reptil édition limitée" },
+
+    { name:"Teddy Toy Rock", price:29.99,
+      images:["../common/boutique/teddy-rock.jpg"],
+      stock:5, desc:"Rock édition limitée" },
+
+    { name:"Teddy Toy Sauvage", price:29.99,
+      images:["../common/boutique/teddy-sauvage.jpeg"],
+      stock:5, desc:"Sauvage édition limitée" },
+
+    { name:"Teddy Toy Vampire", price:29.99,
+      images:["../common/boutique/teddy-vampire-2.jpg"],
+      stock:5, desc:"Vampire édition limitée" },
+
+    { name:"Teddy Toy Black", price:29.99,
+      images:["../common/boutique/teddy-black.jpg"],
+      stock:300, desc:"Black édition limitée" },
+
+    { name:"M.T.B Luxe Polo", price:29.99,
+      images:[
+    "../images/common/boutique/polo.jpg",
+    "../ images/common/boutique/_10e4bb34-458f-44af-9f42-36b915525dd0.jpg ",
+    "../ images/common/boutique/polo-noir-edition-1.jpg "
+  ],
+      stock:25,
+      sizes:["XS","S","M","L","XL","XXL"],
+      desc:"Polo noir slim fit 100% coton" },
+
+    { name:"M.T.B Sportswear", price:99.99,
+      images:[
+    images/common/boutique/sport-swear.jpg",
+    "../images/common/boutique/sport-swear.jpg",
+    "../images/common/boutique/sportswear-dos-2.jpg "
+  ],
+      stock:25,
+      sizes:["XS","S","M","L","XL","XXL"],
+      desc:"Survêtement noir streetwear" },
+
+    { name:"M.T.B Sportswear", price:99.99,
+      images:[
+    images/common/boutique/sport-swear.jpg",
+    "../images/common/boutique/sportswear-turquoise-1.jpg",
+    "../images/common/boutique/sportswear-turcoise.jpg "
+  ],
+      stock:25,
+      sizes:["XS","S","M","L","XL","XXL"],
+      desc:"Survêtement streetwear turquoise color" },
+
+    { name:"M.T.B Tee-shirt", price:24.99,
+      images:["../common/boutique/tee-shurt-teddy.jpg"],
+      stock:25,
+      sizes:["XS","S","M","L","XL","XXL"],
+      desc:"T-shirt street urban" },
+
+    { name:"M.T.B Tee-shirt 2", price:24.99,
+      images:["../common/boutique/tee-shurt-2.jpg"],
+      stock:25,
+      sizes:["XS","S","M","L","XL","XXL"],
+      desc:"T-shirt urban style" },
+
+    { name:"M.T.B Cap Trucker", price:39.99,
+      images:["../images/common/boutique/casquette-trucker-camouflage-poulpe.jpg"],
+      stock:25, desc:"Cap trucker camouflage color" },
+
+     { name:"M.T.B Cap classic", price:39.99,
+      images:["../images/common/boutique/casquette-noir-poulpe.jpg"],
+      stock:25, desc:"Cap classic black color" },
+
+    { name:"M.T.B Cap sportswear", price:39.99,
+      images:["../images/common/boutique/casquette-sportswear-turcoise.jpg"],
+      stock:25, desc:"Cap sportswear turquoise color" },
+    
+    { name:"M.T.B Soccer ball", price:39.99,
+      images:["../common/boutique/ball-foot.jpg"],
+      stock:25, desc:"Ballon football" },
+
+    { name:"M.T.B Basketball", price:39.99,
+      images:["../common/boutique/ball-basket.jpg"],
+      stock:25, desc:"Ballon basket" },
+
+    { name:"M.T.B Mug 1", price:8.99,
+      images:["../common/boutique/mug-3.jpg"],
+      stock:25, desc:"Mug blanc" },
+
+    { name:"M.T.B Mug 2", price:8.99,
+      images:["../common/boutique/mug.jpg"],
+      stock:25, desc:"Mug rouge" },
+
+    { name:"M.T.B Key ring", price:3.99,
+      images:["../common/boutique/porte-cle-2.jpg"],
+      stock:25, desc:"Porte-clé" }
+
 ];
 
 // 🧠 AFFICHAGE
@@ -252,20 +220,22 @@ function renderShop() {
     shop.innerHTML = "";
 
     products.forEach((p, index) => {
-        let stockText = p.stock > 0 ? `Stock: ${p.stock}` : "❌ Rupture de stock";
+
+        let stockText = p.stock > 0 ? `Stock: ${p.stock}` : "❌ Rupture";
         let disabled = p.stock === 0 ? "disabled" : "";
 
         shop.innerHTML += `
         <div class="card">
-            <img src="${p.img}">
+            <img src="${p.images[0]}" onclick="openGallery(${index},0)">
             <h3>${p.name}</h3>
             <p>${p.desc}</p>
             <p>💰 ${p.price}€</p>
             <p>${stockText}</p>
 
-            ${p.sizes ? `<select id="size-${index}">
-                ${p.sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
-            </select>` : ''}
+            ${p.sizes ? `
+            <select id="size-${index}">
+                ${p.sizes.map(s => `<option value="${s}">${s}</option>`).join("")}
+            </select>` : ""}
 
             <input type="number" id="qty-${index}" min="1" max="${p.stock}" value="1">
 
@@ -287,13 +257,47 @@ function buy(index) {
     }
 
     product.stock -= qty;
+
     alert(`Achat : ${qty} x ${product.name} ${size ? "- Taille: " + size : ""}`);
     renderShop();
+}
+
+// 🔥 GALERIE
+let currentProduct = 0;
+let currentImage = 0;
+
+function openGallery(index, imgIndex) {
+    currentProduct = index;
+    currentImage = imgIndex;
+    document.getElementById("gallery").style.display = "flex";
+    updateGallery();
+}
+
+function updateGallery() {
+    let product = products[currentProduct];
+    document.getElementById("gallery-img").src = product.images[currentImage];
+}
+
+function nextImage() {
+    let product = products[currentProduct];
+    currentImage = (currentImage + 1) % product.images.length;
+    updateGallery();
+}
+
+function prevImage() {
+    let product = products[currentProduct];
+    currentImage = (currentImage - 1 + product.images.length) % product.images.length;
+    updateGallery();
+}
+
+function closeGallery() {
+    document.getElementById("gallery").style.display = "none";
 }
 
 // 🚀 INIT
 renderShop();
 
 </script>
+
 </body>
 </html>
